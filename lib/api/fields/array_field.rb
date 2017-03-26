@@ -1,0 +1,3 @@
+class ArrayField < Field
+
+end
