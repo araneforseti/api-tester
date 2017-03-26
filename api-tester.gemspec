@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'api/tester/version'
+require 'tester/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "api-tester"
-  spec.version       = Api::Tester::VERSION
+  spec.version       = Tester::VERSION
   spec.authors       = ["araneforseti"]
   spec.email         = ["arane9@gmail.com"]
 
