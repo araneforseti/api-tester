@@ -10,6 +10,10 @@ class ObjectField < Field
 
   def with_field(newField)
     @fields << newField
-    return self
+    self
+  end
+
+  def has_subfields?
+    true
   end
 end

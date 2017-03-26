@@ -4,4 +4,8 @@ class Field
   def initialize name
     @name = name
   end
+
+  def has_subfields?
+    false
+  end
 end
