@@ -1,3 +1,7 @@
 class Request
-  String url
+  attr_accessor :url
+
+  def initialize
+    @url = ""
+  end
 end
