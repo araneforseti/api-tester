@@ -1,2 +1,5 @@
-class ApiTester
+require "tester/version"
+
+module Tester
+
 end

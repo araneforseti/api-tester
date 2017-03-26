@@ -1,12 +1,15 @@
-class ObjectField < Field
-  List<Fields> fields
+require 'tester/fields/field'
 
-  def initialize
-    self.fields = []
+class ObjectField < Field
+  attr_accessor :fields
+
+  def initialize name
+    super(name)
+    @fields = []
   end
 
   def with_field(newField)
-    fields.add newField
+    @fields << newField
     return self
   end
 end

@@ -1,3 +1,5 @@
+require 'tester/definition'
+
 class Response
   attr_accessor :definition
   attr_accessor :status_code
