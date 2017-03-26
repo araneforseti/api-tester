@@ -1,4 +1,5 @@
 # Api::Tester
+[![Build Status](https://travis-ci.org/araneforseti/api-tester.svg?branch=master)](https://travis-ci.org/araneforseti/api-tester)
 
 Work in Progress!
 
