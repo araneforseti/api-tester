@@ -1,6 +1,5 @@
 class FieldChecker
   def is_field_in_hash field, hash
-    print "Has key: #{hash.has_key?(field.name) && !field.has_subfields?}"
     if hash.has_key?(field.name)
       if !field.has_subfields?
         return true
