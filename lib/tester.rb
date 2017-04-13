@@ -1,5 +1,7 @@
 require "tester/version"
 require 'rest-client'
+require 'tester/field_checker'
+require 'json'
 
 module Tester
   def self.get(request, expected_response)
@@ -10,16 +12,12 @@ module Tester
 
   def self.response_matches_request response, expected_response
     fields = expected_response.definition.fields
+    field_checker = FieldChecker.new
     fields.each do |field|
-      if !field_in_hash(field, response)
+      if !(field_checker.is_field_in_hash(field, JSON.parse(response.body)))
         return false
       end
     end
     true
-  end
-
-  def self.field_in_hash field, response
-    name = field.name
-    response.has_key?(name)
   end
 end

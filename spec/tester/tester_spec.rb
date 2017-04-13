@@ -22,13 +22,13 @@ describe Tester do
 
     context 'status code' do
       it 'can pass compatible status code' do
-        response = Response.new(status_code, definition)
+        response = Response.new(status_code, definition, definition)
         expect(Tester.get(request, response)).to be true
       end
 
       [100, 201, 300, 400, 529].each do | status |
         it "will fail different status code #{status}" do
-          response = Response.new(status, definition)
+          response = Response.new(status, definition, definition)
           expect(Tester.get(request, response)).to be false
         end
       end
@@ -36,14 +36,14 @@ describe Tester do
 
     context 'body' do
       it 'passes with correct keys' do
-        response = Response.new(status_code, definition)
+        response = Response.new(status_code, definition, definition)
         expect(Tester.get(request, response)).to be true
       end
 
-      # it 'fails when a key is missing' do
-      #   response = Response.new(status_code, Definition.new)
-      #   expect(Tester.get(request, response)).to be false
-      # end
+      it 'fails when a key is missing' do
+        response = Response.new(status_code, definition, Definition.new.add_field(Field.new("missingField")))
+        expect(Tester.get(request, response)).to be false
+      end
     end
   end
 end
