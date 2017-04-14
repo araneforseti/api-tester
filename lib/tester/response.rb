@@ -1,13 +1,16 @@
 require 'tester/definition'
 
 class Response
-  attr_accessor :definition
   attr_accessor :status_code
   attr_accessor :body
 
-  def initialize(status_code=200, body=[], definition=Definition.new)
-    @definition = definition
+  def initialize(status_code)
     @status_code = status_code
-    @body = body
+    @body = []
+  end
+
+  def add_field(new_field)
+    @body << new_field
+    self
   end
 end

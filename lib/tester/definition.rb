@@ -5,8 +5,8 @@ class Definition
     @fields = []
   end
 
-  def add_field(newField)
-    @fields << newField
-    return self
+  def add_field(new_field)
+    @fields << new_field
+    self
   end
 end

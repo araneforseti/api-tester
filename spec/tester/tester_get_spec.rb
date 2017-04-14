@@ -13,7 +13,7 @@ describe Tester do
   context 'get' do
     let(:request) { Request.new "www.example.com" }
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
-    let(:definition) { Definition.new.add_field(Field.new("numKey")).add_field(Field.new("string_key")) }
+    let(:fields) {[Field.new("numKey"), Field.new("string_key")]}
     let(:status_code) { 200 }
 
     before :each do
@@ -22,13 +22,16 @@ describe Tester do
 
     context 'status code' do
       it 'can pass compatible status code' do
-        response = Response.new(status_code, definition, definition)
+        response = Response.new(status_code)
+        fields.each do |field|
+          response.add_field field
+        end
         expect(Tester.get(request, response)).to be true
       end
 
       [100, 201, 300, 400, 529].each do | status |
         it "will fail different status code #{status}" do
-          response = Response.new(status, definition, definition)
+          response = Response.new(status)
           expect(Tester.get(request, response)).to be false
         end
       end
@@ -36,12 +39,19 @@ describe Tester do
 
     context 'body' do
       it 'passes with correct keys' do
-        response = Response.new(status_code, definition, definition)
+        response = Response.new(status_code)
+        fields.each do |field|
+          response.add_field field
+        end
         expect(Tester.get(request, response)).to be true
       end
 
       it 'fails when a key is missing' do
-        response = Response.new(status_code, definition, Definition.new.add_field(Field.new("missingField")))
+        response = Response.new(status_code)
+        fields.each do |field|
+          response.add_field field
+        end
+        response.add_field(Field.new("missingField"))
         expect(Tester.get(request, response)).to be false
       end
     end
