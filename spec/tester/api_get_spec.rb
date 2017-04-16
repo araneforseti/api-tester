@@ -51,6 +51,20 @@ describe ApiGet do
         api_get.expected_response = response
         expect(api_get.go).to be false
       end
+
+      context 'empty response' do
+        it 'fails when expecting keys which are not there' do
+          stub_request(:get, "www.example.com").to_return(body: '[]', status: status_code)
+          expect(api_get.go).to be false
+        end
+
+        it 'passes when expecting an empty body' do
+          stub_request(:get, "www.example.com").to_return(body: '[]', status: status_code)
+          response = Response.new 200
+          api_get.expected_response = response
+          expect(api_get.go).to be true
+        end
+      end
     end
   end
 end
