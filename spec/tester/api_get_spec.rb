@@ -7,8 +7,12 @@ require 'tester/api_get'
 describe ApiGet do
   context 'good request' do
     let(:request) { Request.new "www.example.com" }
-    let(:fields) {[Field.new("numKey"), Field.new("string_key")]}
-    let(:body) { '{"numKey": 1, "string_key": "string"}' }
+    let(:fields) {[Field.new("numKey"),
+                   Field.new("string_key"),
+                   ObjectField.new("object_field")
+                       .with_field(Field.new "inner_field")
+                       .with_field(Field.new("other_field"))]}
+    let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:status_code) { 200 }
     let(:api_get) { ApiGet.new "www.example.com" }
     let(:response) { Response.new status_code }
