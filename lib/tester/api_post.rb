@@ -8,6 +8,10 @@ require 'tester/reporter/api_report'
 require 'tester/reporter/status_code_report'
 
 class ApiPost < ApiMethod
+  def super_go
+    Parent.instance_method(:go)
+  end
+
   def go
     response = RestClient.post(url, @request.payload.to_json, @request.headers)
     if response.code != expected_response.status_code
@@ -21,5 +25,6 @@ class ApiPost < ApiMethod
     end
 
     response_matches(response)
+    super
   end
 end

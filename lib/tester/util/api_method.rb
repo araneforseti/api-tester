@@ -16,6 +16,11 @@ class ApiMethod
     @report = ApiReport.new
   end
 
+  def go
+    @report.print
+    @report.reports.size == 0
+  end
+
   def missing_field_report description, url, request_body, missing_field
     report = MissingFieldReport.new description, url, request_body, missing_field
     @report.add_new_report report
@@ -33,10 +38,6 @@ class ApiMethod
         check_based_on_type(field, response_body)
       end
     end
-
-
-    @report.print
-    @report.reports.size == 0
   end
 
   def is_field_in_hash field, hash

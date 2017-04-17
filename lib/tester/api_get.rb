@@ -13,6 +13,7 @@ class ApiGet < ApiMethod
       return false
     end
 
-    return response_matches(response)
+    response_matches(response)
+    super
   end
 end
