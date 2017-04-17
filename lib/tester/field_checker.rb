@@ -1,6 +1,6 @@
 class FieldChecker
   def is_field_in_hash field, hash
-    if hash.empty?
+    if hash.empty? || hash.class.to_s != "Hash"
       puts "Missing #{field.name}"
       return false
     end

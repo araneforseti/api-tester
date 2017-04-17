@@ -5,16 +5,24 @@ require 'tester/fields/field'
 describe FieldChecker do
   let(:fieldChecker) { FieldChecker.new }
 
-  it 'should return false if field is not in hash' do
-    field = Field.new "fooField"
-    hash = {}
-    expect(fieldChecker.is_field_in_hash(field, hash)).to be false
-  end
+  context 'root fields' do
+    it 'should return false if field is not in hash' do
+      field = Field.new "fooField"
+      hash = {}
+      expect(fieldChecker.is_field_in_hash(field, hash)).to be false
+    end
 
-  it 'should return true if field is in hash' do
-    field = Field.new "fooField"
-    hash = { "fooField"=>"123" }
-    expect(fieldChecker.is_field_in_hash(field, hash)).to be true
+    it 'should return true if field is in hash' do
+      field = Field.new "fooField"
+      hash = { "fooField"=>"123" }
+      expect(fieldChecker.is_field_in_hash(field, hash)).to be true
+    end
+
+    it 'should return false if not passed a hash' do
+      field = Field.new "fooField"
+      hash = ["fooField"]
+      expect(fieldChecker.is_field_in_hash(field, hash)).to be false
+    end
   end
 
   context 'subfields' do
