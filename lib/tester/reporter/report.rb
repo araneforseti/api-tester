@@ -20,6 +20,6 @@ class Report
     puts "   Expecting: "
     puts "      #{@expected_response}"
     puts "   Receiving: "
-    puts "      #{@actual_response_response}"
+    puts "      #{@actual_response}"
   end
 end

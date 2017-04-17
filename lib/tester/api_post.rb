@@ -8,14 +8,11 @@ require 'tester/reporter/api_report'
 require 'tester/reporter/status_code_report'
 
 class ApiPost < ApiMethod
-  def super_go
-    Parent.instance_method(:go)
-  end
+  attr_accessor :syntax_error_response
 
   def go
     response = RestClient.post(url, @request.payload.to_json, @request.headers)
     if response.code != expected_response.status_code
-      puts "Got #{response.code} when expecting #{expected_response.status_code}"
       @report.add_new_report(StatusCodeReport.new("Default payload",
                                                   url,
                                                   @request.payload,
@@ -24,7 +21,25 @@ class ApiPost < ApiMethod
       return false
     end
 
+    try_boundary
+
     response_matches(response)
     super
+  end
+
+  def try_boundary
+    @request.cases.each do |boundary_request|
+      response = RestClient.post(url, boundary_request.payload, @request.headers) {|real_response, request, result| real_response }
+      if response.code != syntax_error_response.status_code
+        @report.add_new_report(StatusCodeReport.new("Boundary tests - #{boundary_request.description}",
+                                                    url,
+                                                    boundary_request.payload,
+                                                    syntax_error_response.status_code,
+                                                    response.code))
+        return false
+      end
+
+      response_matches_expected(response, syntax_error_response)
+    end
   end
 end

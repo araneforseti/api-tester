@@ -10,4 +10,8 @@ class Field
   def has_subfields?
     false
   end
+
+  def negative_boundary_values
+    []
+  end
 end

@@ -1,7 +1,7 @@
 class FieldChecker
+
   def is_field_in_hash field, hash
     if hash.empty? || hash.class.to_s != "Hash"
-      puts "Missing #{field.name}"
       return false
     end
 
@@ -17,14 +17,12 @@ class FieldChecker
       end
       return true
     end
-    puts "Missing #{field.name}"
     false
   end
 
   def check_object_subfields field, field_hash
     field.fields.each do |subfield|
       if !is_in_hash(subfield, field_hash[field.name])
-        puts "Missing #{field.name}.#{subfield.name}"
         return false
       end
     end
@@ -34,7 +32,6 @@ class FieldChecker
   def check_array_subfields field, field_hash
     field.fields.each do |subfield|
       if !is_in_hash(subfield, field_hash[field.name][0])
-        puts "Missing #{field.name}.#{subfield.name}"
         return false
       end
     end

@@ -17,6 +17,10 @@ class ApiMethod
   end
 
   def go
+    check_report
+  end
+
+  def check_report
     @report.print
     @report.reports.size == 0
   end
@@ -24,6 +28,21 @@ class ApiMethod
   def missing_field_report description, url, request_body, missing_field
     report = MissingFieldReport.new description, url, request_body, missing_field
     @report.add_new_report report
+  end
+
+  def response_matches_expected response, intended_response
+    puts "What is #{intended_response}"
+    fields = intended_response.body
+    response_body = JSON.parse(response.body)
+    fields.each do |field|
+      if !(is_field_in_hash(field, response_body))
+        missing_field_report("Default payload field check missing #{field.name}", @requst.url, @requst.payload, field.name)
+      end
+
+      if field.has_subfields?
+        check_based_on_type(field, response_body)
+      end
+    end
   end
 
   def response_matches response

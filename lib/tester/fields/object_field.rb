@@ -26,4 +26,16 @@ class ObjectField < Field
 
     obj
   end
+
+  def negative_boundary_values
+    [
+        nil,
+        "string",
+        "",
+        [],
+        123,
+        true,
+        false
+    ]
+  end
 end
