@@ -34,8 +34,9 @@ class ApiMethod
       end
     end
 
+
     @report.print
-    return @report.reports.size == 0
+    @report.reports.size == 0
   end
 
   def is_field_in_hash field, hash

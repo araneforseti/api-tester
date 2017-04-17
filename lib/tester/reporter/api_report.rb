@@ -19,9 +19,13 @@ class ApiReport
   end
 
   def print
-    puts "Issues discovered: "
-    @reports.each do |report|
-      report.print
+    if @reports.size > 0
+      puts "Issues discovered: "
+      @reports.each do |report|
+        report.print
+      end
+    else
+      puts "No issues found"
     end
   end
 end
