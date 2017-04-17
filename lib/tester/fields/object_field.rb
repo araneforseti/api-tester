@@ -23,7 +23,7 @@ class ObjectField < Field
     @fields.each do |field|
       obj[field.name] = field.default_value
     end
-    
+
     obj
   end
 end
