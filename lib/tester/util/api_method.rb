@@ -40,7 +40,6 @@ class ApiMethod
 
   def is_field_in_hash field, hash
     if hash.empty? || hash.class.to_s != "Hash"
-      puts "Missing #{field.name}"
       return false
     end
 
@@ -61,11 +60,7 @@ class ApiMethod
 
   def check_object_subfields field, field_hash
     field.fields.each do |subfield|
-      puts "Sub: #{subfield}"
-      puts "Hash: #{field_hash}"
-      puts "Name: #{field.name}"
       if field_hash.empty? || !is_in_hash(subfield, field_hash[field.name])
-        puts "Missing #{field.name}.#{subfield.name}"
         return false
       end
     end

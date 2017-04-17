@@ -2,7 +2,6 @@ require 'tester/request'
 require 'tester/response'
 require "tester/version"
 require 'rest-client'
-require 'tester/field_checker'
 require 'json'
 require 'tester/util/api_method'
 

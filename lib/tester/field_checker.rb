@@ -23,9 +23,6 @@ class FieldChecker
 
   def check_object_subfields field, field_hash
     field.fields.each do |subfield|
-      puts "Sub: #{subfield}"
-      puts "Hash: #{field_hash}"
-      puts "Name: #{field.name}"
       if !is_in_hash(subfield, field_hash[field.name])
         puts "Missing #{field.name}.#{subfield.name}"
         return false
