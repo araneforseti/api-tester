@@ -18,6 +18,14 @@ class ArrayField < Field
   end
 
   def default_value
-    []
+    if @fields.size == 0
+      return []
+    end
+
+    obj = Hash.new
+    @fields.each do |field|
+      obj[field.name] = field.default_value
+    end
+    [obj]
   end
 end

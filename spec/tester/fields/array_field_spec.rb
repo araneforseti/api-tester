@@ -16,4 +16,17 @@ describe ArrayField do
       expect(field.fields.first.name).to eq "newField"
     end
   end
+
+  context "default value" do
+    it 'defaults to [] with no fields' do
+      field = ArrayField.new("testObj")
+      expect(field.default_value).to eq []
+    end
+
+    it "contains defaults from the fields" do
+      sub_field = Field.new "sub", "default_foo"
+      field = ArrayField.new("testObj").with_field(sub_field)
+      expect(field.default_value).to eq [{"sub" => "default_foo"}]
+    end
+  end
 end
