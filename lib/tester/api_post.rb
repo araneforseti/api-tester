@@ -11,7 +11,7 @@ class ApiPost < ApiMethod
   attr_accessor :syntax_error_response
 
   def go
-    response = RestClient.post(url, @request.payload.to_json, @request.headers)
+    response = post(url, @request.payload.to_json, @request.headers)
     if response.code != expected_response.status_code
       @report.add_new_report(StatusCodeReport.new("Default payload",
                                                   url,
@@ -29,7 +29,7 @@ class ApiPost < ApiMethod
 
   def try_boundary
     @request.cases.each do |boundary_request|
-      response = RestClient.post(url, boundary_request.payload, @request.headers) {|real_response, request, result| real_response }
+      response = post(url, boundary_request.payload, @request.headers)
       if response.code != syntax_error_response.status_code
         @report.add_new_report(StatusCodeReport.new("Boundary tests - #{boundary_request.description}",
                                                     url,
@@ -41,5 +41,9 @@ class ApiPost < ApiMethod
 
       response_matches_expected(response, syntax_error_response)
     end
+  end
+
+  def post url, json_payload, headers
+    RestClient.post(url, @request.payload.to_json, @request.headers)  {|real_response, request, result| real_response }
   end
 end
