@@ -16,4 +16,14 @@ class ObjectField < Field
   def has_subfields?
     true
   end
+
+  def default_value
+    obj = Hash.new
+
+    @fields.each do |field|
+      obj[field.name] = field.default_value
+    end
+    
+    obj
+  end
 end
