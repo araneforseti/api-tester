@@ -15,6 +15,10 @@ class Request
   end
 
   def payload
-
+    response = Hash.new
+    @fields.each do |field|
+      response[field.name] = field.default_value
+    end
+    response
   end
 end

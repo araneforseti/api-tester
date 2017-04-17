@@ -8,4 +8,8 @@ class Field
   def has_subfields?
     false
   end
+
+  def default_value
+    "1"
+  end
 end

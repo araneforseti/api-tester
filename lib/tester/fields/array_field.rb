@@ -16,4 +16,8 @@ class ArrayField < Field
   def has_subfields?
     true
   end
+
+  def default_value
+    []
+  end
 end
