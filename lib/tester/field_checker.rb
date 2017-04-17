@@ -20,6 +20,7 @@ class FieldChecker
       end
       return true
     end
+    puts "Missing #{field.name}"
     false
   end
 end
