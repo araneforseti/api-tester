@@ -6,20 +6,20 @@ class Report
   attr_accessor :actual_response
 
   def initialize description, url, request, expected_response, actual_response
-    @description = description
-    @url = url
-    @request = request
-    @expected_response = expected_response
-    @actual_response = actual_response
+    self.description = description
+    self.url = url
+    self.request = request
+    self.expected_response = expected_response
+    self.actual_response = actual_response
   end
 
   def print
-    puts "#{@description}: "
-    puts "   Requested #{@url} with payload:"
-    puts "      #{@request}"
+    puts "#{self.description}: "
+    puts "   Requested #{self.url} with payload:"
+    puts "      #{self.request}"
     puts "   Expecting: "
-    puts "      #{@expected_response}"
+    puts "      #{self.expected_response}"
     puts "   Receiving: "
-    puts "      #{@actual_response}"
+    puts "      #{self.actual_response}"
   end
 end

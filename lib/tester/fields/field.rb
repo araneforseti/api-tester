@@ -3,8 +3,8 @@ class Field
   attr_accessor :default_value
 
   def initialize name, default_value="string"
-    @name = name
-    @default_value = default_value
+    self.name = name
+    self.default_value = default_value
   end
 
   def has_subfields?

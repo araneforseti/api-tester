@@ -5,11 +5,11 @@ class ObjectField < Field
 
   def initialize name
     super(name)
-    @fields = []
+    self.fields = []
   end
 
   def with_field(newField)
-    @fields << newField
+    self.fields << newField
     self
   end
 
@@ -20,7 +20,7 @@ class ObjectField < Field
   def default_value
     obj = Hash.new
 
-    @fields.each do |field|
+    self.fields.each do |field|
       obj[field.name] = field.default_value
     end
 

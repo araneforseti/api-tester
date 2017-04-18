@@ -5,11 +5,11 @@ class ArrayField < Field
 
   def initialize name
     super(name)
-    @fields = []
+    self.fields = []
   end
 
   def with_field(newField)
-    @fields << newField
+    self.fields << newField
     self
   end
 
@@ -18,12 +18,12 @@ class ArrayField < Field
   end
 
   def default_value
-    if @fields.size == 0
+    if self.fields.size == 0
       return []
     end
 
     obj = Hash.new
-    @fields.each do |field|
+    self.fields.each do |field|
       obj[field.name] = field.default_value
     end
     [obj]

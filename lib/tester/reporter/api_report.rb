@@ -1,27 +1,25 @@
 require 'tester/reporter/report'
 
 class ApiReport
+  attr_accessor :reports
+
   def initialize
-    @reports = []
+    self.reports = []
   end
 
   def add_new url, request, expected_response, actual_response, description="A case"
     report = Report.new description, url, request, expected_response, actual_response
-    @reports << report
+    self.reports << report
   end
 
   def add_new_report report
-    @reports << report
-  end
-
-  def reports
-    @reports
+    self.reports << report
   end
 
   def print
-    if @reports.size > 0
+    if self.reports.size > 0
       puts "Issues discovered: "
-      @reports.each do |report|
+      self.reports.each do |report|
         report.print
       end
     else

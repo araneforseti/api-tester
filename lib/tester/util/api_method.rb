@@ -7,13 +7,14 @@ require 'json'
 class ApiMethod
   attr_accessor :request
   attr_accessor :expected_response
+  attr_accessor :report
   attr_accessor :url
 
   def initialize url
-    @url = url
-    @requst = Request.new url
-    @response = Response.new 200
-    @report = ApiReport.new
+    self.url = url
+    self.request = Request.new
+    self.expected_response = Response.new 200
+    self.report = ApiReport.new
   end
 
   def go
@@ -21,13 +22,13 @@ class ApiMethod
   end
 
   def check_report
-    @report.print
-    @report.reports.size == 0
+    self.report.print
+    self.report.reports.size == 0
   end
 
-  def missing_field_report description, url, request_body, missing_field
-    report = MissingFieldReport.new description, url, request_body, missing_field
-    @report.add_new_report report
+  def missing_field_report description, request_body, missing_field
+    report = MissingFieldReport.new description, self.url, request_body, missing_field
+    self.report.add_new_report report
   end
 
   def response_matches_expected response, intended_response
@@ -36,7 +37,7 @@ class ApiMethod
     response_body = JSON.parse(response.body)
     fields.each do |field|
       if !(is_field_in_hash(field, response_body))
-        missing_field_report("Default payload field check missing #{field.name}", @requst.url, @requst.payload, field.name)
+        missing_field_report("Default payload field check missing #{field.name}", self.requst.payload, field.name)
       end
 
       if field.has_subfields?
@@ -50,7 +51,7 @@ class ApiMethod
     response_body = JSON.parse(response.body)
     fields.each do |field|
       if !(is_field_in_hash(field, response_body))
-        missing_field_report("Default payload field check missing #{field.name}", @requst.url, @requst.payload, field.name)
+        missing_field_report("Default payload field check missing #{field.name}", self.request.payload, field.name)
       end
 
       if field.has_subfields?
@@ -91,7 +92,7 @@ class ApiMethod
   def check_array_subfields field, field_hash
     field.fields.each do |subfield|
       if field_hash.empty? || !is_in_hash(subfield, field_hash[field.name][0])
-        missing_field_report("Default payload field check missing #{field.name}", @requst.url, @requst.payload, subfield.name)
+        missing_field_report("Default payload field check missing #{field.name}", self.requst.payload, subfield.name)
       end
     end
     true

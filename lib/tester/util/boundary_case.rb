@@ -3,7 +3,7 @@ class BoundaryCase
   attr_accessor :description
 
   def initialize description, payload
-    @description = description
-    @payload = payload
+    self.description = description
+    self.payload = payload
   end
 end

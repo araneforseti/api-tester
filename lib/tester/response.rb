@@ -5,12 +5,12 @@ class Response
   attr_accessor :body
 
   def initialize(status_code)
-    @status_code = status_code
-    @body = []
+    self.status_code = status_code
+    self.body = []
   end
 
   def add_field(new_field)
-    @body << new_field
+    self.body << new_field
     self
   end
 end

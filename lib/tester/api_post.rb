@@ -11,11 +11,11 @@ class ApiPost < ApiMethod
   attr_accessor :syntax_error_response
 
   def go
-    response = post(url, @request.payload.to_json, @request.headers)
+    response = post(self.request.payload.to_json, self.request.headers)
     if response.code != expected_response.status_code
-      @report.add_new_report(StatusCodeReport.new("Default payload",
-                                                  url,
-                                                  @request.payload,
+      self.report.add_new_report(StatusCodeReport.new("Default payload",
+                                                  self.url,
+                                                  self.request.payload,
                                                   expected_response.status_code,
                                                   response.code))
       return false
@@ -28,11 +28,11 @@ class ApiPost < ApiMethod
   end
 
   def try_boundary
-    @request.cases.each do |boundary_request|
-      response = post(url, boundary_request.payload, @request.headers)
+    self.request.cases.each do |boundary_request|
+      response = post(boundary_request.payload, self.request.headers)
       if response.code != syntax_error_response.status_code
-        @report.add_new_report(StatusCodeReport.new("Boundary tests - #{boundary_request.description}",
-                                                    url,
+        self.report.add_new_report(StatusCodeReport.new("Boundary tests - #{boundary_request.description}",
+                                                    self.url,
                                                     boundary_request.payload,
                                                     syntax_error_response.status_code,
                                                     response.code))
@@ -43,7 +43,9 @@ class ApiPost < ApiMethod
     end
   end
 
-  def post url, json_payload, headers
-    RestClient.post(url, @request.payload.to_json, @request.headers)  {|real_response, request, result| real_response }
+  def post json_payload, headers
+    RestClient.post(self.url, json_payload, headers)  { |real_response, request, result|
+      real_response
+    }
   end
 end
