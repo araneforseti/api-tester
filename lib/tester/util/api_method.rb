@@ -32,7 +32,6 @@ class ApiMethod
   end
 
   def response_matches_expected response, intended_response
-    puts "What is #{intended_response}"
     fields = intended_response.body
     response_body = JSON.parse(response.body)
     fields.each do |field|

@@ -2,14 +2,7 @@ require "spec_helper"
 require 'tester/request'
 
 describe Request do
-  let(:url) {"http://example.com"}
-  let(:request) {Request.new url}
-
-  context "url" do
-    it "starts has url" do
-      expect(request.url).to eq url
-    end
-  end
+  let(:request) {Request.new}
 
   context 'body' do
     it "starts with no fields" do

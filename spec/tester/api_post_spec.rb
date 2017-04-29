@@ -6,11 +6,12 @@ require 'tester/api_post'
 
 describe ApiPost do
   context 'good request' do
-    let(:request) { Request.new "www.example.com" }
+    let(:url) {"www.example.com"}
+    let(:request) { Request.new }
     let(:fields) {[Field.new("numKey"), Field.new("string_key")]}
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
     let(:status_code) { 200 }
-    let(:api_post) { ApiPost.new "www.example.com" }
+    let(:api_post) { ApiPost.new url }
     let(:response) { Response.new status_code }
 
     before :each do
@@ -20,7 +21,7 @@ describe ApiPost do
       api_post.expected_response = response
       api_post.request = request
 
-      stub_request(:post, "www.example.com").to_return(body: body, status: status_code)
+      stub_request(:post, url).to_return(body: body, status: status_code)
     end
 
     context 'status code' do

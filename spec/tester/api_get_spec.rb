@@ -6,7 +6,8 @@ require 'tester/api_get'
 
 describe ApiGet do
   context 'good request' do
-    let(:request) { Request.new "www.example.com" }
+    let(:url) {"www.example.com"}
+    let(:request) { Request.new }
     let(:fields) {[Field.new("numKey"),
                    Field.new("string_key"),
                    ObjectField.new("object_field")
@@ -14,7 +15,7 @@ describe ApiGet do
                        .with_field(Field.new("other_field"))]}
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:status_code) { 200 }
-    let(:api_get) { ApiGet.new "www.example.com" }
+    let(:api_get) { ApiGet.new url }
     let(:response) { Response.new status_code }
 
     before :each do
