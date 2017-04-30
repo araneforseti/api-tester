@@ -1,4 +1,4 @@
-require 'tester/util/boundary_case'
+require 'tester/definition/boundary_case'
 
 class Request
   attr_accessor :definition

@@ -18,6 +18,8 @@ class ApiGet < ApiMethod
       url = url + query_params.join("&")
     end
 
-    RestClient.get(url, request_params)
+    RestClient.get(self.url, request_params)  { |real_response, request, result|
+      real_response
+    }
   end
 end
