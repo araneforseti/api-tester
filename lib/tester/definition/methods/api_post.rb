@@ -48,4 +48,8 @@ class ApiPost < ApiMethod
       real_response
     }
   end
+
+  def call body_params={}, request_params={}
+    post body_params, request_params
+  end
 end

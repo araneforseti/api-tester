@@ -17,7 +17,18 @@ class ApiGet < ApiMethod
     super
   end
 
-  def call request_params={}
-    RestClient.get(self.url, request_params)
+  def call params={}, request_params={}
+    url = self.url
+    if params != {}
+      url = url + "?"
+
+      query_params = []
+      params.each do |key, value|
+        query_params << "#{key}=#{value}"
+      end
+      url = url + query_params.join("&")
+    end
+
+    RestClient.get(url, request_params)
   end
 end

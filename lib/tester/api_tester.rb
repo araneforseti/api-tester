@@ -1,4 +1,5 @@
 require "tester/modules/boundary"
+require 'tester/modules/good_case'
 require 'rest-client'
 require 'json'
 
@@ -20,6 +21,7 @@ class ApiTester
 
   def with_default_modules
     self.modules << Boundary.new
+    self.modules << GoodCase.new
     self
   end
 

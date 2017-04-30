@@ -22,6 +22,14 @@ class Request
     response
   end
 
+  def default_payload
+    payload
+  end
+
+  def default_headers
+    {}
+  end
+
   def cases
     boundary_cases = Array.new
     self.fields.each do |field|
