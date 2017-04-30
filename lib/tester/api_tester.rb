@@ -19,6 +19,11 @@ class ApiTester
     self
   end
 
+  def with_reporter(reporter)
+    self.report = reporter
+    self
+  end
+
   def with_default_modules
     self.modules << Boundary.new
     self.modules << GoodCase.new
