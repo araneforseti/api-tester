@@ -17,6 +17,6 @@ class ApiPost < ApiMethod
   end
 
   def call body_params={}, request_params={}
-    post body_params, request_params
+    post body_params.to_json, request_params
   end
 end
