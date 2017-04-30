@@ -2,10 +2,10 @@ require "tester/version"
 require 'rest-client'
 require 'json'
 
-class Tester
+class ApiTester
   attr_accessor :report
   attr_accessor :modules
-  attr_accesoor :definition
+  attr_accessor :definition
 
   def initialize definition
     self.report = ApiReport.new
