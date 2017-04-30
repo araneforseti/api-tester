@@ -1,5 +1,6 @@
-class Definition
+class Endpoint
   attr_accessor :methods
+  attr_accessor :name
 
   def initialize name
     self.name = name

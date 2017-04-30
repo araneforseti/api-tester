@@ -1,4 +1,4 @@
-require "tester/version"
+require "tester/modules/boundary"
 require 'rest-client'
 require 'json'
 
@@ -7,7 +7,7 @@ class ApiTester
   attr_accessor :modules
   attr_accessor :definition
 
-  def initialize definition
+  def initialize(definition)
     self.report = ApiReport.new
     self.modules = []
     self.definition = definition

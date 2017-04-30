@@ -2,7 +2,7 @@ require "spec_helper"
 require 'webmock/rspec'
 require 'tester/definition/response'
 require 'tester/definition/request'
-require 'tester/definition/api_get'
+require 'tester/definition/methods/api_get'
 
 describe ApiGet do
   context 'good request' do

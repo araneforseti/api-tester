@@ -3,7 +3,7 @@ require 'tester/definition/response'
 require "tester/version"
 require 'rest-client'
 require 'json'
-require 'tester/definition/api_method'
+require 'tester/definition/methods/api_method'
 
 class ApiGet < ApiMethod
   def go
