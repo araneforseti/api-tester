@@ -33,9 +33,17 @@ class Module
     response_matches_expected response, expected_response, method.url, request
   end
 
+  def json_parse body
+    if body.count("{") > 0
+      JSON.parse!(body)
+    else
+      body
+    end
+  end
+
   def response_matches_expected response, intended_response, url, request
     fields = intended_response.body
-    response_body = JSON.parse(response.body)
+    response_body = json_parse(response.body)
     fields.each do |field|
       if !(is_field_in_hash(field, response_body, url, request))
         missing_field_report("Default payload field check missing #{field.name}", request, field.name, url)

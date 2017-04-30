@@ -37,10 +37,6 @@ describe Boundary do
     stub_request(:post, url).to_return(body: expected_body, status: expected_code)
   end
 
-  context 'get request' do
-
-  end
-
   context 'post request' do
     it 'everything works' do
       expect(boundary.go(endpoint, report)).to be true
