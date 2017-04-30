@@ -1,5 +1,5 @@
 require "spec_helper"
-require 'tester/response'
+require 'tester/definition/response'
 
 describe Response do
   let(:status_code) {200}

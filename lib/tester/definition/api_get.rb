@@ -1,9 +1,9 @@
-require 'tester/request'
-require 'tester/response'
+require 'tester/definition/request'
+require 'tester/definition/response'
 require "tester/version"
 require 'rest-client'
 require 'json'
-require 'tester/util/api_method'
+require 'tester/definition/api_method'
 
 class ApiGet < ApiMethod
   def go
@@ -15,5 +15,9 @@ class ApiGet < ApiMethod
 
     response_matches(response)
     super
+  end
+
+  def call request_params={}
+    RestClient.get(self.url, request_params)
   end
 end

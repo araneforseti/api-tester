@@ -1,5 +1,5 @@
 require "spec_helper"
-require 'tester/definition'
+require 'tester/definition/definition'
 
 describe Definition do
   context "fields" do

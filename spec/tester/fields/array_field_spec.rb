@@ -1,5 +1,5 @@
 require "spec_helper"
-require 'tester/fields/array_field'
+require 'tester/definition/fields/array_field'
 
 describe ArrayField do
   context "fields" do

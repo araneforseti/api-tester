@@ -1,8 +1,8 @@
 require "spec_helper"
 require 'webmock/rspec'
-require 'tester/response'
-require 'tester/request'
-require 'tester/api_post'
+require 'tester/definition/response'
+require 'tester/definition/request'
+require 'tester/definition/api_post'
 
 describe ApiPost do
   context 'good request' do

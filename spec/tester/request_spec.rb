@@ -1,5 +1,5 @@
 require "spec_helper"
-require 'tester/request'
+require 'tester/definition/request'
 
 describe Request do
   let(:request) {Request.new}

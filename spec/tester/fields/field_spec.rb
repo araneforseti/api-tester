@@ -1,5 +1,5 @@
 require "spec_helper"
-require 'tester/fields/field'
+require 'tester/definition/fields/field'
 
 describe Field do
   context "default value" do

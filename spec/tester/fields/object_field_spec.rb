@@ -1,5 +1,5 @@
 require "spec_helper"
-require 'tester/fields/object_field'
+require 'tester/definition/fields/object_field'
 
 describe ObjectField do
   context "fields" do

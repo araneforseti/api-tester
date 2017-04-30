@@ -1,6 +1,6 @@
-require 'tester/fields/field'
+require 'tester/definition/fields/field'
 
-class ArrayField < Field
+class ObjectField < Field
   attr_accessor :fields
 
   def initialize name
@@ -18,24 +18,22 @@ class ArrayField < Field
   end
 
   def default_value
-    if self.fields.size == 0
-      return []
-    end
-
     obj = Hash.new
+
     self.fields.each do |field|
       obj[field.name] = field.default_value
     end
-    [obj]
+
+    obj
   end
 
   def negative_boundary_values
     [
         "string",
+        [],
         123,
         true,
-        false,
-        {}
+        false
     ]
   end
 end

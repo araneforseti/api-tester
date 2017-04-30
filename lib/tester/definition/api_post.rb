@@ -1,9 +1,9 @@
-require 'tester/request'
-require 'tester/response'
+require 'tester/definition/request'
+require 'tester/definition/response'
 require "tester/version"
 require 'rest-client'
 require 'json'
-require 'tester/util/api_method'
+require 'tester/definition//api_method'
 require 'tester/reporter/api_report'
 require 'tester/reporter/status_code_report'
 
