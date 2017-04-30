@@ -16,6 +16,7 @@ class ApiPost < ApiMethod
     }
   end
 
+  #TODO: Find a way to test that params are converted to json
   def call body_params={}, request_params={}
     post body_params.to_json, request_params
   end

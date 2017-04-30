@@ -27,7 +27,7 @@ class Request
   end
 
   def default_headers
-    {}
+    {content_type: :json, accept: :json}
   end
 
   def cases

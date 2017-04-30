@@ -9,7 +9,7 @@ class Boundary < Module
       cases = method.request.cases
       cases.each do |boundary_case|
         response = method.call boundary_case.payload, boundary_case.headers
-        self.response_matches(response, boundary_case, definition.bad_request_response, method)
+        self.response_matches(response, boundary_case.payload, definition.bad_request_response, method)
       end
     end
 

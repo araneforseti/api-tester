@@ -16,7 +16,7 @@ class Report
   def print
     puts "#{self.description}: "
     puts "   Requested #{self.url} with payload:"
-    puts "      #{self.request}"
+    puts "      #{self.request.to_json}"
     puts "   Expecting: "
     puts "      #{self.expected_response}"
     puts "   Receiving: "
