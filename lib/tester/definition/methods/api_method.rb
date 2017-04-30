@@ -17,15 +17,6 @@ class ApiMethod
     self.report = ApiReport.new
   end
 
-  def go
-    check_report
-  end
-
-  def check_report
-    self.report.print
-    self.report.reports.size == 0
-  end
-
   def missing_field_report description, request_body, missing_field
     report = MissingFieldReport.new description, self.url, request_body, missing_field
     self.report.add_new_report report

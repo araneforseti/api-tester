@@ -2,12 +2,12 @@ require "spec_helper"
 require 'tester/definition/response'
 
 describe Response do
-  let(:status_code) {200}
-  let(:response) {Response.new status_code}
+  let(:code) {200}
+  let(:response) {Response.new code}
 
-  context "status_code" do
+  context "code" do
     it "starts has status_cpde" do
-      expect(response.status_code).to eq status_code
+      expect(response.code).to eq code
     end
   end
 

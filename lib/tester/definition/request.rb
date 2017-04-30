@@ -34,7 +34,7 @@ class Request
     boundary_cases = Array.new
     self.fields.each do |field|
       field.negative_boundary_values.each do |value|
-        bcase = BoundaryCase.new("Setting #{field.name} to #{value}", altered_payload(field.name, value))
+        bcase = BoundaryCase.new("Setting #{field.name} to #{value}", altered_payload(field.name, value), default_headers)
         boundary_cases.push(bcase)
       end
     end
