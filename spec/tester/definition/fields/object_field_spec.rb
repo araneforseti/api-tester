@@ -31,4 +31,48 @@ describe ObjectField do
       expect(field.default_value).to eq value
     end
   end
+
+  context 'required negative_boundary_values' do
+    context 'for required' do
+      let(:negative_boundary_values) {ObjectField.new("testObj").is_required.negative_boundary_values}
+
+      {
+          'string' => 'string',
+          'number' => 123,
+          'number 0' => 0,
+          'number 1' => 1,
+          'boolean true' => true,
+          'boolean false' => false
+      }.each do |name, value|
+        it "contains #{name}" do
+          expect(negative_boundary_values).to include value
+        end
+      end
+
+      it 'contains nil' do
+        expect(negative_boundary_values).to include nil
+      end
+    end
+
+    context 'for not required' do
+      let(:negative_boundary_values) {ObjectField.new("testObj").is_not_required.negative_boundary_values}
+
+      {
+          'string' => 'string',
+          'number' => 123,
+          'number 0' => 0,
+          'number 1' => 1,
+          'boolean true' => true,
+          'boolean false' => false
+      }.each do |name, value|
+        it "contains #{name}" do
+          expect(negative_boundary_values).to include value
+        end
+      end
+
+      it 'does not contains nil' do
+        expect(negative_boundary_values).not_to include nil
+      end
+    end
+  end
 end

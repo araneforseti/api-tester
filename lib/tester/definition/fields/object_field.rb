@@ -28,10 +28,13 @@ class ObjectField < Field
   end
 
   def negative_boundary_values
+    super +
     [
         "string",
         [],
         123,
+        1,
+        0,
         true,
         false
     ]

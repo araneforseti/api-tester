@@ -31,8 +31,6 @@ describe ArrayField do
   end
 
   context 'required negative_boundary_values' do
-
-
     context 'for required' do
       let(:negative_boundary_values) {ArrayField.new("testObj").is_required.negative_boundary_values}
 
