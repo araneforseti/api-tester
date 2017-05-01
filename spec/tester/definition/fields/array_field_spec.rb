@@ -29,4 +29,33 @@ describe ArrayField do
       expect(field.default_value).to eq [{"sub" => "default_foo"}]
     end
   end
+
+  context 'negative_boundary_values for required' do
+    let(:negative_boundary_values) {ArrayField.new("testObj").is_required.negative_boundary_values}
+
+    {
+        'string' => 'string',
+        'number' => 123,
+        'number 0' => 0,
+        'number 1' => 1,
+        'boolean true' => true,
+        'boolean false' => false
+    }.each do |name, value|
+      it "contains #{name}" do
+        expect(negative_boundary_values).to include value
+      end
+    end
+
+    it 'contains string' do
+      expect(negative_boundary_values).to include "string"
+    end
+
+    it 'contains number' do
+
+    end
+  end
+
+  context 'negative_boundary_values for not required' do
+    let(:negative_boundary_values) {ArrayField.new("testObj").is_not_required.negative_boundary_values}
+  end
 end

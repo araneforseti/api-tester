@@ -33,6 +33,8 @@ class ArrayField < Field
     [
         "string",
         123,
+        0,
+        1,
         true,
         false,
         {}
