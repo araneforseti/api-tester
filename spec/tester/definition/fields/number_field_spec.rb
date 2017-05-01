@@ -32,7 +32,6 @@ describe NumberField do
 
       {
           'string' => 'string',
-          'number' => 123,
           'false' => false,
           'true' => true
       }.each do |name, value|
@@ -51,7 +50,6 @@ describe NumberField do
 
       {
           'string' => 'string',
-          'number' => 123,
           'false' => false,
           'true' => true
       }.each do |name, value|

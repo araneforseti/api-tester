@@ -1,7 +1,7 @@
 require 'tester/definition/fields/field'
 
-class NumberField < Field
-  def initialize(name, default_value=5)
+class EmailField < Field
+  def initialize(name, default_value="test@test.com")
     super(name, default_value)
   end
 
@@ -9,6 +9,9 @@ class NumberField < Field
     super +
     [
       "string",
+      123,
+      1,
+      0,
       true,
       false,
       {}
