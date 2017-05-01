@@ -1,40 +1,40 @@
 require "spec_helper"
-require 'tester/definition/fields/boolean_field'
+require 'tester/definition/fields/number_field'
 
-describe BooleanField do
+describe NumberField do
   context 'default params' do
-    let(:default_boolean) {BooleanField.new("defaultTest")}
+    let(:default_number) {NumberField.new("defaultTest")}
 
     it 'defaults required to false' do
-      expect(default_boolean.required).to be false
+      expect(default_number.required).to be false
     end
 
     it 'defaults default_value to true' do
-      expect(default_boolean.default_value).to eq true
+      expect(default_number.default_value).to eq 5
     end
   end
 
   context "default value" do
-    it "can be set to false" do
-      field = BooleanField.new("testObj", false)
-      expect(field.default_value).to eq false
+    it "can be set to 0" do
+      field = NumberField.new("testObj", 0)
+      expect(field.default_value).to eq 0
     end
 
-    it "can be set to true" do
-      field = BooleanField.new("testObj", true)
-      expect(field.default_value).to eq true
+    it "can be set to 1" do
+      field = NumberField.new("testObj", 1)
+      expect(field.default_value).to eq 1
     end
   end
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {BooleanField.new("testObj").is_required.negative_boundary_values}
+      let(:negative_boundary_values) {NumberField.new("testObj").is_required.negative_boundary_values}
 
       {
           'string' => 'string',
           'number' => 123,
-          'number 0' => 0,
-          'number 1' => 1
+          'false' => false,
+          'true' => true
       }.each do |name, value|
         it "contains #{name}" do
           expect(negative_boundary_values).to include value
@@ -47,13 +47,13 @@ describe BooleanField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {BooleanField.new("testObj").is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) {NumberField.new("testObj").is_not_required.negative_boundary_values}
 
       {
           'string' => 'string',
           'number' => 123,
-          'number 0' => 0,
-          'number 1' => 1
+          'false' => false,
+          'true' => true
       }.each do |name, value|
         it "contains #{name}" do
           expect(negative_boundary_values).to include value
