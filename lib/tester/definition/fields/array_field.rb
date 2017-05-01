@@ -30,7 +30,8 @@ class ArrayField < Field
   end
 
   def negative_boundary_values
-    [
+    cases = super
+    cases + [
         "string",
         123,
         0,
