@@ -2,14 +2,18 @@ require "spec_helper"
 require 'tester/definition/fields/field'
 
 describe Field do
-  context 'default params' do
+  context 'default' do
+    let(:field) { Field.new "testObj"}
     it 'defaults required to false' do
-      expect(Field.new("testObj").required).to be false
+      expect(field.required).to be false
     end
 
     it 'defaults default_value to "string"' do
-      field = Field.new("testObj")
       expect(field.default_value).to eq "string"
+    end
+
+    it 'defaults seen count to 0' do
+      expect(field.is_seen).to be 0
     end
   end
 
@@ -17,6 +21,15 @@ describe Field do
     it "can be set" do
       field = Field.new("testObj", "new foo")
       expect(field.default_value).to eq "new foo"
+    end
+  end
+
+  context 'seen' do
+    it 'increments' do
+      field = Field.new("testOb")
+      field.seen
+      field.seen
+      expect(field.is_seen).to be 2
     end
   end
 

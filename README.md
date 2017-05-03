@@ -84,13 +84,27 @@ expect(tester.go).to be true
 
 ```
 
-##Reporting
+# Modules
+## Boundary
+This module will test out various edge cases and ensure error handling is consistent
+
+## Good Case
+This module ensures your 'default request' works appropriately
+
+## Unused Fields
+Note: Under construction, module unfinished
+
+Note: If used, this should be the last module added to the tester.
+
+If any response fields are not returned during tests run by previous modules, this will fail with a report detailing unreturned response fields. When using this module, it is recommended the good case module is also used.
+
+# Reporting
 Right now the default reporting mechanism prints out to the console all the issues which were found. You can create your own reporting class (so long as it responds to the same methods) or just extend the current one and override the print method. Then set the tester's report tool:
 ```ruby
 tester.with_reporter(new_reporter)
 ```
 
-## Development
+# Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
@@ -101,7 +115,7 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 Bug reports and pull requests are welcome on GitHub at https://github.com/araneforseti/api-tester.
 
 
-## License
+# License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 

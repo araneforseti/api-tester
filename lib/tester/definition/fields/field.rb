@@ -2,11 +2,13 @@ class Field
   attr_accessor :name
   attr_accessor :default_value
   attr_accessor :required
+  attr_accessor :is_seen
 
   def initialize name, default_value="string"
     self.name = name
     self.default_value = default_value
     self.required = false
+    self.is_seen = 0
   end
 
   def is_required
@@ -29,5 +31,9 @@ class Field
       cases << nil
     end
     cases
+  end
+
+  def seen
+    self.is_seen += 1
   end
 end
