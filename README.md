@@ -67,7 +67,7 @@ Define methods on endpoints
 get_method = ApiGet.new "http://yourbase.com/api/method"
 ```
 Note: Currently only GET and POST have been created, but 
-you can make your own so long as it has a "call" method 
+you can make your own so long as it has `call` and `verb` methods 
 which will execute the method given parameters
 
 Define fields used by the method (both Request and Response)
@@ -110,11 +110,6 @@ API is first being worked against such as urls which don't
 exist and HTTP Verb against a url which does not support it
 
 ## Unused Fields
-Note: Under construction, module unfinished
-
-Note: If used, this should be the last module added to 
-the tester.
-
 If any response fields are not returned during tests run
 by previous modules, this will fail with a report 
 detailing unreturned response fields. When using this 

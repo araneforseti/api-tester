@@ -11,6 +11,10 @@ class Module
     set_report report
   end
 
+  def order
+    5
+  end
+
   def response_matches response, request, expected_response, method
     if response.code == expected_response.code
       check_response response, expected_response, request, method

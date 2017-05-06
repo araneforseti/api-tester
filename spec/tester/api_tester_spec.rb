@@ -23,8 +23,8 @@ describe ApiTester do
   let(:unused) {UnusedFields.new}
   let(:report) {ApiReport.new}
   let(:api_tester) {ApiTester.new(endpoint)
-                        .with_module(good_case)
                         .with_module(unused)
+                        .with_module(good_case)
                         .with_reporter(report)}
 
   before :each do

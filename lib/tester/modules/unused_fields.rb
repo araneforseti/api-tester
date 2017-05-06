@@ -15,4 +15,8 @@ class UnusedFields < Module
 
     report.reports == []
   end
+
+  def order
+    99
+  end
 end

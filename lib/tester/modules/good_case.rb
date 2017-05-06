@@ -13,4 +13,8 @@ class GoodCase < Module
 
     report.reports == []
   end
+
+  def order
+    1
+  end
 end
