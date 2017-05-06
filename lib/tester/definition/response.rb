@@ -1,5 +1,3 @@
-require 'tester/definition/definition'
-
 class Response
   attr_accessor :code
   attr_accessor :body
