@@ -1,5 +1,7 @@
 require "tester/modules/boundary"
 require 'tester/modules/good_case'
+require 'tester/modules/unused_fields'
+require 'tester/modules/typo'
 require 'rest-client'
 require 'json'
 
@@ -27,6 +29,8 @@ class ApiTester
   def with_default_modules
     self.modules << Boundary.new
     self.modules << GoodCase.new
+    self.modules << Typo.new
+    self.modules << UnusedFields.new
     self
   end
 

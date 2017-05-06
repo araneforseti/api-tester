@@ -20,4 +20,8 @@ class ApiPost < ApiMethod
   def call body_params={}, request_params={}
     post body_params.to_json, request_params
   end
+
+  def verb
+    SupportedVerbs::POST
+  end
 end
