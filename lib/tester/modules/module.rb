@@ -49,6 +49,8 @@ class Module
         missing_field_report("Default payload field check missing #{field.name}", request, field.name, url)
       end
 
+      field.seen
+
       if field.has_subfields?
         check_based_on_type(field, response_body, url, request)
       end
@@ -77,6 +79,7 @@ class Module
 
   def check_object_subfields field, field_hash, url, request
     field.fields.each do |subfield|
+      subfield.seen
       if field_hash.empty? || !is_in_hash(subfield, field_hash[field.name])
         missing_field_report("Default payload field check missing #{field.name}", request, subfield.name, url)
       end
@@ -86,6 +89,7 @@ class Module
 
   def check_array_subfields field, field_hash, url, request
     field.fields.each do |subfield|
+      subfield.seen
       if field_hash.empty? || !is_in_hash(subfield, field_hash[field.name][0])
         missing_field_report("Default payload field check missing #{field.name}", request, subfield.name, url)
       end
