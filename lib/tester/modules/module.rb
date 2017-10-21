@@ -15,11 +15,11 @@ class Module
     5
   end
 
-  def response_matches response, request, expected_response, method
+  def response_matches response, request, expected_response, method, message
     if response.code == expected_response.code
       check_response response, expected_response, request, method
     else
-      incorrect_status_report response.code, expected_response.code, request, "Incorrect status", method
+      incorrect_status_report response.code, expected_response.code, request, "Incorrect status for " + message, method
     end
   end
 
