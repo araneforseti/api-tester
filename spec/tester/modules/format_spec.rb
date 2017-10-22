@@ -4,10 +4,10 @@ require 'tester/definition/response'
 require 'tester/definition/request'
 require 'tester/definition/methods/api_get'
 require 'tester/definition/endpoint'
-require 'tester/modules/boundary'
+require 'tester/modules/format'
 require 'tester/reporter/api_report'
 
-describe Boundary do
+describe Format do
   let(:url) {"www.example.com"}
   let(:api_post) { ApiPost.new url }
   let(:request) { Request.new }
@@ -17,7 +17,7 @@ describe Boundary do
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}
   let(:expected_fields) {[Field.new("numKey"), Field.new("string_key")]}
   let(:request_fields) {[ArrayField.new("arr")]}
-  let(:boundary) {Boundary.new}
+  let(:format) {Format.new}
   let(:report) {ApiReport.new}
 
   before :each do
@@ -39,12 +39,12 @@ describe Boundary do
 
   context 'post request' do
     it 'everything works' do
-      expect(boundary.go(endpoint, report)).to be true
+      expect(format.go(endpoint, report)).to be true
     end
 
     it 'gets a simple string' do
       stub_request(:post, url).to_return(body: 'bad request', status: expected_code)
-      expect(boundary.go(endpoint, report)).to be false
+      expect(format.go(endpoint, report)).to be false
     end
   end
 end

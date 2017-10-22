@@ -1,4 +1,4 @@
-require "tester/modules/boundary"
+require "tester/modules/format"
 require 'tester/modules/good_case'
 require 'tester/modules/unused_fields'
 require 'tester/modules/typo'
@@ -27,7 +27,7 @@ class ApiTester
   end
 
   def with_default_modules
-    self.modules << Boundary.new
+    self.modules << Format.new
     self.modules << GoodCase.new
     self.modules << Typo.new
     self.modules << UnusedFields.new
