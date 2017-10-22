@@ -13,6 +13,12 @@ describe ResponseEvaluator do
             evaluator = ResponseEvaluator.new example_body, Response.new(200)
             expect(evaluator.response_field_array).to eq ["numKey", "string_key"]
         end
+
+        it 'should handle arrays' do
+            example_body = {'arr': [{"numKey": 1, "string_key": "string"}]}
+            evaluator = ResponseEvaluator.new example_body, Response.new(200)
+            expect(evaluator.response_field_array).to eq ["arr", "arr.numKey", "arr.string_key"]
+        end
     end
 
     describe '#expected_fields' do
@@ -60,6 +66,15 @@ describe ResponseEvaluator do
             evaluator = ResponseEvaluator.new(example_body, response)
             expect(evaluator.missing_fields).to eq ["name", "key"]
         end
+
+        it 'should recognize arrays' do
+            example_body = {"sheets":[{"strength":10}]}
+            response = Response.new 200
+            array_field = ArrayField.new("sheets").with_field(Field.new "strength").with_field(Field.new "missingkey")
+            response.add_field(array_field)
+            evaluator = ResponseEvaluator.new(example_body, response)
+            expect(evaluator.missing_fields).to eq ["sheets.missingkey"]
+        end 
     end
 
     describe '#seen_fields' do

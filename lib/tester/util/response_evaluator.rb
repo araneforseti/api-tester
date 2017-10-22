@@ -59,8 +59,12 @@ class ResponseEvaluator
     def field_array object
         fields = []
         object.each do |key, value|
-            fields << key.to_s
-            fields.concat(field_array(value).map{|i| "#{key}.#{i}"})
+            if(value)
+                fields << key.to_s
+                fields.concat(field_array(value).map{|i| "#{key}.#{i}"})
+            else
+                fields.concat(field_array(key))
+            end 
         end
         fields
        rescue NoMethodError => e
