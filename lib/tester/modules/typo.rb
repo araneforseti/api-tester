@@ -22,7 +22,9 @@ class Typo < Module
         missing_verbs.each do |verb|
             response = call url, verb
             request = Request.new
-            response_matches response, request.payload, definition.not_allowed_response, ApiMethod.new(url), " #{verb}"
+
+            test = TypoClass.new response, request.payload, definition.not_allowed_response, url, verb
+            self.report.reports.concat test.check
         end
     end
 
@@ -30,7 +32,9 @@ class Typo < Module
         bad_url = "#{url}gibberishadsfasdf"
         request = Request.new
         response = call bad_url, SupportedVerbs::GET
-        response_matches response, request.payload, definition.not_found_response, ApiMethod.new(bad_url), "url"
+
+        test = TypoClass.new response, request.payload, definition.not_found_response, bad_url, SupportedVerbs::GET
+        self.report.reports.concat test.check
     end
 
     def allowances(definition)
@@ -53,5 +57,11 @@ class Typo < Module
         rescue RestClient::ExceptionWithResponse => e
             e.response
         end
+    end
+end
+
+class TypoClass < MethodCaseTest
+    def initialize response, payload, expected_response, url, verb
+        super response, payload, expected_response, url, verb, "TypoModule"
     end
 end

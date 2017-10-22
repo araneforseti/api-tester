@@ -7,7 +7,8 @@ class GoodCase < Module
         super
 
         definition.methods.each do |method|
-            test = GoodCaseTest.new method
+            response = method.call method.request.default_payload, method.request.default_headers
+            test = GoodCaseTest.new response, method
             self.report.reports.concat test.check
         end
 
@@ -21,22 +22,7 @@ end
 
 
 class GoodCaseTest < MethodCaseTest
-    def initialize(method)
-        super method, method.request.default_payload
-    end
-
-    def response_code_report
-        report = StatusCodeReport.new "GoodCaseModule - Default payload", self.url, self.payload, self.method.expected_response.code, self.response.code
-        self.reports << report
-    end
-
-    def missing_field_report field
-        report = Report.new "GoodCaseModule - Missing field #{field}", self.url, self.payload, self.method.expected_response, self.response
-        self.reports << report
-    end
-
-    def extra_field_report field
-        report = Report.new "GoodCaseModule - Found extra field #{field}", self.url, self.payload, self.method.expected_response, self.response
-        self.reports << report
+    def initialize response, method
+        super response, method.request.default_payload, method.expected_response, method.url, method.verb, "GoodCaseModule"
     end
 end
