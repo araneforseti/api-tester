@@ -11,4 +11,9 @@ class Response
         self.body << new_field
         self
     end
+
+    def to_s
+        s = self.body.map{|f| "#{f.name}:#{f.class}" }
+        s.to_s
+    end
 end
