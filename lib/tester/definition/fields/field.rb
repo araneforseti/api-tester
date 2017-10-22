@@ -25,6 +25,10 @@ class Field
     false
   end
 
+  def fields
+    []
+  end
+
   def negative_boundary_values
     cases = []
     if self.required

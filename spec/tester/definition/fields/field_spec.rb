@@ -46,4 +46,11 @@ describe Field do
       expect(field.negative_boundary_values).not_to include nil
     end
   end
+
+  context '#fields' do
+    it 'should return empty' do
+      field = Field.new("testOb")
+      expect(field.fields).to eq []
+    end
+  end
 end
