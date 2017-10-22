@@ -9,10 +9,17 @@ class Format < Module
       cases = method.request.cases
       cases.each do |format_case|
         response = method.call format_case.payload, format_case.headers
-        self.response_matches(response, format_case.payload, definition.bad_request_response, method, format_case.description)
+        test = FormatTest.new response, format_case.payload, definition.bad_request_response, method.url, method.verb
+        self.report.reports.concat test.check
       end
     end
 
     report.reports == []
   end
+end
+
+class FormatTest < MethodCaseTest
+    def initialize response, payload, expected_response, url, verb
+        super response, payload, expected_response, url, verb, "FormatModule"
+    end
 end
