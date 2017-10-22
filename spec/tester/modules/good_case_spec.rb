@@ -119,6 +119,12 @@ describe GoodCase do
         expect(good_case.go(endpoint, report)).to be true
       end
 
+      it 'increments keys' do
+        good_case.go(endpoint, report)
+        expect(fields[0].is_seen).to eq(1)
+        expect(fields[1].is_seen).to eq(1)
+      end
+
       it 'fails when a key is missing' do
         response.add_field(Field.new("missingField"))
         api_post.expected_response = response

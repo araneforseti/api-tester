@@ -7,6 +7,12 @@ describe ResponseEvaluator do
             evaluator = ResponseEvaluator.new example_body, Response.new(200)
             expect(evaluator.response_field_array).to eq ["name", "key", "hash", "hash.innerkey", "hash.innerkey2"]
         end
+    
+        it 'should create this field array' do
+            example_body = {"numKey": 1, "string_key": "string"}
+            evaluator = ResponseEvaluator.new example_body, Response.new(200)
+            expect(evaluator.response_field_array).to eq ["numKey", "string_key"]
+        end
     end
 
     describe '#expected_fields' do

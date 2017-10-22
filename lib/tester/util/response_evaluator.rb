@@ -39,7 +39,7 @@ class ResponseEvaluator
             fields.concat(field_array(value).map{|i| "#{key}.#{i}"})
         end
         fields
-       rescue NoMethodError
+       rescue NoMethodError => e
         fields
     end
 end
