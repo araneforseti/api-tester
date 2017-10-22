@@ -8,14 +8,12 @@ require 'json'
 class ApiMethod
   attr_accessor :request
   attr_accessor :expected_response
-  attr_accessor :report
   attr_accessor :url
 
   def initialize url
     self.url = url
     self.request = Request.new
     self.expected_response = Response.new 200
-    self.report = ApiReport.new
   end
 
   def verb

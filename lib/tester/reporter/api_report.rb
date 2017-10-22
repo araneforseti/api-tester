@@ -18,10 +18,12 @@ class ApiReport
 
   def print
     if self.reports.size > 0
-      puts "Issues discovered: "
+      puts "Issues discovered: #{self.reports.size}"
       self.reports.each do |report|
         report.print
       end
+      puts ""
+      puts "Issues discovered: #{self.reports.size}"
     else
       puts "No issues found"
     end
