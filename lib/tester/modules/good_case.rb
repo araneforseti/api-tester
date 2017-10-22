@@ -26,17 +26,17 @@ class GoodCaseTest < MethodCaseTest
     end
 
     def response_code_report
-        report = StatusCodeReport.new "GoodCaseModule: Default payload", self.url, self.payload, self.method.expected_response.code, self.response.code
+        report = StatusCodeReport.new "GoodCaseModule - Default payload", self.url, self.payload, self.method.expected_response.code, self.response.code
         self.reports << report
     end
 
     def missing_field_report field
-        report = Report.new "GoodCaseModule: missing field #{field}", self.url, self.payload, self.method.expected_response, self.response
+        report = Report.new "GoodCaseModule - Missing field #{field}", self.url, self.payload, self.method.expected_response, self.response
         self.reports << report
     end
 
     def extra_field_report field
-        report = Report.new "GoodCaseModule: found extra field #{field}", self.url, self.payload, self.method.expected_response, self.response
+        report = Report.new "GoodCaseModule - Found extra field #{field}", self.url, self.payload, self.method.expected_response, self.response
         self.reports << report
     end
 end
