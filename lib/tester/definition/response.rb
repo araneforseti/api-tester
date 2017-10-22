@@ -13,7 +13,17 @@ class Response
     end
 
     def to_s
-        s = self.body.map{|f| "#{f.name}:#{f.class}" }
+        s = self.body.map do |f|
+            field_display f
+        end
         s.to_s
+    end
+
+    def field_display field
+        if field.has_subfields?
+            "#{field.name}:#{field.fields.map{|f| field_display(f)}}"
+        else
+            "#{field.name}:#{field.display_class}"
+        end
     end
 end
