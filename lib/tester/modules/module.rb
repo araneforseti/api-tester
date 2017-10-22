@@ -24,7 +24,7 @@ class Module
   end
 
   def incorrect_status_report status, expected_status, request, message, method
-    report = StatusCodeReport.new message, method.url, request, expected_status, status
+    report = StatusCodeReport.new message, "#{method.verb} #{method.url}", request, expected_status, status
     self.report.add_new_report report
   end
 
@@ -48,7 +48,7 @@ class Module
     response_body = json_parse(response.body)
     fields.each do |field|
       if !(is_field_in_hash(field, response_body, url, request))
-        missing_field_report("Default payload field check missing #{field.name}", request, field.name, url)
+        missing_field_report("Missing #{field.name}", request, field.name, url)
       end
 
       field.seen
@@ -83,7 +83,7 @@ class Module
     field.fields.each do |subfield|
       subfield.seen
       if field_hash.empty? || !is_in_hash(subfield, field_hash[field.name])
-        missing_field_report("Default payload field check missing #{field.name}", request, subfield.name, url)
+        missing_field_report("Missing #{field.name}", request, subfield.name, url)
       end
     end
     true
@@ -93,7 +93,7 @@ class Module
     field.fields.each do |subfield|
       subfield.seen
       if field_hash.empty? || !is_in_hash(subfield, field_hash[field.name][0])
-        missing_field_report("Default payload field check missing #{field.name}", request, subfield.name, url)
+        missing_field_report("Missing #{field.name}", request, subfield.name, url)
       end
     end
     true
