@@ -79,8 +79,8 @@ describe GoodCase do
   context 'post request' do
     let(:url) {"www.example.com"}
     let(:request) { Request.new }
-    let(:fields) {[Field.new("numKey"), Field.new("string_key")]}
-    let(:body) { '{"numKey": 1, "string_key": "string"}' }
+    let(:fields) {[Field.new("numKey"), Field.new("string_key"), ObjectField.new("obj").with_field(Field.new("inner"))]}
+    let(:body) { '{"numKey": 1, "string_key": "string", "obj": {"inner": "string"}}' }
     let(:code) { 200 }
     let(:api_post) { ApiPost.new url }
     let(:response) { Response.new code }
@@ -123,6 +123,8 @@ describe GoodCase do
         good_case.go(endpoint, report)
         expect(fields[0].is_seen).to eq(1)
         expect(fields[1].is_seen).to eq(1)
+        expect(fields[2].is_seen).to eq(1)
+        expect(fields[2].fields[0].is_seen).to eq(1)
       end
 
       it 'fails when a key is missing' do

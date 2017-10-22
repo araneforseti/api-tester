@@ -54,7 +54,7 @@ class GoodCaseTest
             evaluator = ResponseEvaluator.new json_parse(self.response.body), self.method.expected_response
             evaluator.missing_fields.map{|field| missing_field_report(field)}
             evaluator.extra_fields.map{|field| extra_field_report(field)}
-            increment_fields evaluator.missing_fields
+            increment_fields evaluator.seen_fields
         end
         return self.reports
     end
@@ -67,11 +67,9 @@ class GoodCaseTest
         return true
     end
 
-    def increment_fields missing_fields
-        self.method.expected_response.body.each do |field|
-            if !(missing_fields.include?(field.name))
-                field.seen
-            end 
+    def increment_fields seen_fields
+        seen_fields.each do |field|
+            field.seen
         end
     end
 

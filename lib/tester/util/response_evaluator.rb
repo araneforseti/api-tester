@@ -12,6 +12,20 @@ class ResponseEvaluator
     end
 
     def expected_fields
+        expected_fields_hash.keys
+    end
+
+    def seen_fields
+        seen = []
+        fields = response_field_array - extra_fields
+        expected = expected_fields_hash
+        fields.each do |field_key| 
+            seen << expected[field_key]
+        end
+        seen
+    end
+
+    def expected_fields_hash
         expected_field_array self.expected_response.body
     end
 
@@ -24,10 +38,20 @@ class ResponseEvaluator
     end
 
     def expected_field_array expected_fields
-        fields = []
+        fields = {}
         expected_fields.each do |field|
-            fields << field.name
-            fields.concat(expected_field_array(field.fields).map{|i| "#{field.name}.#{i}"})
+            fields[field.name] = field
+            fields = fields.merge inner_expected_field(field.fields, field.name)
+        end
+        fields
+    end
+
+    def inner_expected_field expected_fields, name
+        fields = {}
+        expected_fields.each do |field|
+            inner_name = "#{name}.#{field.name}"
+            fields[inner_name] = field
+            fields = fields.merge inner_expected_field(field.fields, inner_name)
         end
         fields
     end
