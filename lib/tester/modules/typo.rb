@@ -22,7 +22,7 @@ class Typo < Module
     missing_verbs.each do |verb|
       response = call url, verb
       request = Request.new
-      response_matches response, request, definition.not_allowed_response, ApiMethod.new(url), "verbs"
+      response_matches response, request.payload, definition.not_allowed_response, ApiMethod.new(url), " #{verb}"
     end
   end
 
@@ -30,7 +30,7 @@ class Typo < Module
     bad_url = "#{url}gibberishadsfasdf"
     request = Request.new
     response = call bad_url, SupportedVerbs::GET
-    response_matches response, request, definition.not_found_response, ApiMethod.new(bad_url), "url"
+    response_matches response, request.payload, definition.not_found_response, ApiMethod.new(bad_url), "url"
   end
 
   def allowances(definition)

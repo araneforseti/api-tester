@@ -38,11 +38,9 @@ class Module
   end
 
   def json_parse body
-    if body.count("{") > 0
       JSON.parse!(body)
-    else
+    rescue JSON::ParserError
       body
-    end
   end
 
   def response_matches_expected response, intended_response, url, request
