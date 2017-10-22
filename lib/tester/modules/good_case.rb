@@ -35,7 +35,8 @@ class GoodCaseTest
     end
 
     def response_code_report
-        StatusCodeReport.new "GoodCaseModule: Default payload", self.url, self.payload, self.method.expected_response.code, self.response.code
+        report = StatusCodeReport.new "GoodCaseModule: Default payload", self.url, self.payload, self.method.expected_response.code, self.response.code
+        self.reports << report
     end
 
     def missing_field_report field
