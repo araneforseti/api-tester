@@ -1,3 +1,5 @@
+require 'tester/util/response_evaluator.rb'
+
 class MethodCaseTest
     attr_accessor :method
     attr_accessor :payload
