@@ -1,5 +1,6 @@
 require 'tester/reporter/status_code_report'
 require 'tester/modules/module'
+require 'tester/method_case_test'
 
 class Format < Module
   def go definition, report

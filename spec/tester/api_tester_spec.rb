@@ -15,15 +15,19 @@ describe ApiTester do
   let(:request) { Request.new }
   let(:endpoint) {Endpoint.new "Test"}
   let(:expected_code) {200}
+  let(:unexpected_code) {404}
+  let(:not_allowed_code) {415}
   let(:expected_response) {Response.new expected_code}
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}
   let(:expected_fields) {[Field.new("numKey"), Field.new("string_key")]}
   let(:request_fields) {[ArrayField.new("arr")]}
   let(:good_case) {GoodCase.new}
+  let(:typo) {Typo.new}
   let(:unused) {UnusedFields.new}
   let(:report) {ApiReport.new}
   let(:api_tester) {ApiTester.new(endpoint)
                         .with_module(unused)
+                        .with_module(typo)
                         .with_module(good_case)
                         .with_reporter(report)}
 
@@ -42,6 +46,8 @@ describe ApiTester do
     endpoint.bad_request_response = expected_response
 
     stub_request(:get, url).to_return(body: expected_body, status: expected_code)
+    stub_request(:post, url).to_return(body: "{}", status: not_allowed_code)
+    stub_request(:get, "#{url}gibberishadsfasdf/").to_return(body: "{}", status: unexpected_code)
     stub_request(:get, "#{url}/?arr").to_return(body: expected_body, status: expected_code)
   end
 

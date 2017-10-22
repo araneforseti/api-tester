@@ -24,7 +24,11 @@ class Typo < Module
             request = Request.new
 
             test = TypoClass.new response, request.payload, definition.not_allowed_response, url, verb
-            self.report.reports.concat test.check
+            reports = test.check
+            puts "Verbs found #{reports.size}"
+            puts reports
+            puts "****"
+            self.report.reports.concat reports
         end
     end
 
@@ -34,7 +38,11 @@ class Typo < Module
         response = call bad_url, SupportedVerbs::GET
 
         test = TypoClass.new response, request.payload, definition.not_found_response, bad_url, SupportedVerbs::GET
-        self.report.reports.concat test.check
+            reports = test.check
+            puts "Url found #{reports.size}"
+            puts reports
+            puts "****"
+        self.report.reports.concat reports
     end
 
     def allowances(definition)
