@@ -11,14 +11,17 @@ Check out https://github.com/araneforseti/rpglife-server/tree/master/api_spec fo
 
 ##Intended Features Under Development
 
-- Boundary Testing 
-    - Boundary module: 
-        - Checks syntax problems with the request and 
+- Format module: 
+     - Checks syntax problems with the request and 
         ensuring a consistent response
-    - Good Case (name pending) module: 
-        - Checks expected good requests will work 
+- Typo module:
+     - Tests incorrect verbs and simulates typos in the url
+- Good Case (name pending) module: 
+     - Checks expected good requests will work 
         (eg, number field should accept integers 
         between 1 - 100)
+- Unused Fields module:
+    - A module which runs after all the others and reports on any response fields which were never returned
     
 ##Intended Features Before "Release"
 
@@ -30,6 +33,9 @@ Check out https://github.com/araneforseti/rpglife-server/tree/master/api_spec fo
     - Unused Response Fields
     - Invalid method names
     - Invalid method types
+- Documentation
+    - Generate Swagger-compliant documentation
+    - Generate definitions from Swagger documentation
     
 ##What is this not intended for?
 
