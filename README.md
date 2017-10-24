@@ -7,7 +7,7 @@ for prime time!
 This gem is intended to enable easy creation of tests for 
 RESTful API services when given a contract.
 
-Check out https://github.com/araneforseti/rpglife-server/tree/master/api_spec for an example in action
+Check out [Rpg Life Server](https://github.com/araneforseti/rpglife-server/tree/master/api_spec) for an example in action
 
 ##Intended Features Under Development
 
