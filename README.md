@@ -9,7 +9,8 @@ RESTful API services when given a contract.
 
 Check out [Rpg Life Server](https://github.com/araneforseti/rpglife-server/tree/master/api_spec) for an example in action
 
-##Intended Features Under Development
+# Feature Plan
+## Under Development
 
 - Format module: 
      - Checks syntax problems with the request and 
@@ -23,7 +24,7 @@ Check out [Rpg Life Server](https://github.com/araneforseti/rpglife-server/tree/
 - Unused Fields module:
     - A module which runs after all the others and reports on any response fields which were never returned
     
-##Intended Features Before "Release"
+## Intended Features Before "Release"
 
 - Other Param Testing
     - Path
@@ -37,11 +38,12 @@ Check out [Rpg Life Server](https://github.com/araneforseti/rpglife-server/tree/
     - Generate Swagger-compliant documentation
     - Generate definitions from Swagger documentation
     
-##What is this not intended for?
+## What is this not intended for?
 
 - Logic testing (eg, if X is between A and B, then Y is 
 required)
 
+# Usage
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -58,7 +60,7 @@ Or install it yourself as:
 
     $ gem install api-tester
 
-## Usage
+## Usage in Code
 
 Warning: This gem is still in alpha stage. Use at own risk 
 understanding the contract will change until the first 
