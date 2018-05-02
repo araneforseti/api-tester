@@ -11,6 +11,8 @@ Check out [API Tester Example](https://github.com/araneforseti/example_api-teste
 
 # Feature Plan
 ## Under Development
+Check out our [Trello Board](https://trello.com/b/R3RtsJ2A/api-tester) to see progress and where we are headed!
+Feel free to leave feedback through github's issue tracker
 
 - Format module: 
      - Checks syntax problems with the request and 
