@@ -1,5 +1,4 @@
 require 'tester/util/response_evaluator.rb'
-require 'pry'
 
 class MethodCaseTest
     attr_accessor :expected_response
