@@ -96,13 +96,13 @@ values_array = field.negative_boundary_values
 Put them together and call go and off you go!
 ```ruby
 request = Request.new.add_field(Field.new "fieldName")
-response = Response.new(200).add_field(Field.new "fieldName")
+expected_response = Response.new(200).add_field(Field.new "fieldName")
 get_method = ApiGet.new "http://yourbase.com/api/method"
 get_method.request = request
-get_method.expected_response = response
+get_method.expected_response = expected_response
 endpoint = Endpoint.new "Unused Name Sorry"
 endpoint.add_method get_method
-tester = ApiTester.new(endpoint).with_module(Boundary.new)
+tester = ApiTester.new(endpoint).with_module(Format.new)
 expect(tester.go).to be true
 
 ```
