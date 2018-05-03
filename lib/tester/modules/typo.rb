@@ -19,13 +19,14 @@ class Typo < Module
 
     def check_verbs definition, url, verbs
         missing_verbs = SupportedVerbs.all - verbs
+        puts "Missing verbs: #{missing_verbs}"
         missing_verbs.each do |verb|
             response = call url, verb
             request = Request.new
 
             test = TypoClass.new response, request.payload, definition.not_allowed_response, url, verb
             reports = test.check
-            puts "Verbs found #{reports.size}"
+            puts "Verb check found #{reports.size}"
             puts reports
             puts "****"
             self.report.reports.concat reports
@@ -39,7 +40,7 @@ class Typo < Module
 
         test = TypoClass.new response, request.payload, definition.not_found_response, bad_url, SupportedVerbs::GET
             reports = test.check
-            puts "Url found #{reports.size}"
+            puts "Mistype url check found #{reports.size}"
             puts reports
             puts "****"
         self.report.reports.concat reports

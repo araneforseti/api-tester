@@ -13,6 +13,7 @@ describe Typo do
   let(:url) {"www.example.com"}
   let(:bad_url) {"#{url}gibberishadsfasdf"}
   let(:api_get) { ApiGet.new url }
+  let(:api_post) { ApiPost.new url }
   let(:endpoint) {Endpoint.new "Test"}
   let(:not_found) {Response.new 404}
   let(:not_allow) {Response.new 415}
@@ -38,6 +39,14 @@ describe Typo do
 
     it 'passes if the expected not allowed response is returned' do
       stub_request(:post, url).to_return(body: "", status: not_allow.code)
+      expect(typo.go(endpoint, report)).to be true
+    end
+  end
+
+  context 'all verbs defined in definition' do
+    it 'passes' do
+      endpoint.add_method api_post
+      stub_request(:post, url).to_return(body: "", status: 200)
       expect(typo.go(endpoint, report)).to be true
     end
   end
