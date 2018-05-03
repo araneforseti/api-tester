@@ -21,6 +21,8 @@ class ApiReport
       puts "Issues discovered: #{self.reports.size}"
       self.reports.each do |report|
         report.print
+        puts "\n"
+        puts "\n"
       end
       puts ""
       puts "Issues discovered: #{self.reports.size}"
