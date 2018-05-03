@@ -20,10 +20,11 @@ class Typo < Module
     def check_verbs definition, url, verbs
         missing_verbs = SupportedVerbs.all - verbs
         missing_verbs.each do |verb|
-            response = call url, verb
-            request = Request.new
+            check_method = create_api_method url, verb
+            typo_case = BoundaryCase.new("Typo verb check #{verb}", {}, {})
+            response = self.call check_method, typo_case
 
-            test = TypoClass.new response, request.payload, definition.not_allowed_response, url, verb
+            test = TypoClass.new response, typo_case.payload, definition.not_allowed_response, url, verb
             reports = test.check
             self.report.reports.concat reports
         end
@@ -31,12 +32,18 @@ class Typo < Module
 
     def check_typo_url definition, url
         bad_url = "#{url}gibberishadsfasdf"
-        request = Request.new
-        response = call bad_url, SupportedVerbs::GET
+        typo_case = BoundaryCase.new("Typo URL check", {}, {})
+        check_method = create_api_method bad_url, SupportedVerbs::GET
+        response = self.call check_method, typo_case
 
-        test = TypoClass.new response, request.payload, definition.not_found_response, bad_url, SupportedVerbs::GET
+        test = TypoClass.new response, typo_case.payload, definition.not_found_response, bad_url, SupportedVerbs::GET
             reports = test.check
         self.report.reports.concat reports
+    end
+
+    def create_api_method url, verb
+      method = SupportedVerbs.get_method_for(verb)
+      method.new url
     end
 
     def allowances(definition)
@@ -50,15 +57,6 @@ class Typo < Module
             end
         end
         allowances
-    end
-
-    def call(url, verb)
-        begin
-            RestClient::Request.execute(method: verb, url: url,
-                                timeout: 10)
-        rescue RestClient::ExceptionWithResponse => e
-            e.response
-        end
     end
 end
 
