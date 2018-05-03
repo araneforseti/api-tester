@@ -19,7 +19,6 @@ class Typo < Module
 
     def check_verbs definition, url, verbs
         missing_verbs = SupportedVerbs.all - verbs
-        puts "Missing verbs: #{missing_verbs}"
         missing_verbs.each do |verb|
             response = call url, verb
             request = Request.new
