@@ -26,9 +26,6 @@ class Typo < Module
 
             test = TypoClass.new response, request.payload, definition.not_allowed_response, url, verb
             reports = test.check
-            puts "Verb check found #{reports.size}"
-            puts reports
-            puts "****"
             self.report.reports.concat reports
         end
     end
@@ -40,9 +37,6 @@ class Typo < Module
 
         test = TypoClass.new response, request.payload, definition.not_found_response, bad_url, SupportedVerbs::GET
             reports = test.check
-            puts "Mistype url check found #{reports.size}"
-            puts reports
-            puts "****"
         self.report.reports.concat reports
     end
 
