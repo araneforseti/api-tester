@@ -9,11 +9,13 @@ class ApiTester
   attr_accessor :report
   attr_accessor :modules
   attr_accessor :definition
+  attr_accessor :test_helper
 
   def initialize(definition)
     self.report = ApiReport.new
     self.modules = []
     self.definition = definition
+    self.test_helper = TestHelper.new
   end
 
   def with_module(new_module)
@@ -36,6 +38,7 @@ class ApiTester
 
   def go
     self.modules.sort_by{ |mod| mod.order }.each do |mod|
+      mod.test_helper = self.test_helper
       mod.go self.definition, self.report
     end
 
