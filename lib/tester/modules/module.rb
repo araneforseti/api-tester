@@ -29,4 +29,10 @@ class Module
     self.test_helper.after
   end
 
+  def call method, format_case
+    self.before
+    response = method.call format_case.payload, format_case.headers
+    self.after
+    response
+  end
 end

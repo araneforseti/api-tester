@@ -9,9 +9,7 @@ class Format < Module
     definition.methods.each do |method|
       cases = method.request.cases
       cases.each do |format_case|
-        self.before
-        response = method.call format_case.payload, format_case.headers
-        self.after
+        response = self.call method, format_case
         test = FormatTest.new response, format_case.payload, definition.bad_request_response, method.url, method.verb
         self.report.reports.concat test.check
       end
