@@ -7,7 +7,8 @@ class GoodCase < Module
         super
 
         definition.methods.each do |method|
-            response = method.call method.request.default_payload, method.request.default_headers
+            default_case = BoundaryCase.new method.url, method.request.default_payload, method.request.default_headers
+            response = self.call method, default_case
             test = GoodCaseTest.new response, method
             self.report.reports.concat test.check
         end

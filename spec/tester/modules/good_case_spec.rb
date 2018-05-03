@@ -74,6 +74,32 @@ describe GoodCase do
         end
       end
     end
+
+    context 'should use test helper' do
+      before :each do
+        test_helper_mock = Class.new(TestHelper) do
+          def before
+            RestClient.get("www.test.com/before")
+          end
+ 
+          def after
+            RestClient.get("www.test.com/after")
+          end
+        end
+        good_case.test_helper = test_helper_mock.new
+        stub_request(:get, "www.test.com/before").to_return(body: '', status: 200)
+        stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
+        expect(good_case.go(endpoint, report)).to be true
+      end
+ 
+      it 'should make use of test helper before method' do
+        expect(a_request(:get, "www.test.com/before")).to have_been_made.at_least_once
+      end
+ 
+      it 'should make use of test helper after method' do
+        expect(a_request(:get, "www.test.com/after")).to have_been_made.at_least_once
+      end
+    end
   end
 
   context 'post request' do
@@ -131,6 +157,32 @@ describe GoodCase do
         response.add_field(Field.new("missingField"))
         api_post.expected_response = response
         expect(good_case.go(endpoint, report)).to be false
+      end
+    end
+
+    context 'should use test helper' do
+      before :each do
+        test_helper_mock = Class.new(TestHelper) do
+          def before
+            RestClient.get("www.test.com/before")
+          end
+ 
+          def after
+            RestClient.get("www.test.com/after")
+          end
+        end
+        good_case.test_helper = test_helper_mock.new
+        stub_request(:get, "www.test.com/before").to_return(body: '', status: 200)
+        stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
+        expect(good_case.go(endpoint, report)).to be true
+      end
+ 
+      it 'should make use of test helper before method' do
+        expect(a_request(:get, "www.test.com/before")).to have_been_made.at_least_once
+      end
+ 
+      it 'should make use of test helper after method' do
+        expect(a_request(:get, "www.test.com/after")).to have_been_made.at_least_once
       end
     end
   end
