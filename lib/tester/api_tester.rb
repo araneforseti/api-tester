@@ -34,7 +34,6 @@ class ApiTester
     self
   end
 
-  #TODO: Find a way to test module orders
   def go
     self.modules.sort_by{ |mod| mod.order }.each do |mod|
       mod.go self.definition, self.report
