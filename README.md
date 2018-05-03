@@ -107,6 +107,26 @@ expect(tester.go).to be true
 
 ```
 
+## Dependencies
+
+If your API has some setup which needs to happen before or after each call for a particular endpoint, you can use the TestHelper interface:
+
+```ruby
+class InfoCreator < TestHelper
+  def before
+    puts "This code runs before every call"
+  end
+
+  def after
+    puts "This code runs after every call"
+  end
+end
+
+tester = ApiTester.new(endpoint)
+tester.test_helper = InfoCreator.new
+expect(tester.go).to be true
+```  
+
 # Modules
 ## Boundary
 This module will test out various edge cases and 
