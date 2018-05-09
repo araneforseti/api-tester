@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/araneforseti/api-tester.svg?branch=master)](https://travis-ci.org/araneforseti/api-tester)
 
 Work in Progress! Use at own risk, definitely not ready 
-for prime time!
+for prime time! To isolate your project from the changes, be sure to specify which gem version you use.
 
 This gem is intended to enable easy creation of tests for 
 RESTful API services when given a contract.
@@ -48,10 +48,10 @@ required)
 # Usage
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile (Note: specify your version due to gem's currently volatile nature):
 
 ```ruby
-gem 'api-tester'
+gem 'api-tester', '0.0.1'
 ```
 
 And then execute:
