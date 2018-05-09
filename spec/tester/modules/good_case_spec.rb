@@ -86,7 +86,7 @@ describe GoodCase do
             RestClient.get("www.test.com/after")
           end
         end
-        good_case.test_helper = test_helper_mock.new
+        endpoint.test_helper = test_helper_mock.new
         stub_request(:get, "www.test.com/before").to_return(body: '', status: 200)
         stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
         expect(good_case.go(endpoint, report)).to be true
@@ -171,7 +171,7 @@ describe GoodCase do
             RestClient.get("www.test.com/after")
           end
         end
-        good_case.test_helper = test_helper_mock.new
+        endpoint.test_helper = test_helper_mock.new
         stub_request(:get, "www.test.com/before").to_return(body: '', status: 200)
         stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
         expect(good_case.go(endpoint, report)).to be true

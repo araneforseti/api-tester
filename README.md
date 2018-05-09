@@ -122,8 +122,8 @@ class InfoCreator < TestHelper
   end
 end
 
-tester = ApiTester.new(endpoint)
-tester.test_helper = InfoCreator.new
+endpoint = Endpoint.new "Endpoint Name", "www.endpoint-url.com"
+endpoint.test_helper = InfoCreator.new
 expect(tester.go).to be true
 ```  
 
