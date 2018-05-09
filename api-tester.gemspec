@@ -6,7 +6,7 @@ require 'tester/version'
 Gem::Specification.new do |spec|
   spec.name          = "api-tester"
   spec.version       = Tester::VERSION
-  spec.authors       = ["araneforseti"]
+  spec.authors       = ["arane"]
   spec.email         = ["arane9@gmail.com"]
 
   spec.summary       = %q{Tool to help test APIs}
@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata['allowed_push_host'] = 'https://rubygems.org/'
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
