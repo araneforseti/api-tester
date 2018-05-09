@@ -15,7 +15,7 @@ describe ApiGet do
                        .with_field(Field.new("other_field"))]}
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:code) { 200 }
-    let(:api_get) { ApiGet.new url }
+    let(:api_get) { ApiGet.new }
     let(:response) { Response.new code }
 
     before :each do
@@ -29,7 +29,7 @@ describe ApiGet do
     end
 
     it 'should call' do
-      expect(api_get.call.code).to eq code
+      expect(api_get.call(url).code).to eq code
     end
 
   end

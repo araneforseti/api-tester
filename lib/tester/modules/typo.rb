@@ -20,9 +20,9 @@ class Typo < Module
     def check_verbs definition, url, verbs
         missing_verbs = SupportedVerbs.all - verbs
         missing_verbs.each do |verb|
-            check_method = create_api_method url, verb
+            check_method = create_api_method verb
             typo_case = BoundaryCase.new("Typo verb check #{verb}", {}, {})
-            response = self.call check_method, typo_case
+            response = self.call check_method, definition.url, typo_case
 
             test = TypoClass.new response, typo_case.payload, definition.not_allowed_response, url, verb
             reports = test.check
@@ -33,23 +33,23 @@ class Typo < Module
     def check_typo_url definition, url
         bad_url = "#{url}gibberishadsfasdf"
         typo_case = BoundaryCase.new("Typo URL check", {}, {})
-        check_method = create_api_method bad_url, SupportedVerbs::GET
-        response = self.call check_method, typo_case
+        check_method = create_api_method SupportedVerbs::GET
+        response = self.call check_method, bad_url, typo_case
 
         test = TypoClass.new response, typo_case.payload, definition.not_found_response, bad_url, SupportedVerbs::GET
             reports = test.check
         self.report.reports.concat reports
     end
 
-    def create_api_method url, verb
+    def create_api_method verb
       method = SupportedVerbs.get_method_for(verb)
-      method.new url
+      method.new
     end
 
     def allowances(definition)
         allowances = {}
         definition.methods.each do |method|
-            url = method.url
+            url = definition.url
             if allowances[url]
                 allowances[url] << method.verb
             else

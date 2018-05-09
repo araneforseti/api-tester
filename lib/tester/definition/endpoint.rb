@@ -1,13 +1,15 @@
 require 'tester/definition/response'
 
 class Endpoint
+  attr_accessor :url
   attr_accessor :methods
   attr_accessor :name
   attr_accessor :bad_request_response
   attr_accessor :not_allowed_response
   attr_accessor :not_found_response
 
-  def initialize name
+  def initialize name, url
+    self.url = url
     self.name = name
     self.methods = []
     self.bad_request_response = Response.new 400

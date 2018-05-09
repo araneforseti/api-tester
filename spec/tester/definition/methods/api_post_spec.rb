@@ -11,7 +11,7 @@ describe ApiPost do
     let(:fields) {[Field.new("numKey"), Field.new("string_key")]}
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
     let(:code) { 200 }
-    let(:api_post) { ApiPost.new url }
+    let(:api_post) { ApiPost.new }
     let(:response) { Response.new code }
 
     before :each do
@@ -25,7 +25,7 @@ describe ApiPost do
     end
 
     it 'should call' do
-      expect(api_post.call.code).to eq code
+      expect(api_post.call(url).code).to eq code
     end
   end
 end

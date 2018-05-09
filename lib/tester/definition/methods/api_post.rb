@@ -10,14 +10,14 @@ require 'tester/reporter/status_code_report'
 class ApiPost < ApiMethod
   attr_accessor :syntax_error_response
 
-  def post json_payload, headers
-    RestClient.post(self.url, json_payload, headers)  { |real_response, request, result|
+  def post url, json_payload, headers
+    RestClient.post(url, json_payload, headers)  { |real_response, request, result|
       real_response
     }
   end
 
-  def call body_params={}, request_params={}
-    post body_params.to_json, request_params
+  def call url, body_params={}, request_params={}
+    post url, body_params.to_json, request_params
   end
 
   def verb

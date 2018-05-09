@@ -10,9 +10,9 @@ require 'tester/test_helper'
 
 describe Format do
   let(:url) {"www.example.com"}
-  let(:api_post) { ApiPost.new url }
+  let(:api_post) { ApiPost.new }
   let(:request) { Request.new }
-  let(:endpoint) {Endpoint.new "Test"}
+  let(:endpoint) {Endpoint.new "Test", url}
   let(:expected_code) {400}
   let(:expected_response) {Response.new expected_code}
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}
