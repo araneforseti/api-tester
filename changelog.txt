@@ -1,3 +1,11 @@
+0.0.4
+
+- Moving test_helper from tester level to endpoint level in preparation for moving to full definition
+
+0.0.3
+
+- Fixing Problem with 0.0.2
+
 0.0.2
 
 - Moving url from methods to endpoints

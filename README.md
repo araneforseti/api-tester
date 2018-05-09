@@ -51,7 +51,7 @@ required)
 Add this line to your application's Gemfile (Note: specify your version due to gem's currently volatile nature):
 
 ```ruby
-gem 'api-tester', '0.0.2'
+gem 'api-tester', '0.0.3'
 ```
 
 And then execute:
