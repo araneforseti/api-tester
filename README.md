@@ -1,4 +1,5 @@
 # Api::Tester
+[![Gem Version](https://badge.fury.io/rb/api-tester.svg)](https://badge.fury.io/rb/api-tester)
 [![Build Status](https://travis-ci.org/araneforseti/api-tester.svg?branch=master)](https://travis-ci.org/araneforseti/api-tester)
 
 Work in Progress! Use at own risk, definitely not ready 
