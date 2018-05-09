@@ -26,19 +26,19 @@ describe Response do
     context '#to_s' do
         it "prints out names of fields" do
             response.add_field(Field.new "field1").add_field(Field.new "field2")
-            expect(response.to_s).to eq('["field1:Field", "field2:Field"]')
+            expect(response.to_s).to eq("{\"field1\":\"Field\",\"field2\":\"Field\"}")
         end
 
         it "prints out names of inner fields for object fields" do
             object_field = ObjectField.new("obj").with_field(Field.new "inner")
             response.add_field(object_field)
-            expect(response.to_s).to eq('["obj:[\"inner:Field\"]"]')
+            expect(response.to_s).to eq("{\"obj\":{\"inner\":\"Field\"}}")
         end
 
         it "prints out names of inner fields for array fields" do
             array_field = ArrayField.new("arr").with_field(Field.new "inner")
             response.add_field(array_field)
-            expect(response.to_s).to eq('["arr:[\"inner:Field\"]"]')
+            expect(response.to_s).to eq("{\"arr\":{\"inner\":\"Field\"}}")
         end
     end
 end

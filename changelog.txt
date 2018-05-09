@@ -1,3 +1,7 @@
+0.0.5
+
+- Fixing test output to be more readable
+
 0.0.4
 
 - Moving test_helper from tester level to endpoint level in preparation for moving to full definition

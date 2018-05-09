@@ -18,7 +18,7 @@ class Report
     puts "   Requested #{self.url} with payload:"
     puts "      #{self.request.to_json}"
     puts "   Expecting: "
-    puts "      #{self.expected_response}"
+    puts "      " + self.expected_response.to_s
     puts "   Receiving: "
     puts "      #{self.actual_response}"
   end

@@ -13,17 +13,22 @@ class Response
     end
 
     def to_s
+        des = {}
         s = self.body.map do |f|
-            field_display f
+            des[f.name] = field_display f
         end
-        s.to_s
+        des.to_json
     end
 
     def field_display field
+        des = field.display_class
         if field.has_subfields?
-            "#{field.name}:#{field.fields.map{|f| field_display(f)}}"
-        else
-            "#{field.name}:#{field.display_class}"
+          des = {}
+          s = field.fields.map do |f|
+            des[f.name] = field_display f
+          end
+          des.to_json
         end
+        des
     end
 end
