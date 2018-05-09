@@ -51,7 +51,7 @@ required)
 Add this line to your application's Gemfile (Note: specify your version due to gem's currently volatile nature):
 
 ```ruby
-gem 'api-tester', '0.0.1'
+gem 'api-tester', '0.0.2'
 ```
 
 And then execute:
@@ -70,13 +70,13 @@ stable release
 
 Define your endpoints using
 ```ruby
-endpoint = Endpoint.new "Some name which is currently unused"
+endpoint = Endpoint.new "Some name which is currently unused", "http://yourbase.com/api/endpoint"
 ```
 
 Define methods on endpoints
 
 ```ruby
-get_method = ApiGet.new "http://yourbase.com/api/method"
+get_method = ApiGet.new 
 ```
 Note: Currently only GET and POST have been created, but 
 you can make your own so long as it has `call` and `verb` methods 
@@ -97,10 +97,10 @@ Put them together and call go and off you go!
 ```ruby
 request = Request.new.add_field(Field.new "fieldName")
 expected_response = Response.new(200).add_field(Field.new "fieldName")
-get_method = ApiGet.new "http://yourbase.com/api/method"
+get_method = ApiGet.new 
 get_method.request = request
 get_method.expected_response = expected_response
-endpoint = Endpoint.new "Unused Name Sorry"
+endpoint = Endpoint.new "Unused Name", "http://yourbase.com/api/endpoint"
 endpoint.add_method get_method
 tester = ApiTester.new(endpoint).with_module(Format.new)
 expect(tester.go).to be true
