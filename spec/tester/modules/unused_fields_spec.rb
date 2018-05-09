@@ -14,9 +14,9 @@ describe UnusedFields do
     let(:fields) {[Field.new("numKey"), Field.new("string_key")]}
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
     let(:code) { 200 }
-    let(:api_post) { ApiPost.new url }
+    let(:api_post) { ApiPost.new }
     let(:response) { Response.new code }
-    let(:endpoint) {Endpoint.new "Test"}
+    let(:endpoint) {Endpoint.new "Test", url}
     let(:unused_fields) {UnusedFields.new}
     let(:report) {ApiReport.new}
 

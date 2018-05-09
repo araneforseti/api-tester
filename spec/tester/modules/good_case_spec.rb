@@ -18,8 +18,8 @@ describe GoodCase do
                        .with_field(Field.new("other_field"))]}
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:code) { 200 }
-    let(:api_get) { ApiGet.new url }
-    let(:endpoint) {Endpoint.new "Test"}
+    let(:api_get) { ApiGet.new }
+    let(:endpoint) {Endpoint.new "Test", url}
     let(:response) { Response.new code }
     let(:good_case) {GoodCase.new}
     let(:report) {ApiReport.new}
@@ -108,9 +108,9 @@ describe GoodCase do
     let(:fields) {[Field.new("numKey"), Field.new("string_key"), ObjectField.new("obj").with_field(Field.new("inner"))]}
     let(:body) { '{"numKey": 1, "string_key": "string", "obj": {"inner": "string"}}' }
     let(:code) { 200 }
-    let(:api_post) { ApiPost.new url }
+    let(:api_post) { ApiPost.new }
     let(:response) { Response.new code }
-    let(:endpoint) {Endpoint.new "Test"}
+    let(:endpoint) {Endpoint.new "Test", url}
     let(:good_case) {GoodCase.new}
     let(:report) {ApiReport.new}
 

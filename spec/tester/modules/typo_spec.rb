@@ -12,9 +12,9 @@ require 'tester/util/supported_verbs'
 describe Typo do
   let(:url) {"www.example.com"}
   let(:bad_url) {"#{url}gibberishadsfasdf"}
-  let(:api_get) { ApiGet.new url }
-  let(:api_post) { ApiPost.new url }
-  let(:endpoint) {Endpoint.new "Test"}
+  let(:api_get) { ApiGet.new }
+  let(:api_post) { ApiPost.new }
+  let(:endpoint) {Endpoint.new "Test", url}
   let(:not_found) {Response.new 404}
   let(:not_allow) {Response.new 415}
   let(:report) {ApiReport.new}
@@ -65,13 +65,15 @@ describe Typo do
 
   context 'calculate definition allowances' do
     it 'can return the url-method hash' do
-      api_post = ApiPost.new url
-      api_get_2 = ApiGet.new "new_url"
+      api_post = ApiPost.new
       endpoint.add_method api_post
-      endpoint.add_method api_get_2
-      expected_allowances = {url => [SupportedVerbs::GET, SupportedVerbs::POST],
-                            "new_url" => [SupportedVerbs::GET]
-      }
+      expected_allowances = {url => [SupportedVerbs::GET, SupportedVerbs::POST]}
+
+      expect(typo.allowances(endpoint)).to eq expected_allowances
+    end
+
+    it 'can return the url-method hash' do
+      expected_allowances = {url => [SupportedVerbs::GET]}
 
       expect(typo.allowances(endpoint)).to eq expected_allowances
     end

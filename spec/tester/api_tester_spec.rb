@@ -11,9 +11,9 @@ require 'tester/reporter/api_report'
 
 describe ApiTester do
   let(:url) {"www.example.com"}
-  let(:api_get) { ApiGet.new url }
+  let(:api_get) { ApiGet.new }
   let(:request) { Request.new }
-  let(:endpoint) {Endpoint.new "Test"}
+  let(:endpoint) {Endpoint.new "Test", url}
   let(:expected_code) {200}
   let(:unexpected_code) {404}
   let(:not_allowed_code) {415}

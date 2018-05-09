@@ -1,0 +1,3 @@
+0.0.2
+
+- Moving url from methods to endpoints

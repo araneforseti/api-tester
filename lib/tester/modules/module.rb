@@ -29,9 +29,9 @@ class Module
     self.test_helper.after
   end
 
-  def call method, format_case
+  def call method, url, format_case
     self.before
-    response = method.call format_case.payload, format_case.headers
+    response = method.call url, format_case.payload, format_case.headers
     self.after
     response
   end
