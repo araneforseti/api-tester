@@ -22,7 +22,7 @@ class Typo < Module
         missing_verbs.each do |verb|
             check_method = create_api_method verb
             typo_case = BoundaryCase.new("Typo verb check #{verb}", {}, {})
-            response = self.call check_method, definition.url, typo_case
+            response = self.call check_method, definition, typo_case
 
             test = TypoClass.new response, typo_case.payload, definition.not_allowed_response, url, verb
             reports = test.check
@@ -32,9 +32,10 @@ class Typo < Module
 
     def check_typo_url definition, url
         bad_url = "#{url}gibberishadsfasdf"
+        bad_definition = Endpoint.new "Bad URL", bad_url
         typo_case = BoundaryCase.new("Typo URL check", {}, {})
         check_method = create_api_method SupportedVerbs::GET
-        response = self.call check_method, bad_url, typo_case
+        response = self.call check_method, bad_definition, typo_case
 
         test = TypoClass.new response, typo_case.payload, definition.not_found_response, bad_url, SupportedVerbs::GET
             reports = test.check

@@ -38,7 +38,6 @@ class ApiTester
 
   def go
     self.modules.sort_by{ |mod| mod.order }.each do |mod|
-      mod.test_helper = self.test_helper
       mod.go self.definition, self.report
     end
 

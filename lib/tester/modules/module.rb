@@ -3,11 +3,6 @@ require 'tester/test_helper'
 
 class Module
   attr_accessor :report
-  attr_accessor :test_helper
-
-  def initialize
-    self.test_helper = TestHelper.new
-  end
 
   def set_report report
     self.report = report
@@ -21,18 +16,18 @@ class Module
     5
   end
 
-  def before
-    self.test_helper.before
+  def before definition
+    definition.test_helper.before
   end
 
-  def after
-    self.test_helper.after
+  def after definition
+    definition.test_helper.after
   end
 
-  def call method, url, format_case
-    self.before
-    response = method.call url, format_case.payload, format_case.headers
-    self.after
+  def call method, definition, format_case
+    self.before definition
+    response = method.call definition.url, format_case.payload, format_case.headers
+    self.after definition
     response
   end
 end
