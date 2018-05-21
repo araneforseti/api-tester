@@ -18,7 +18,8 @@ class SupportedVerbs
 
   def SupportedVerbs.get_method_for(verb)
     {:get => ApiGet, :post => ApiPost, :delete => ApiDelete, :put => ApiPut,
-      :patch => ApiPatch, :head => ApiHead, :options => ApiOptions, :copy => ApiCopy}[verb]
+      :patch => ApiPatch, :head => ApiHead, :options => ApiOptions, :copy => ApiCopy,
+      :lock => ApiLock}[verb]
   end
 
   SupportedVerbs.add_item :GET, :get
@@ -32,7 +33,7 @@ class SupportedVerbs
   # SupportedVerbs.add_item :LINK, :link
   # SupportedVerbs.add_item :UNLINK, :unlink
   # SupportedVerbs.add_item :PURGE, :purge
-  # SupportedVerbs.add_item :LOCK, :lock
+  SupportedVerbs.add_item :LOCK, :lock
   # SupportedVerbs.add_item :UNLOCK, :unlock
   # SupportedVerbs.add_item :PROPFIND, :propfind
   # SupportedVerbs.add_item :PROPPATCH, :proppatch
