@@ -26,7 +26,11 @@ class Module
 
   def call method, definition, format_case
     self.before definition
-    response = method.call definition.url, format_case.payload, format_case.headers
+    begin
+      response = method.call definition.url, format_case.payload, format_case.headers
+    rescue RestClient::ExceptionWithResponse => e
+      response = e.response
+    end
     self.after definition
     response
   end

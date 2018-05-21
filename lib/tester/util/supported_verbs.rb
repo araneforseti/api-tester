@@ -17,9 +17,10 @@ class SupportedVerbs
   end
 
   def SupportedVerbs.get_method_for(verb)
-    {:get => ApiGet, :post => ApiPost}[verb]
+    {:get => ApiGet, :post => ApiPost, :delete => ApiDelete}[verb]
   end
 
   SupportedVerbs.add_item :GET, :get
   SupportedVerbs.add_item :POST, :post
+  SupportedVerbs.add_item :DELETE, :delete
 end

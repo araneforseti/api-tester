@@ -1,5 +1,4 @@
 require 'rest-client'
-#require 'json'
 require 'tester/definition/methods/api_method'
 
 class ApiPost < ApiMethod

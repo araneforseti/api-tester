@@ -29,6 +29,7 @@ describe Typo do
     stub_request(:post, url).to_return(body: "", status: not_allow.code)
     stub_request(:get, url).to_return(body: "", status: 200)
     stub_request(:get, bad_url).to_return(body: "", status: not_found.code)
+    stub_request(:delete, url).to_return(status: not_allow.code)
   end
 
   context 'verb not defined in definition responds' do
@@ -85,7 +86,7 @@ describe Typo do
         def before
           RestClient.get("www.test.com/before")
         end
-        
+
         def after
           RestClient.get("www.test.com/after")
         end
@@ -95,11 +96,11 @@ describe Typo do
       stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
       expect(typo.go(endpoint, report)).to be true
     end
-      
+
     it 'should make use of test helper before method' do
       expect(a_request(:get, "www.test.com/before")).to have_been_made.at_least_once
     end
-      
+
     it 'should make use of test helper after method' do
       expect(a_request(:get, "www.test.com/after")).to have_been_made.at_least_once
     end
