@@ -2,8 +2,6 @@ require 'rest-client'
 require 'tester/definition/methods/api_method'
 
 class ApiPost < ApiMethod
-  attr_accessor :syntax_error_response
-
   def post url, json_payload, headers
     RestClient.post(url, json_payload, headers)  { |real_response, request, result|
       real_response
