@@ -1,8 +1,5 @@
 require 'tester/definition/request'
 require 'tester/definition/response'
-require 'tester/reporter/status_code_report'
-require 'tester/reporter/missing_field_report'
-require 'tester/reporter/api_report'
 require 'json'
 
 class ApiMethod

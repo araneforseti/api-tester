@@ -1,11 +1,6 @@
-require 'tester/definition/request'
-require 'tester/definition/response'
-require "tester/version"
 require 'rest-client'
 require 'json'
 require 'tester/definition/methods/api_method'
-require 'tester/reporter/api_report'
-require 'tester/reporter/status_code_report'
 
 class ApiPost < ApiMethod
   attr_accessor :syntax_error_response

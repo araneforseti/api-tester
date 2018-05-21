@@ -1,9 +1,5 @@
-require 'tester/definition/request'
-require 'tester/definition/response'
-require "tester/version"
 require 'tester/util/supported_verbs'
 require 'rest-client'
-require 'json'
 require 'tester/definition/methods/api_method'
 
 class ApiGet < ApiMethod
