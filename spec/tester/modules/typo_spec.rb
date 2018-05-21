@@ -26,8 +26,9 @@ describe Typo do
     endpoint.not_allowed_response = not_allow
     endpoint.not_found_response = not_found
 
-    stub_request(:post, url).to_return(body: "", status: not_allow.code)
     stub_request(:get, url).to_return(body: "", status: 200)
+    stub_request(:post, url).to_return(body: "", status: not_allow.code)
+    stub_request(:patch, url).to_return(body: "", status: not_allow.code)
     stub_request(:put, url).to_return(body: "", status: not_allow.code)
     stub_request(:get, bad_url).to_return(body: "", status: not_found.code)
     stub_request(:delete, url).to_return(status: not_allow.code)

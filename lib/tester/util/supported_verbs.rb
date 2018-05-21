@@ -17,14 +17,15 @@ class SupportedVerbs
   end
 
   def SupportedVerbs.get_method_for(verb)
-    {:get => ApiGet, :post => ApiPost, :delete => ApiDelete, :put => ApiPut}[verb]
+    {:get => ApiGet, :post => ApiPost, :delete => ApiDelete, :put => ApiPut,
+      :patch => ApiPatch}[verb]
   end
 
   SupportedVerbs.add_item :GET, :get
   SupportedVerbs.add_item :POST, :post
   SupportedVerbs.add_item :DELETE, :delete
   SupportedVerbs.add_item :PUT, :put
-  # SupportedVerbs.add_item :PATCH, :patch
+  SupportedVerbs.add_item :PATCH, :patch
   # SupportedVerbs.add_item :COPY, :copy
   # SupportedVerbs.add_item :HEAD, :head
   # SupportedVerbs.add_item :OPTIONS, :options
