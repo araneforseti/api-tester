@@ -44,9 +44,6 @@ class Typo < Module
 
     def create_api_method verb
       method = SupportedVerbs.get_method_for(verb)
-      puts verb
-      puts "Found: "
-      puts method
       method.new
     end
 
