@@ -3,6 +3,7 @@ require 'tester/modules/good_case'
 require 'tester/modules/unused_fields'
 require 'tester/modules/typo'
 require 'rest-client'
+require 'tester/reporter/api_report'
 require 'json'
 
 class ApiTester
