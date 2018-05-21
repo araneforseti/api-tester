@@ -1,6 +1,6 @@
 0.0.5
 
-- Adding support for delete, put, head, options, copy, lock, unlock, and patch verbs
+- Adding support for delete, put, head, options, copy, mkcol, move, propfind, proppatch, trace, lock, unlock, and patch verbs
 - Fixing test output to be more readable
 
 0.0.4

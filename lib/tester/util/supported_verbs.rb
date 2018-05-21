@@ -19,27 +19,23 @@ class SupportedVerbs
   def SupportedVerbs.get_method_for(verb)
     {:get => ApiGet, :post => ApiPost, :delete => ApiDelete, :put => ApiPut,
       :patch => ApiPatch, :head => ApiHead, :options => ApiOptions, :copy => ApiCopy,
-      :lock => ApiLock, :unlock => ApiUnlock}[verb]
+      :lock => ApiLock, :unlock => ApiUnlock, :propfind => ApiPropfind, :move => ApiMove,
+      :mkcol => ApiMkcol, :proppatch => ApiProppatch, :trace => ApiTrace}[verb]
   end
 
-  SupportedVerbs.add_item :GET, :get
-  SupportedVerbs.add_item :POST, :post
-  SupportedVerbs.add_item :DELETE, :delete
-  SupportedVerbs.add_item :PUT, :put
-  SupportedVerbs.add_item :PATCH, :patch
-  SupportedVerbs.add_item :HEAD, :head
-  SupportedVerbs.add_item :OPTIONS, :options
   SupportedVerbs.add_item :COPY, :copy
-  # SupportedVerbs.add_item :LINK, :link
-  # SupportedVerbs.add_item :UNLINK, :unlink
-  # SupportedVerbs.add_item :PURGE, :purge
+  SupportedVerbs.add_item :DELETE, :delete
+  SupportedVerbs.add_item :GET, :get
+  SupportedVerbs.add_item :HEAD, :head
   SupportedVerbs.add_item :LOCK, :lock
+  SupportedVerbs.add_item :MKCOL, :mkcol
+  SupportedVerbs.add_item :MOVE, :move
+  SupportedVerbs.add_item :OPTIONS, :options
+  SupportedVerbs.add_item :PATCH, :patch
+  SupportedVerbs.add_item :POST, :post
+  SupportedVerbs.add_item :PROPFIND, :propfind
+  SupportedVerbs.add_item :PROPPATCH, :proppatch
+  SupportedVerbs.add_item :PUT, :put
+  SupportedVerbs.add_item :TRACE, :trace
   SupportedVerbs.add_item :UNLOCK, :unlock
-  # SupportedVerbs.add_item :PROPFIND, :propfind
-  # SupportedVerbs.add_item :PROPPATCH, :proppatch
-  # SupportedVerbs.add_item :VIEW, :view
-  # SupportedVerbs.add_item :MKCOL, :mkcol
-  # SupportedVerbs.add_item :CONNECT, :connect
-  # SupportedVerbs.add_item :TRACE, :trace
-  # SupportedVerbs.add_item :MOVE, :move
 end
