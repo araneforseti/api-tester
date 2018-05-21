@@ -1,6 +1,6 @@
 0.0.5
 
-- Adding support for delete, put, and patch verbs
+- Adding support for delete, put, head, and patch verbs
 - Fixing test output to be more readable
 
 0.0.4

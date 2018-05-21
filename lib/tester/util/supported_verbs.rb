@@ -18,7 +18,7 @@ class SupportedVerbs
 
   def SupportedVerbs.get_method_for(verb)
     {:get => ApiGet, :post => ApiPost, :delete => ApiDelete, :put => ApiPut,
-      :patch => ApiPatch}[verb]
+      :patch => ApiPatch, :head => ApiHead}[verb]    
   end
 
   SupportedVerbs.add_item :GET, :get
@@ -26,9 +26,9 @@ class SupportedVerbs
   SupportedVerbs.add_item :DELETE, :delete
   SupportedVerbs.add_item :PUT, :put
   SupportedVerbs.add_item :PATCH, :patch
-  # SupportedVerbs.add_item :COPY, :copy
-  # SupportedVerbs.add_item :HEAD, :head
+  SupportedVerbs.add_item :HEAD, :head
   # SupportedVerbs.add_item :OPTIONS, :options
+  # SupportedVerbs.add_item :COPY, :copy
   # SupportedVerbs.add_item :LINK, :link
   # SupportedVerbs.add_item :UNLINK, :unlink
   # SupportedVerbs.add_item :PURGE, :purge
