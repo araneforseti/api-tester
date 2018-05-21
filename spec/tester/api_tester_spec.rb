@@ -51,6 +51,7 @@ describe ApiTester do
     stub_request(:put, url).to_return(body: "{}", status: not_allowed_code)
     stub_request(:patch, url).to_return(body: "{}", status: not_allowed_code)
     stub_request(:head, url).to_return(body: "{}", status: not_allowed_code)
+    stub_request(:options, url).to_return(body: "{}", status: not_allowed_code)
     stub_request(:get, "#{url}gibberishadsfasdf/").to_return(body: "{}", status: unexpected_code)
     stub_request(:get, "#{url}/?arr").to_return(body: expected_body, status: expected_code)
   end
