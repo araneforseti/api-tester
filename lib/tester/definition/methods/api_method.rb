@@ -11,6 +11,10 @@ class ApiMethod
     self.expected_response = Response.new 200
   end
 
+  def call
+    throw "Not implemented"
+  end
+
   def verb
     "None"
   end
