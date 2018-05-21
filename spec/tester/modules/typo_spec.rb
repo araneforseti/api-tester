@@ -28,6 +28,7 @@ describe Typo do
 
     stub_request(:post, url).to_return(body: "", status: not_allow.code)
     stub_request(:get, url).to_return(body: "", status: 200)
+    stub_request(:put, url).to_return(body: "", status: not_allow.code)
     stub_request(:get, bad_url).to_return(body: "", status: not_found.code)
     stub_request(:delete, url).to_return(status: not_allow.code)
   end

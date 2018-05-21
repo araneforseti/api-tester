@@ -1,6 +1,6 @@
 0.0.5
 
-- Adding support for delete verb
+- Adding support for delete & put verbs
 - Fixing test output to be more readable
 
 0.0.4
