@@ -2,7 +2,6 @@ require "spec_helper"
 require 'webmock/rspec'
 require 'tester/definition/response'
 require 'tester/definition/request'
-require 'tester/definition/methods/api_get'
 require 'tester/definition/endpoint'
 require 'tester/modules/format'
 require 'tester/reporter/api_report'
@@ -10,7 +9,6 @@ require 'tester/test_helper'
 
 describe Format do
   let(:url) {"www.example.com"}
-  let(:api_post) { ApiPost.new }
   let(:request) { Request.new }
   let(:endpoint) {Endpoint.new "Test", url}
   let(:expected_code) {400}
@@ -25,14 +23,12 @@ describe Format do
     expected_fields.each do |field|
       expected_response.add_field field
     end
-    api_post.expected_response = expected_response
 
     request_fields.each do |field|
       request.add_field field
     end
-    api_post.request = request
 
-    endpoint.add_method api_post
+    endpoint.add_method SupportedVerbs::POST, expected_response, request
     endpoint.bad_request_response = expected_response
 
     stub_request(:post, url).to_return(body: expected_body, status: expected_code)
@@ -56,7 +52,7 @@ describe Format do
           RestClient.get("www.test.com/before")
         end
 
-        def after 
+        def after
           RestClient.get("www.test.com/after")
         end
       end

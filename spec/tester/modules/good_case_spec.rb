@@ -2,7 +2,6 @@ require "spec_helper"
 require 'webmock/rspec'
 require 'tester/definition/response'
 require 'tester/definition/request'
-require 'tester/definition/methods/api_get'
 require 'tester/definition/endpoint'
 require 'tester/modules/good_case'
 require 'tester/reporter/api_report'
@@ -18,7 +17,6 @@ describe GoodCase do
                        .with_field(Field.new("other_field"))]}
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:code) { 200 }
-    let(:api_get) { ApiGet.new }
     let(:endpoint) {Endpoint.new "Test", url}
     let(:response) { Response.new code }
     let(:good_case) {GoodCase.new}
@@ -28,9 +26,7 @@ describe GoodCase do
       fields.each do |field|
         response.add_field field
       end
-      api_get.expected_response = response
-      api_get.request = request
-      endpoint.add_method api_get
+      endpoint.add_method SupportedVerbs::GET, response, request
 
       stub_request(:get, "www.example.com").to_return(body: body, status: code)
     end
@@ -43,7 +39,6 @@ describe GoodCase do
       [100, 201, 300, 400, 529].each do | status |
         it "will fail different status code #{status}" do
           response.code = status
-          api_get.expected_response = response
           expect(good_case.go(endpoint, report)).to be false
         end
       end
@@ -56,7 +51,6 @@ describe GoodCase do
 
       it 'fails when a key is missing' do
         response.add_field(Field.new("missingField"))
-        api_get.expected_response = response
         expect(good_case.go(endpoint, report)).to be false
       end
 
@@ -69,7 +63,7 @@ describe GoodCase do
         it 'passes when expecting an empty body' do
           stub_request(:get, "www.example.com").to_return(body: '[]', status: code)
           response = Response.new 200
-          api_get.expected_response = response
+          endpoint.methods[0].expected_response = response
           expect(good_case.go(endpoint, report)).to be true
         end
       end
@@ -81,7 +75,7 @@ describe GoodCase do
           def before
             RestClient.get("www.test.com/before")
           end
- 
+
           def after
             RestClient.get("www.test.com/after")
           end
@@ -91,11 +85,11 @@ describe GoodCase do
         stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
         expect(good_case.go(endpoint, report)).to be true
       end
- 
+
       it 'should make use of test helper before method' do
         expect(a_request(:get, "www.test.com/before")).to have_been_made.at_least_once
       end
- 
+
       it 'should make use of test helper after method' do
         expect(a_request(:get, "www.test.com/after")).to have_been_made.at_least_once
       end
@@ -108,7 +102,6 @@ describe GoodCase do
     let(:fields) {[Field.new("numKey"), Field.new("string_key"), ObjectField.new("obj").with_field(Field.new("inner"))]}
     let(:body) { '{"numKey": 1, "string_key": "string", "obj": {"inner": "string"}}' }
     let(:code) { 200 }
-    let(:api_post) { ApiPost.new }
     let(:response) { Response.new code }
     let(:endpoint) {Endpoint.new "Test", url}
     let(:good_case) {GoodCase.new}
@@ -118,11 +111,7 @@ describe GoodCase do
       fields.each do |field|
         response.add_field field
       end
-      api_post.expected_response = response
-      api_post.request = request
-
-      endpoint.add_method api_post
-
+      endpoint.add_method SupportedVerbs::POST, response, request
       stub_request(:post, url).to_return(body: body, status: code)
     end
 
@@ -134,7 +123,6 @@ describe GoodCase do
       [100, 201, 300, 400, 529].each do | status |
         it "will fail different status code #{status}" do
           response.code = status
-          api_post.expected_response = response
           expect(good_case.go(endpoint, report)).to be false
         end
       end
@@ -155,7 +143,6 @@ describe GoodCase do
 
       it 'fails when a key is missing' do
         response.add_field(Field.new("missingField"))
-        api_post.expected_response = response
         expect(good_case.go(endpoint, report)).to be false
       end
     end
@@ -166,7 +153,7 @@ describe GoodCase do
           def before
             RestClient.get("www.test.com/before")
           end
- 
+
           def after
             RestClient.get("www.test.com/after")
           end
@@ -176,11 +163,11 @@ describe GoodCase do
         stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
         expect(good_case.go(endpoint, report)).to be true
       end
- 
+
       it 'should make use of test helper before method' do
         expect(a_request(:get, "www.test.com/before")).to have_been_made.at_least_once
       end
- 
+
       it 'should make use of test helper after method' do
         expect(a_request(:get, "www.test.com/after")).to have_been_made.at_least_once
       end

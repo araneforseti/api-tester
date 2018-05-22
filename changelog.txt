@@ -1,3 +1,9 @@
+0.1.0
+
+- Moving call to endpoint for path param support
+- Adding top level Contract to bind endpoints together
+- Moved extra verbs check out of typo to its own module
+
 0.0.5
 
 - Adding support for delete, put, head, options, copy, mkcol, move, propfind, proppatch, trace, lock, unlock, and patch verbs

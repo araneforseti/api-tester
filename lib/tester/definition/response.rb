@@ -2,7 +2,7 @@ class Response
     attr_accessor :code
     attr_accessor :body
 
-    def initialize(status_code)
+    def initialize(status_code=200)
         self.code = status_code
         self.body = []
     end
@@ -14,7 +14,7 @@ class Response
 
     def to_s
         des = {}
-        s = self.body.map do |f|
+        self.body.map do |f|
             des[f.name] = field_display f
         end
         des.to_json
@@ -24,7 +24,7 @@ class Response
         des = field.display_class
         if field.has_subfields?
           des = {}
-          s = field.fields.map do |f|
+          field.fields.map do |f|
             des[f.name] = field_display f
           end
           des.to_json

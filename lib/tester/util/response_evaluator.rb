@@ -19,7 +19,7 @@ class ResponseEvaluator
         seen = []
         fields = response_field_array - extra_fields
         expected = expected_fields_hash
-        fields.each do |field_key| 
+        fields.each do |field_key|
             seen << expected[field_key]
         end
         seen
@@ -64,10 +64,10 @@ class ResponseEvaluator
                 fields.concat(field_array(value).map{|i| "#{key}.#{i}"})
             else
                 fields.concat(field_array(key))
-            end 
+            end
         end
         fields
-       rescue NoMethodError => e
+       rescue NoMethodError
         fields
     end
 end

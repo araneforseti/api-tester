@@ -2,7 +2,6 @@ require "spec_helper"
 require 'webmock/rspec'
 require 'tester/definition/response'
 require 'tester/definition/request'
-require 'tester/definition/methods/api_get'
 require 'tester/definition/endpoint'
 require 'tester/modules/unused_fields'
 require 'tester/reporter/api_report'
@@ -14,7 +13,6 @@ describe UnusedFields do
     let(:fields) {[Field.new("numKey"), Field.new("string_key")]}
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
     let(:code) { 200 }
-    let(:api_post) { ApiPost.new }
     let(:response) { Response.new code }
     let(:endpoint) {Endpoint.new "Test", url}
     let(:unused_fields) {UnusedFields.new}
@@ -23,11 +21,8 @@ describe UnusedFields do
     before :each do
       fields.each do |field|
         response.add_field field
-      end
-      api_post.expected_response = response
-      api_post.request = request
-
-      endpoint.add_method api_post
+      end      
+      endpoint.add_method SupportedVerbs::POST, response, request
     end
 
     context 'no fields marked' do

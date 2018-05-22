@@ -3,13 +3,13 @@ require 'tester/modules/module'
 require 'tester/method_case_test'
 
 class GoodCase < Module
-    def go definition, report
+    def go endpoint, report
         super
 
-        definition.methods.each do |method|
-            default_case = BoundaryCase.new definition.url, method.request.default_payload, method.request.default_headers
-            response = self.call method, definition, default_case
-            test = GoodCaseTest.new response, definition.url, method
+        endpoint.methods.each do |method|
+            default_case = BoundaryCase.new endpoint.url, method.request.default_payload, method.request.default_headers
+            response = endpoint.call method, default_case.payload, default_case.headers
+            test = GoodCaseTest.new response, endpoint.url, method
             self.report.reports.concat test.check
         end
 

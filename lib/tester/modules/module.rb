@@ -15,23 +15,4 @@ class Module
   def order
     5
   end
-
-  def before definition
-    definition.test_helper.before
-  end
-
-  def after definition
-    definition.test_helper.after
-  end
-
-  def call method, definition, format_case
-    self.before definition
-    begin
-      response = method.call definition.url, format_case.payload, format_case.headers
-    rescue RestClient::ExceptionWithResponse => e
-      response = e.response
-    end
-    self.after definition
-    response
-  end
 end

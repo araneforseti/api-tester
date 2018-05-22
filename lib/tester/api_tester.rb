@@ -38,8 +38,10 @@ class ApiTester
   end
 
   def go
-    self.modules.sort_by{ |mod| mod.order }.each do |mod|
-      mod.go self.definition, self.report
+    self.definition.endpoints.each do |endpoint|
+      self.modules.sort_by{ |mod| mod.order }.each do |mod|
+        mod.go endpoint, self.report
+      end
     end
 
     self.report.print
