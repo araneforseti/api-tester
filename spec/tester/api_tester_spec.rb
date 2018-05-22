@@ -14,7 +14,6 @@ describe ApiTester do
   let(:contract) {ApiContract.new "Test"}
   let(:request) { Request.new }
   let(:endpoint) {Endpoint.new "Test", url}
-  let(:path_param) { "test" }
   let(:expected_code) {200}
   let(:unexpected_code) {404}
   let(:not_allowed_code) {415}
@@ -47,31 +46,39 @@ describe ApiTester do
     endpoint.bad_request_response = expected_response
 
     contract.add_endpoint endpoint
-
-    stub_request(:any, url).to_return(body: "{}", status: not_allowed_code)
-    stub_request(:get, url).to_return(body: expected_body, status: expected_code)
-    stub_request(:get, "#{url}gibberishadsfasdf/").to_return(body: "{}", status: unexpected_code)
-    stub_request(:get, "#{url}/?arr").to_return(body: expected_body, status: expected_code)
   end
 
-  context 'get request' do
-    it 'everything works' do
-      expect(api_tester.go).to be true
+  context 'no path params' do
+    before(:each) do
+      stub_request(:any, url).to_return(body: "{}", status: not_allowed_code)
+      stub_request(:get, url).to_return(body: expected_body, status: expected_code)
+      stub_request(:get, "#{url}gibberishadsfasdf/").to_return(body: "{}", status: unexpected_code)
+      stub_request(:get, "#{url}/?arr").to_return(body: expected_body, status: expected_code)
     end
 
-    it 'field counts are incremented' do
-      api_tester.go
-      expected_fields.each do |field|
-        expect(field.is_seen).not_to eq 0
+
+    context 'get request' do
+      it 'everything works' do
+        expect(api_tester.go).to be true
+      end
+
+      it 'field counts are incremented' do
+        api_tester.go
+        expected_fields.each do |field|
+          expect(field.is_seen).not_to eq 0
+        end
       end
     end
   end
 
   context 'work with path param' do
+    let(:path_var) {"path"}
+    let(:path_param) { "test" }
+
     before :each do
-      path_var = "path"
+      endpoint.base_url = "#{url}/{#{path_param}}"
       endpoint.add_path_param path_param
-      endpoint.test_helper = PathParamCreator.new
+      endpoint.test_helper = PathParamCreator.new path_param, path_var
 
       endpoint.add_method SupportedVerbs::GET, expected_response, request
       endpoint.bad_request_response = expected_response
@@ -79,24 +86,31 @@ describe ApiTester do
       contract.add_endpoint endpoint
 
       stub_request(:any, "#{url}/#{path_var}").to_return(body: "{}", status: not_allowed_code)
-      stub_request(:get, url).to_return(body: expected_body, status: expected_code)
-      stub_request(:get, "#{url}gibberishadsfasdf/#{path_var}").to_return(body: "{}", status: unexpected_code)
-      stub_request(:get, "#{url}/?arr/#{path_var}").to_return(body: expected_body, status: expected_code)
+      stub_request(:get, "#{url}/#{path_var}").to_return(body: expected_body, status: expected_code)
+      stub_request(:get, "#{url}/#{path_var}gibberishadsfasdf").to_return(body: "{}", status: unexpected_code)
     end
 
     it 'everything works' do
-      expect(api_tester.go).to be true
+      expect(api_tester.go).to be true      
     end
   end
 end
 
 class PathParamCreator < ApiTester::TestHelper
+  attr_accessor :key
+  attr_accessor :value
+
+  def initialize key, value
+    self.key = key
+    self.value = value
+  end
+
   def before
 
   end
 
   def retrieve_param key
-    "path"
+    {self.key => self.value}[key]
   end
 
   def after

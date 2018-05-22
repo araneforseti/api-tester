@@ -23,4 +23,23 @@ describe Endpoint do
       expect(response.body).to eq "response happened"
     end
   end
+
+  context 'url' do
+    it 'should replace path params' do
+      endpoint = Endpoint.new "test path param", "test.com/{paramKey}"
+      endpoint.add_path_param "paramKey"
+      endpoint.test_helper = ParamTestHelper.new
+      expect(endpoint.url).to eq "test.com/paramValue"
+    end
+
+    it 'should make no changes when no path params' do
+      expect(endpoint.url).to eq "test.com"
+    end
+  end
+end
+
+class ParamTestHelper
+  def retrieve_param something
+    {"paramKey" => "paramValue"}[something]
+  end
 end
