@@ -75,7 +75,7 @@ Define your contract and endpoints using
 ```ruby
 require 'api-tester/definition/api_contract'
 require 'api-tester/definition/endpoint'
-contract = ApiContract.new "API Name"
+contract = ApiTester::ApiContract.new "API Name"
 endpoint = ApiTester::Endpoint.new "Some name which is currently unused", "http://yourbase.com/api/endpoint"
 ```
 
@@ -97,16 +97,21 @@ field.has_subfields?
 values_array = field.negative_boundary_values
 ```
 
+Define which modules you want to use through a config
+```ruby
+config = ApiTester::Config().with_module(Format.new)
+```
+
 Put them together and call go and off you go!
 ```ruby
-request = Request.new.add_field(ApiTester::Field.new "fieldName")
+request = ApiTester::Request.new.add_field(ApiTester::Field.new "fieldName")
 expected_response = ApiTester::Response.new(200).add_field(ApiTester::Field.new "fieldName")
 endpoint = ApiTester::Endpoint.new "Unused Name", "http://yourbase.com/api/endpoint"
 endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, request
 contract = ApiContract.new "API Name"
 contract.add_endpoint endpoint
-tester = ApiTester.new(contract).with_module(Format.new)
-expect(tester.go).to be true
+config = ApiTester::Config().with_module(Format.new)
+expect(ApiTester.go(contract, config)).to be true
 
 ```
 
@@ -158,6 +163,23 @@ by previous modules, this will fail with a report
 detailing unreturned response fields. When using this
 module, it is recommended the good case module is also
 used.
+
+## Custom Modules
+Do you want to do something with the definition which this gem currently does not support?
+You can create your own test module and add it to the config instance class!
+Just make sure it adheres to the following interface:
+```ruby
+module Name
+  def self.go contract, reports
+    # Your test code here - the reports object is where the reports are all stored
+  end
+
+  def self.order
+    # If your module needs to run first, put 0, if last, put 100.
+    # Otherwise this can just be any number
+  end
+end  
+```
 
 # Reporting
 Right now the default reporting mechanism prints out to

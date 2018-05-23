@@ -1,3 +1,7 @@
+0.3.0
+
+- Making modules actually be modules
+
 0.2.0
 
 - Finally fixing the naming scheme
