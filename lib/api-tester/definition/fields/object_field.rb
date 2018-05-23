@@ -1,42 +1,44 @@
 require 'api-tester/definition/fields/field'
 
-class ObjectField < Field
-    attr_accessor :fields
+module ApiTester
+  class ObjectField < Field
+      attr_accessor :fields
 
-    def initialize name
-        super(name)
-        self.fields = []
-    end
+      def initialize name
+          super(name)
+          self.fields = []
+      end
 
-    def with_field(newField)
-        self.fields << newField
-        self
-    end
+      def with_field(newField)
+          self.fields << newField
+          self
+      end
 
-    def has_subfields?
-        true
-    end
+      def has_subfields?
+          true
+      end
 
-    def default_value
-        obj = Hash.new
+      def default_value
+          obj = Hash.new
 
-        self.fields.each do |field|
-            obj[field.name] = field.default_value
-        end
+          self.fields.each do |field|
+              obj[field.name] = field.default_value
+          end
 
-        obj
-    end
+          obj
+      end
 
-    def negative_boundary_values
-        super +
-          [
-            "string",
-            [],
-            123,
-            1,
-            0,
-            true,
-            false
-          ]
-    end
+      def negative_boundary_values
+          super +
+            [
+              "string",
+              [],
+              123,
+              1,
+              0,
+              true,
+              false
+            ]
+      end
+  end
 end

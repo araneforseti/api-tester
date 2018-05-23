@@ -1,10 +1,12 @@
-class TestHelper
+module ApiTester
+  class TestHelper
     def before
     end
 
-    def retrieve_param key       
+    def retrieve_param key
     end
 
     def after
     end
+  end
 end

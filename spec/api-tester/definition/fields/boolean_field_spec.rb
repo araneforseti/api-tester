@@ -1,9 +1,9 @@
 require "spec_helper"
 require 'api-tester/definition/fields/boolean_field'
 
-describe BooleanField do
+describe ApiTester::BooleanField do
   context 'default params' do
-    let(:default_boolean) {BooleanField.new("defaultTest")}
+    let(:default_boolean) {ApiTester::BooleanField.new("defaultTest")}
 
     it 'defaults required to false' do
       expect(default_boolean.required).to be false
@@ -16,19 +16,19 @@ describe BooleanField do
 
   context "default value" do
     it "can be set to false" do
-      field = BooleanField.new("testObj", false)
+      field = ApiTester::BooleanField.new("testObj", false)
       expect(field.default_value).to eq false
     end
 
     it "can be set to true" do
-      field = BooleanField.new("testObj", true)
+      field = ApiTester::BooleanField.new("testObj", true)
       expect(field.default_value).to eq true
     end
   end
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {BooleanField.new("testObj").is_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::BooleanField.new("testObj").is_required.negative_boundary_values}
 
       {
           'string' => 'string',
@@ -47,7 +47,7 @@ describe BooleanField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {BooleanField.new("testObj").is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::BooleanField.new("testObj").is_not_required.negative_boundary_values}
 
       {
           'string' => 'string',

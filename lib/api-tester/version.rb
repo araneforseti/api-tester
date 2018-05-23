@@ -1,3 +1,3 @@
-module Tester
+module ApiTester
   VERSION = "0.2.0"
 end

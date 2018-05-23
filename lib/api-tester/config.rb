@@ -1,9 +1,11 @@
+require 'api-tester/reporter/api_report'
+
 module ApiTester
   class Config
     attr_accessor :reporter
     attr_accessor :modules
 
-    def initialize reporter=ApiReport.new
+    def initialize reporter=ApiTester::ApiReport.new
       self.reporter = reporter
       self.modules = []
     end

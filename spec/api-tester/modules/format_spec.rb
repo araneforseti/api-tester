@@ -7,17 +7,17 @@ require 'api-tester/modules/format'
 require 'api-tester/reporter/api_report'
 require 'api-tester/test_helper'
 
-describe Format do
+describe ApiTester::Format do
   let(:url) {"www.example.com"}
-  let(:request) { Request.new }
-  let(:endpoint) {Endpoint.new "Test", url}
+  let(:request) { ApiTester::Request.new }
+  let(:endpoint) {ApiTester::Endpoint.new "Test", url}
   let(:expected_code) {400}
-  let(:expected_response) {Response.new expected_code}
+  let(:expected_response) {ApiTester::Response.new expected_code}
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}
-  let(:expected_fields) {[Field.new("numKey"), Field.new("string_key")]}
-  let(:request_fields) {[ArrayField.new("arr")]}
-  let(:format) {Format.new}
-  let(:report) {ApiReport.new}
+  let(:expected_fields) {[ApiTester::Field.new("numKey"), ApiTester::Field.new("string_key")]}
+  let(:request_fields) {[ApiTester::ArrayField.new("arr")]}
+  let(:format) {ApiTester::Format.new}
+  let(:report) {ApiTester::ApiReport.new}
 
   before :each do
     expected_fields.each do |field|
@@ -28,7 +28,7 @@ describe Format do
       request.add_field field
     end
 
-    endpoint.add_method SupportedVerbs::POST, expected_response, request
+    endpoint.add_method ApiTester::SupportedVerbs::POST, expected_response, request
     endpoint.bad_request_response = expected_response
 
     stub_request(:post, url).to_return(body: expected_body, status: expected_code)
@@ -47,7 +47,7 @@ describe Format do
 
   context 'should use test helper' do
     before :each do
-      test_helper_mock = Class.new(TestHelper) do
+      test_helper_mock = Class.new(ApiTester::TestHelper) do
         def before
           RestClient.get("www.test.com/before")
         end

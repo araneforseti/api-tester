@@ -1,17 +1,17 @@
 require 'api-tester/modules/extra_verbs'
 
-describe ExtraVerbs do
+describe ApiTester::ExtraVerbs do
   let(:url) {"www.example.com"}
   let(:bad_url) {"#{url}gibberishadsfasdf"}
-  let(:endpoint) {Endpoint.new "Test", url}
-  let(:not_found) {Response.new 404}
-  let(:not_allow) {Response.new 415}
-  let(:report) {ApiReport.new}
+  let(:endpoint) {ApiTester::Endpoint.new "Test", url}
+  let(:not_found) {ApiTester::Response.new 404}
+  let(:not_allow) {ApiTester::Response.new 415}
+  let(:report) {ApiTester::ApiReport.new}
 
-  let(:extra_verbs) {ExtraVerbs.new}
+  let(:extra_verbs) {ApiTester::ExtraVerbs.new}
 
   before :each do
-    endpoint.add_method SupportedVerbs::GET, Response.new(200)
+    endpoint.add_method ApiTester::SupportedVerbs::GET, ApiTester::Response.new(200)
     endpoint.not_allowed_response = not_allow
     endpoint.not_found_response = not_found
 
@@ -35,7 +35,7 @@ describe ExtraVerbs do
 
   context 'all verbs defined in definition' do
     it 'passes' do
-      endpoint.add_method SupportedVerbs::POST, Response.new, Request.new
+      endpoint.add_method ApiTester::SupportedVerbs::POST, ApiTester::Response.new, ApiTester::Request.new
       stub_request(:post, url).to_return(body: "", status: 200)
       expect(extra_verbs.go(endpoint, report)).to be true
     end
@@ -43,7 +43,7 @@ describe ExtraVerbs do
 
   context 'should use test helper' do
     before :each do
-      test_helper_mock = Class.new(TestHelper) do
+      test_helper_mock = Class.new(ApiTester::TestHelper) do
         def before
           RestClient.get("www.test.com/before")
         end

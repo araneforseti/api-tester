@@ -7,18 +7,18 @@ require 'api-tester/modules/typo'
 require 'api-tester/reporter/api_report'
 require 'api-tester/util/supported_verbs'
 
-describe Typo do
+describe ApiTester::Typo do
   let(:url) {"www.example.com"}
   let(:bad_url) {"#{url}gibberishadsfasdf"}
-  let(:endpoint) {Endpoint.new "Test", url}
-  let(:not_found) {Response.new 404}
-  let(:not_allow) {Response.new 415}
-  let(:report) {ApiReport.new}
+  let(:endpoint) {ApiTester::Endpoint.new "Test", url}
+  let(:not_found) {ApiTester::Response.new 404}
+  let(:not_allow) {ApiTester::Response.new 415}
+  let(:report) {ApiTester::ApiReport.new}
 
-  let(:typo) {Typo.new}
+  let(:typo) {ApiTester::Typo.new}
 
   before :each do
-    endpoint.add_method SupportedVerbs::GET, Response.new(200)
+    endpoint.add_method ApiTester::SupportedVerbs::GET, ApiTester::Response.new(200)
     endpoint.not_allowed_response = not_allow
     endpoint.not_found_response = not_found
 

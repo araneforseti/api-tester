@@ -5,7 +5,7 @@ require 'api-tester/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "api-tester"
-  spec.version       = Tester::VERSION
+  spec.version       = ApiTester::VERSION
   spec.authors       = ["arane"]
   spec.email         = ["arane9@gmail.com"]
 

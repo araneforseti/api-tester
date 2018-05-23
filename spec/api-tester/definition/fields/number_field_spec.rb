@@ -1,9 +1,9 @@
 require "spec_helper"
 require 'api-tester/definition/fields/number_field'
 
-describe NumberField do
+describe ApiTester::NumberField do
   context 'default params' do
-    let(:default_number) {NumberField.new("defaultTest")}
+    let(:default_number) {ApiTester::NumberField.new("defaultTest")}
 
     it 'defaults required to false' do
       expect(default_number.required).to be false
@@ -16,19 +16,19 @@ describe NumberField do
 
   context "default value" do
     it "can be set to 0" do
-      field = NumberField.new("testObj", 0)
+      field = ApiTester::NumberField.new("testObj", 0)
       expect(field.default_value).to eq 0
     end
 
     it "can be set to 1" do
-      field = NumberField.new("testObj", 1)
+      field = ApiTester::NumberField.new("testObj", 1)
       expect(field.default_value).to eq 1
     end
   end
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {NumberField.new("testObj").is_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::NumberField.new("testObj").is_required.negative_boundary_values}
 
       {
           'string' => 'string',
@@ -46,7 +46,7 @@ describe NumberField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {NumberField.new("testObj").is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::NumberField.new("testObj").is_not_required.negative_boundary_values}
 
       {
           'string' => 'string',

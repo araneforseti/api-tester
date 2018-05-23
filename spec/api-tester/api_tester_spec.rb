@@ -11,21 +11,21 @@ require 'api-tester/config'
 
 describe ApiTester do
   let(:url) {"www.example.com"}
-  let(:contract) {ApiContract.new "Test"}
-  let(:request) { Request.new }
-  let(:endpoint) {Endpoint.new "Test", url}
+  let(:contract) {ApiTester::ApiContract.new "Test"}
+  let(:request) { ApiTester::Request.new }
+  let(:endpoint) {ApiTester::Endpoint.new "Test", url}
   let(:expected_code) {200}
   let(:unexpected_code) {404}
   let(:not_allowed_code) {415}
-  let(:expected_response) {Response.new expected_code}
+  let(:expected_response) {ApiTester::Response.new expected_code}
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}
-  let(:expected_fields) {[Field.new("numKey"), Field.new("string_key")]}
-  let(:request_fields) {[ArrayField.new("arr")]}
-  let(:good_case) {GoodCase.new}
-  let(:typo) {Typo.new}
-  let(:extra_verbs) {ExtraVerbs.new}
-  let(:unused) {UnusedFields.new}
-  let(:report) {ApiReport.new}
+  let(:expected_fields) {[ApiTester::Field.new("numKey"), ApiTester::Field.new("string_key")]}
+  let(:request_fields) {[ApiTester::ArrayField.new("arr")]}
+  let(:good_case) {ApiTester::GoodCase.new}
+  let(:typo) {ApiTester::Typo.new}
+  let(:extra_verbs) {ApiTester::ExtraVerbs.new}
+  let(:unused) {ApiTester::UnusedFields.new}
+  let(:report) {ApiTester::ApiReport.new}
 
   let(:config) {ApiTester::Config.new(report)
     .with_module(unused)
@@ -43,7 +43,7 @@ describe ApiTester do
       request.add_field field
     end
 
-    endpoint.add_method SupportedVerbs::GET, expected_response, request
+    endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, request
     endpoint.bad_request_response = expected_response
 
     contract.add_endpoint endpoint
@@ -59,7 +59,7 @@ describe ApiTester do
 
 
     context 'get request' do
-      it 'everything works' do        
+      it 'everything works' do
         expect(ApiTester.go(contract, config)).to be true
       end
 
@@ -81,7 +81,7 @@ describe ApiTester do
       endpoint.add_path_param path_param
       endpoint.test_helper = PathParamCreator.new path_param, path_var
 
-      endpoint.add_method SupportedVerbs::GET, expected_response, request
+      endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, request
       endpoint.bad_request_response = expected_response
 
       contract.add_endpoint endpoint
@@ -97,7 +97,7 @@ describe ApiTester do
   end
 end
 
-class PathParamCreator < TestHelper
+class PathParamCreator < ApiTester::TestHelper
   attr_accessor :key
   attr_accessor :value
 

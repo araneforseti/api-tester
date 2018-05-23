@@ -1,11 +1,11 @@
-describe MethodCaseTest do
+describe ApiTester::MethodCaseTest do
     let(:payload) { '{}'}
     let(:response) { MockResponse.new 200, '{"numKey": 1, "string_key": "string"}'}
-    let(:expected_response) { Response.new 200 }
+    let(:expected_response) { ApiTester::Response.new 200 }
     let(:url) {""}
     let(:verb) {"GET"}
     let(:module_name) { "test" }
-    let(:method) { MethodCaseTest.new response, payload, expected_response, url, verb, module_name }
+    let(:method) { ApiTester::MethodCaseTest.new response, payload, expected_response, url, verb, module_name }
     
     context '#response_code_report' do
         it 'should add to the reports' do
@@ -35,8 +35,8 @@ describe MethodCaseTest do
     end
 
     context '#check_response_code negative case' do
-        let(:expected_response) { Response.new 400 }
-        let(:method) { MethodCaseTest.new response, payload, expected_response, url, verb, module_name }
+        let(:expected_response) { ApiTester::Response.new 400 }
+        let(:method) { ApiTester::MethodCaseTest.new response, payload, expected_response, url, verb, module_name }
 
         it 'should return false' do
             expect(method.check_response_code).to eq(false)

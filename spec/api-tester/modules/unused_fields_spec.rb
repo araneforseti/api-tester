@@ -6,23 +6,23 @@ require 'api-tester/definition/endpoint'
 require 'api-tester/modules/unused_fields'
 require 'api-tester/reporter/api_report'
 
-describe UnusedFields do
+describe ApiTester::UnusedFields do
   context 'post request' do
     let(:url) {"www.example.com"}
-    let(:request) { Request.new }
-    let(:fields) {[Field.new("numKey"), Field.new("string_key")]}
+    let(:request) { ApiTester::Request.new }
+    let(:fields) {[ApiTester::Field.new("numKey"), ApiTester::Field.new("string_key")]}
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
     let(:code) { 200 }
-    let(:response) { Response.new code }
-    let(:endpoint) {Endpoint.new "Test", url}
-    let(:unused_fields) {UnusedFields.new}
-    let(:report) {ApiReport.new}
+    let(:response) { ApiTester::Response.new code }
+    let(:endpoint) {ApiTester::Endpoint.new "Test", url}
+    let(:unused_fields) {ApiTester::UnusedFields.new}
+    let(:report) {ApiTester::ApiReport.new}
 
     before :each do
       fields.each do |field|
         response.add_field field
       end      
-      endpoint.add_method SupportedVerbs::POST, response, request
+      endpoint.add_method ApiTester::SupportedVerbs::POST, response, request
     end
 
     context 'no fields marked' do
@@ -55,7 +55,7 @@ describe UnusedFields do
 
     context 'only one field marked' do
       before :each do
-        marked_field = Field.new "testField"
+        marked_field = ApiTester::Field.new "testField"
         marked_field.seen
         response.add_field marked_field
       end

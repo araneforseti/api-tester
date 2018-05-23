@@ -1,9 +1,9 @@
 require "spec_helper"
 require 'api-tester/definition/fields/email_field'
 
-describe EmailField do
+describe ApiTester::EmailField do
   context 'default params' do
-    let(:default_email) {EmailField.new("defaultTest")}
+    let(:default_email) {ApiTester::EmailField.new("defaultTest")}
 
     it 'defaults required to false' do
       expect(default_email.required).to be false
@@ -16,14 +16,14 @@ describe EmailField do
 
   context "default value" do
     it "can be set" do
-      field = EmailField.new("testObj", "a@test.com")
+      field = ApiTester::EmailField.new("testObj", "a@test.com")
       expect(field.default_value).to eq "a@test.com"
     end
   end
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {EmailField.new("testObj").is_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::EmailField.new("testObj").is_required.negative_boundary_values}
 
       {
           :non_email_string => 'string',
@@ -44,7 +44,7 @@ describe EmailField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {EmailField.new("testObj").is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::EmailField.new("testObj").is_not_required.negative_boundary_values}
 
       {
           :string => 'string',

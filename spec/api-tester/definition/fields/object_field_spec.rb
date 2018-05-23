@@ -1,17 +1,17 @@
 require "spec_helper"
 require 'api-tester/definition/fields/object_field'
 
-describe ObjectField do
+describe ApiTester::ObjectField do
   context "fields" do
-    object = ObjectField.new("testObj")
+    object = ApiTester::ObjectField.new("testObj")
 
     it "starts with no fields" do
       expect(object.fields.size).to be 0
     end
 
     it "can add fields" do
-      object = ObjectField.new("testObj")
-      object.with_field Field.new("newField")
+      object = ApiTester::ObjectField.new("testObj")
+      object.with_field ApiTester::Field.new("newField")
       expect(object.fields.size).to be 1
       expect(object.fields.first.name).to eq "newField"
     end
@@ -19,13 +19,13 @@ describe ObjectField do
 
   context "default value" do
     it 'defaults to {} with no fields' do
-      field = ObjectField.new("testObj")
+      field = ApiTester::ObjectField.new("testObj")
       expect(field.default_value).to eq Hash.new
     end
 
     it "contains defaults from the fields" do
-      sub_field = Field.new "sub", "default_foo"
-      field = ObjectField.new("testObj").with_field(sub_field)
+      sub_field = ApiTester::Field.new "sub", "default_foo"
+      field = ApiTester::ObjectField.new("testObj").with_field(sub_field)
       value = Hash.new
       value["sub"] = "default_foo"
       expect(field.default_value).to eq value
@@ -34,7 +34,7 @@ describe ObjectField do
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {ObjectField.new("testObj").is_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::ObjectField.new("testObj").is_required.negative_boundary_values}
 
       {
           'string' => 'string',
@@ -55,7 +55,7 @@ describe ObjectField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {ObjectField.new("testObj").is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::ObjectField.new("testObj").is_not_required.negative_boundary_values}
 
       {
           'string' => 'string',

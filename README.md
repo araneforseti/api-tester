@@ -76,19 +76,19 @@ Define your contract and endpoints using
 require 'api-tester/definition/api_contract'
 require 'api-tester/definition/endpoint'
 contract = ApiContract.new "API Name"
-endpoint = Endpoint.new "Some name which is currently unused", "http://yourbase.com/api/endpoint"
+endpoint = ApiTester::Endpoint.new "Some name which is currently unused", "http://yourbase.com/api/endpoint"
 ```
 
 Define methods on endpoints
 
 ```ruby
-endpoint.add_method SupportedVerbs::GET, expected_response, expected_request
+endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, expected_request
 ```
-Note: While an extensive list of verbs exists in SupportedVerbs, you can define your own (with the caveat they have to be supported by RestClient)
+Note: While an extensive list of verbs exists in ApiTester::SupportedVerbs, you can define your own (with the caveat they have to be supported by RestClient)
 
 Define fields used by the method (both Request and Response)
 ```ruby
-expected_request = Request.new.add_field(Field.new "fieldName")
+expected_request = Request.new.add_field(ApiTester::Field.new "fieldName")
 ```
 Note: Similar to methods, you can create your own fields.
 They need to repond to:
@@ -99,10 +99,10 @@ values_array = field.negative_boundary_values
 
 Put them together and call go and off you go!
 ```ruby
-request = Request.new.add_field(Field.new "fieldName")
-expected_response = Response.new(200).add_field(Field.new "fieldName")
-endpoint = Endpoint.new "Unused Name", "http://yourbase.com/api/endpoint"
-endpoint.add_method SupportedVerbs::GET, expected_response, request
+request = Request.new.add_field(ApiTester::Field.new "fieldName")
+expected_response = ApiTester::Response.new(200).add_field(ApiTester::Field.new "fieldName")
+endpoint = ApiTester::Endpoint.new "Unused Name", "http://yourbase.com/api/endpoint"
+endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, request
 contract = ApiContract.new "API Name"
 contract.add_endpoint endpoint
 tester = ApiTester.new(contract).with_module(Format.new)
@@ -115,7 +115,7 @@ expect(tester.go).to be true
 If any of your API endpoints have some setup which needs to happen before or after each call (eg, path param represents resource which needs to be created), you can use the TestHelper interface:
 
 ```ruby
-class InfoCreator < TestHelper
+class InfoCreator < ApiTester::TestHelper
   def before
     puts "This code runs before every call"
   end
@@ -129,7 +129,7 @@ class InfoCreator < TestHelper
   end
 end
 
-endpoint = Endpoint.new "Endpoint Name", "www.endpoint-url.com"
+endpoint = ApiTester::Endpoint.new "Endpoint Name", "www.endpoint-url.com"
 endpoint.test_helper = InfoCreator.new
 expect(tester.go).to be true
 ```  
