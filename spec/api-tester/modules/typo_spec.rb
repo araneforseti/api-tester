@@ -15,8 +15,6 @@ describe ApiTester::Typo do
   let(:not_allow) {ApiTester::Response.new 415}
   let(:report) {ApiTester::ApiReport.new}
 
-  let(:typo) {ApiTester::Typo.new}
-
   before :each do
     endpoint.add_method ApiTester::SupportedVerbs::GET, ApiTester::Response.new(200)
     endpoint.not_allowed_response = not_allow
@@ -31,12 +29,12 @@ describe ApiTester::Typo do
   context 'url does not exist' do
     it 'fails if something other than the expected not found response is returned' do
       stub_request(:get, bad_url).to_return(body: "", status: 100)
-      expect(typo.go(endpoint, report)).to be false
+      expect(ApiTester::Typo.go(endpoint, report)).to be false
     end
 
     it 'passes if the expected not found response is returned' do
       stub_request(:get, bad_url).to_return(body: "", status: not_found.code)
-      expect(typo.go(endpoint, report)).to be true
+      expect(ApiTester::Typo.go(endpoint, report)).to be true
     end
   end
 end

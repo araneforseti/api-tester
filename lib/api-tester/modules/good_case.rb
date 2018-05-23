@@ -1,23 +1,22 @@
 require 'api-tester/reporter/status_code_report'
-require 'api-tester/modules/module'
 require 'api-tester/method_case_test'
 
 module ApiTester
-  class GoodCase < Module
-      def go endpoint, report
-          super
-
+  class GoodCase
+      def self.go endpoint, report
+          reports = []
           endpoint.methods.each do |method|
               default_case = BoundaryCase.new endpoint.url, method.request.default_payload, method.request.default_headers
               response = endpoint.call method, default_case.payload, default_case.headers
               test = GoodCaseTest.new response, endpoint.url, method
-              self.report.reports.concat test.check
+              reports.concat test.check
           end
 
-          self.report.reports == []
+          report.reports.concat reports
+          reports == []
       end
 
-      def order
+      def self.order
           1
       end
   end

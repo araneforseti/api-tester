@@ -1,22 +1,25 @@
 require 'api-tester/reporter/status_code_report'
-require 'api-tester/modules/module'
 require 'api-tester/method_case_test'
 
 module ApiTester
-  class Format < Module
-    def go definition, report
-      super
-
+  class Format
+    def self.go definition, report
+      reports = []
       definition.methods.each do |method|
         cases = method.request.cases
         cases.each do |format_case|
           response = definition.call method, format_case.payload, format_case.headers
           test = FormatTest.new response, format_case.payload, definition.bad_request_response, definition.url, method.verb
-          self.report.reports.concat test.check
+          reports.concat test.check
         end
       end
 
-      report.reports == []
+      report.reports.concat reports
+      reports == []
+    end
+
+    def self.order
+      2
     end
   end
 

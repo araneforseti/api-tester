@@ -16,7 +16,6 @@ describe ApiTester::Format do
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}
   let(:expected_fields) {[ApiTester::Field.new("numKey"), ApiTester::Field.new("string_key")]}
   let(:request_fields) {[ApiTester::ArrayField.new("arr")]}
-  let(:format) {ApiTester::Format.new}
   let(:report) {ApiTester::ApiReport.new}
 
   before :each do
@@ -36,12 +35,12 @@ describe ApiTester::Format do
 
   context 'post request' do
     it 'everything works' do
-      expect(format.go(endpoint, report)).to be true
+      expect(ApiTester::Format.go(endpoint, report)).to be true
     end
 
     it 'gets a simple string' do
       stub_request(:post, url).to_return(body: 'bad request', status: expected_code)
-      expect(format.go(endpoint, report)).to be false
+      expect(ApiTester::Format.go(endpoint, report)).to be false
     end
   end
 
@@ -59,7 +58,7 @@ describe ApiTester::Format do
       endpoint.test_helper = test_helper_mock.new
       stub_request(:get, "www.test.com/before").to_return(body: '', status: 200)
       stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
-      expect(format.go(endpoint, report)).to be true
+      expect(ApiTester::Format.go(endpoint, report)).to be true
     end
 
     it 'should make use of test helper before method' do

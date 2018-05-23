@@ -6,7 +6,6 @@ require 'api-tester/definition/endpoint'
 require 'api-tester/definition/api_contract'
 require 'api-tester/modules/good_case'
 require 'api-tester/modules/unused_fields'
-require 'api-tester/reporter/api_report'
 require 'api-tester/config'
 
 describe ApiTester do
@@ -21,18 +20,15 @@ describe ApiTester do
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}
   let(:expected_fields) {[ApiTester::Field.new("numKey"), ApiTester::Field.new("string_key")]}
   let(:request_fields) {[ApiTester::ArrayField.new("arr")]}
-  let(:good_case) {ApiTester::GoodCase.new}
-  let(:typo) {ApiTester::Typo.new}
-  let(:extra_verbs) {ApiTester::ExtraVerbs.new}
-  let(:unused) {ApiTester::UnusedFields.new}
-  let(:report) {ApiTester::ApiReport.new}
 
-  let(:config) {ApiTester::Config.new(report)
-    .with_module(unused)
-    .with_module(typo)
-    .with_module(extra_verbs)
-    .with_module(good_case)
-    .with_reporter(report)}
+  let(:config) {
+    ApiTester::Config.new()
+    .with_module(ApiTester::ExtraVerbs)
+    .with_module(ApiTester::Format)
+    .with_module(ApiTester::GoodCase)
+    .with_module(ApiTester::Typo)
+    .with_module(ApiTester::UnusedFields)
+  }
 
   before :each do
     expected_fields.each do |field|
