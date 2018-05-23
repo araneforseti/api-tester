@@ -2,7 +2,7 @@
 
 module ApiTester
   module ExtraVerbs
-    def self.go(endpoint, report)
+    def self.go endpoint
       reports = []
       extras = ApiTester::SupportedVerbs.all - endpoint.verbs
       extras.each do |verb|
@@ -12,8 +12,7 @@ module ApiTester
         test = VerbClass.new response, verb_case.payload, endpoint.not_allowed_response, endpoint.url, verb
         reports.concat test.check
       end
-      report.reports.concat reports
-      reports == []
+      reports
     end
 
     def self.order

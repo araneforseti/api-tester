@@ -17,6 +17,10 @@ module ApiTester
       self.reports << report
     end
 
+    def add_reports reports
+      self.reports.concat reports
+    end
+
     def print
       if self.reports.size > 0
         puts "Issues discovered: #{self.reports.size}"

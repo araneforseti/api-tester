@@ -35,12 +35,12 @@ describe ApiTester::Format do
 
   context 'post request' do
     it 'everything works' do
-      expect(ApiTester::Format.go(endpoint, report)).to be true
+      expect(ApiTester::Format.go(endpoint).size).to eq 0
     end
 
     it 'gets a simple string' do
       stub_request(:post, url).to_return(body: 'bad request', status: expected_code)
-      expect(ApiTester::Format.go(endpoint, report)).to be false
+      expect(ApiTester::Format.go(endpoint).size).to be >= 1
     end
   end
 
@@ -58,7 +58,7 @@ describe ApiTester::Format do
       endpoint.test_helper = test_helper_mock.new
       stub_request(:get, "www.test.com/before").to_return(body: '', status: 200)
       stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
-      expect(ApiTester::Format.go(endpoint, report)).to be true
+      expect(ApiTester::Format.go(endpoint).size).to eq 0
     end
 
     it 'should make use of test helper before method' do

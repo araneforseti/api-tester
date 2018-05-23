@@ -3,14 +3,13 @@ require 'api-tester/util/supported_verbs'
 
 module ApiTester
   class Typo
-      def self.go(endpoint, report)
+      def self.go endpoint
           reports = []
           allowances(endpoint).each do |verbs|
               reports.concat check_typo_url(endpoint)
           end
 
-          report.reports.concat reports
-          reports == []
+          reports
       end
 
       def self.check_typo_url endpoint

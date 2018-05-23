@@ -3,7 +3,7 @@ require 'api-tester/method_case_test'
 
 module ApiTester
   class Format
-    def self.go definition, report
+    def self.go definition
       reports = []
       definition.methods.each do |method|
         cases = method.request.cases
@@ -14,8 +14,7 @@ module ApiTester
         end
       end
 
-      report.reports.concat reports
-      reports == []
+      reports
     end
 
     def self.order

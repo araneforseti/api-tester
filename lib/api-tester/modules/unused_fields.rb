@@ -2,7 +2,7 @@ require 'api-tester/reporter/missing_response_field_report'
 
 module ApiTester
   class UnusedFields
-    def self.go definition, report
+    def self.go definition
       reports = []
 
       definition.methods.each do |method|
@@ -13,8 +13,7 @@ module ApiTester
         end
       end
 
-      report.reports.concat reports
-      reports == []
+      reports
     end
 
     def self.order

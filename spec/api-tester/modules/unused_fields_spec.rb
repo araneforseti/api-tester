@@ -15,7 +15,6 @@ describe ApiTester::UnusedFields do
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
     let(:endpoint) {ApiTester::Endpoint.new "Test", url}
-    let(:report) {ApiTester::ApiReport.new}
 
     before :each do
       fields.each do |field|
@@ -26,12 +25,11 @@ describe ApiTester::UnusedFields do
 
     context 'no fields marked' do
       it 'fails' do
-        expect(ApiTester::UnusedFields.go(endpoint, report)).to eq false
+        expect(ApiTester::UnusedFields.go(endpoint).size).to be >= 1
       end
 
       it 'adds no reports' do
-        ApiTester::UnusedFields.go(endpoint, report)
-        expect(report.reports.size).to eq fields.size
+        expect(ApiTester::UnusedFields.go(endpoint).size).to eq fields.size
       end
     end
 
@@ -43,12 +41,11 @@ describe ApiTester::UnusedFields do
       end
 
       it 'passes' do
-        expect(ApiTester::UnusedFields.go(endpoint, report)).to be true
+        expect(ApiTester::UnusedFields.go(endpoint).size).to eq 0
       end
 
       it 'does not add to report' do
-        ApiTester::UnusedFields.go(endpoint, report)
-        expect(report.reports.size).to be 0
+        expect(ApiTester::UnusedFields.go(endpoint).size).to be 0
       end
     end
 
@@ -60,12 +57,11 @@ describe ApiTester::UnusedFields do
       end
 
       it 'fails' do
-        expect(ApiTester::UnusedFields.go(endpoint, report)).to be false
+        expect(ApiTester::UnusedFields.go(endpoint).size).to be >= 1
       end
 
       it 'adds no reports' do
-        ApiTester::UnusedFields.go(endpoint, report)
-        expect(report.reports.size).to eq fields.size
+        expect(ApiTester::UnusedFields.go(endpoint).size).to eq fields.size
       end
     end
   end

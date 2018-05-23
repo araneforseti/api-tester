@@ -4,7 +4,7 @@ module ApiTester
 
     definition.endpoints.each do |endpoint|
       config.modules.sort_by{ |mod| mod.order }.each do |mod|
-        mod.go endpoint, reporter
+        reporter.add_reports mod.go endpoint
       end
     end
 

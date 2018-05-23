@@ -3,7 +3,7 @@ require 'api-tester/method_case_test'
 
 module ApiTester
   class GoodCase
-      def self.go endpoint, report
+      def self.go endpoint
           reports = []
           endpoint.methods.each do |method|
               default_case = BoundaryCase.new endpoint.url, method.request.default_payload, method.request.default_headers
@@ -12,8 +12,7 @@ module ApiTester
               reports.concat test.check
           end
 
-          report.reports.concat reports
-          reports == []
+          reports
       end
 
       def self.order

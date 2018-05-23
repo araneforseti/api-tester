@@ -20,22 +20,22 @@ describe ApiTester::ExtraVerbs do
   end
 
   context 'verb not defined in definition responds' do
-    it 'fails if something other than the expected not allowed response is returned' do
+    it 'creates report if something other than the expected not allowed response is returned' do
       stub_request(:post, url).to_return(body: "", status: 100)
-      expect(ApiTester::ExtraVerbs.go(endpoint, report)).to be false
+      expect(ApiTester::ExtraVerbs.go(endpoint).size).to eq 1
     end
 
-    it 'passes if the expected not allowed response is returned' do
+    it 'creates no reports if the expected not allowed response is returned' do
       stub_request(:post, url).to_return(body: "", status: not_allow.code)
-      expect(ApiTester::ExtraVerbs.go(endpoint, report)).to be true
+      expect(ApiTester::ExtraVerbs.go(endpoint).size).to eq 0
     end
   end
 
   context 'all verbs defined in definition' do
-    it 'passes' do
+    it 'generates no reports' do
       endpoint.add_method ApiTester::SupportedVerbs::POST, ApiTester::Response.new, ApiTester::Request.new
       stub_request(:post, url).to_return(body: "", status: 200)
-      expect(ApiTester::ExtraVerbs.go(endpoint, report)).to be true
+      expect(ApiTester::ExtraVerbs.go(endpoint).size).to eq 0
     end
   end
 
@@ -53,7 +53,7 @@ describe ApiTester::ExtraVerbs do
       endpoint.test_helper = test_helper_mock.new
       stub_request(:get, "www.test.com/before").to_return(body: '', status: 200)
       stub_request(:get, "www.test.com/after").to_return(body: '', status: 200)
-      expect(ApiTester::ExtraVerbs.go(endpoint, report)).to be true
+      expect(ApiTester::ExtraVerbs.go(endpoint).size).to eq 0
     end
 
     it 'should make use of test helper before method' do
