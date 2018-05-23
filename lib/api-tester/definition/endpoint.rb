@@ -33,6 +33,21 @@ module ApiTester
       temp_url
     end
 
+    def default_call
+      self.test_helper.before
+      method = self.methods[0]
+      begin
+        response = RestClient::Request.execute(method: method.verb,
+          url: self.url,
+          payload: method.request.default_payload, 
+          headers: method.request.default_headers)
+      rescue RestClient::ExceptionWithResponse => e
+        response = e.response
+      end
+      self.test_helper.after
+      response
+    end
+
     def call method, payload={}, headers={}
       self.test_helper.before
       begin
