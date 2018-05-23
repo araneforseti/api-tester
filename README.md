@@ -172,7 +172,7 @@ Do you want to do something with the definition which this gem currently does no
 You can create your own test module and add it to the config instance class!
 Just make sure it adheres to the following interface:
 ```ruby
-module Name
+module CustomModule
   def self.go contract
     # Your test code here    
     # the contract object is the full definition created
@@ -183,6 +183,8 @@ module Name
     # Otherwise this can just be any number
   end
 end  
+
+config.with_module(CustomModule)
 ```
 
 # Reporting
