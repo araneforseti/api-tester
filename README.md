@@ -8,6 +8,9 @@ for prime time! To isolate your project from the changes, be sure to specify whi
 This gem is intended to enable easy creation of tests for
 RESTful API services when given a contract.
 
+When using, be sure to follow the documentation for the version of the gem you use. The documentation below
+relates to the unpublished gem version actively under development
+
 Check out [API Tester Example](https://github.com/araneforseti/example_api-tester) for an example in action
 
 # Feature Plan
@@ -170,7 +173,7 @@ You can create your own test module and add it to the config instance class!
 Just make sure it adheres to the following interface:
 ```ruby
 module Name
-  def self.go endpoint, reports
+  def self.go endpoint
     # Your test code here
     # the reports object is where the reports are all stored
   end
@@ -187,10 +190,10 @@ Right now the default reporting mechanism prints out to
 the console all the issues which were found. You can
 create your own reporting class (so long as it responds
 to the same methods) or just extend the current one and
-override the print method. Then set the tester's report
-tool:
+override the print method. Then set the report
+tool in the config:
 ```ruby
-tester.with_reporter(new_reporter)
+config.with_reporter(new_reporter)
 ```
 
 # Development
