@@ -73,8 +73,8 @@ stable release
 
 Define your contract and endpoints using
 ```ruby
-require 'tester/definition/api_contract'
-require 'tester/definition/endpoint'
+require 'api-tester/definition/api_contract'
+require 'api-tester/definition/endpoint'
 contract = ApiContract.new "API Name"
 endpoint = Endpoint.new "Some name which is currently unused", "http://yourbase.com/api/endpoint"
 ```

@@ -1,3 +1,8 @@
+0.2.0
+
+- Finally fixing the naming scheme
+- Splitting configuration into its own class
+
 0.1.0
 
 - Moving call to endpoint for path param support
