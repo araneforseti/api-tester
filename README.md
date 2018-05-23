@@ -173,9 +173,9 @@ You can create your own test module and add it to the config instance class!
 Just make sure it adheres to the following interface:
 ```ruby
 module Name
-  def self.go endpoint
-    # Your test code here
-    # the reports object is where the reports are all stored
+  def self.go contract
+    # Your test code here    
+    # the contract object is the full definition created
   end
 
   def self.order

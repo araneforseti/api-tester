@@ -1,6 +1,7 @@
 0.3.1
 
 - Removing the reports from the sub modules and making them just return their reports
+- Adjusted modules to use the full contract instead of endpoints
 
 0.3.0
 

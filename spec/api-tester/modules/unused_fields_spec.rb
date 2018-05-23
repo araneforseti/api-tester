@@ -2,6 +2,7 @@ require "spec_helper"
 require 'webmock/rspec'
 require 'api-tester/definition/response'
 require 'api-tester/definition/request'
+require 'api-tester/definition/api_contract'
 require 'api-tester/definition/endpoint'
 require 'api-tester/modules/unused_fields'
 require 'api-tester/reporter/api_report'
@@ -15,21 +16,23 @@ describe ApiTester::UnusedFields do
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
     let(:endpoint) {ApiTester::Endpoint.new "Test", url}
+    let(:contract) {ApiTester::ApiContract.new "Test"}
 
     before :each do
       fields.each do |field|
         response.add_field field
       end
       endpoint.add_method ApiTester::SupportedVerbs::POST, response, request
+      contract.add_endpoint endpoint
     end
 
     context 'no fields marked' do
       it 'fails' do
-        expect(ApiTester::UnusedFields.go(endpoint).size).to be >= 1
+        expect(ApiTester::UnusedFields.go(contract).size).to be >= 1
       end
 
       it 'adds no reports' do
-        expect(ApiTester::UnusedFields.go(endpoint).size).to eq fields.size
+        expect(ApiTester::UnusedFields.go(contract).size).to eq fields.size
       end
     end
 
@@ -41,11 +44,11 @@ describe ApiTester::UnusedFields do
       end
 
       it 'passes' do
-        expect(ApiTester::UnusedFields.go(endpoint).size).to eq 0
+        expect(ApiTester::UnusedFields.go(contract).size).to eq 0
       end
 
       it 'does not add to report' do
-        expect(ApiTester::UnusedFields.go(endpoint).size).to be 0
+        expect(ApiTester::UnusedFields.go(contract).size).to be 0
       end
     end
 
@@ -57,11 +60,11 @@ describe ApiTester::UnusedFields do
       end
 
       it 'fails' do
-        expect(ApiTester::UnusedFields.go(endpoint).size).to be >= 1
+        expect(ApiTester::UnusedFields.go(contract).size).to be >= 1
       end
 
       it 'adds no reports' do
-        expect(ApiTester::UnusedFields.go(endpoint).size).to eq fields.size
+        expect(ApiTester::UnusedFields.go(contract).size).to eq fields.size
       end
     end
   end

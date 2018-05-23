@@ -1,11 +1,9 @@
 module ApiTester
-  def self.go definition, config
+  def self.go contract, config
     reporter = config.reporter
 
-    definition.endpoints.each do |endpoint|
-      config.modules.sort_by{ |mod| mod.order }.each do |mod|
-        reporter.add_reports mod.go endpoint
-      end
+    config.modules.sort_by{ |mod| mod.order }.each do |mod|
+      reporter.add_reports mod.go contract
     end
 
     reporter.print

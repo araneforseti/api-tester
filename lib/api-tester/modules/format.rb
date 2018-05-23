@@ -3,14 +3,16 @@ require 'api-tester/method_case_test'
 
 module ApiTester
   class Format
-    def self.go definition
+    def self.go contract
       reports = []
-      definition.methods.each do |method|
-        cases = method.request.cases
-        cases.each do |format_case|
-          response = definition.call method, format_case.payload, format_case.headers
-          test = FormatTest.new response, format_case.payload, definition.bad_request_response, definition.url, method.verb
-          reports.concat test.check
+      contract.endpoints.each do |endpoint|
+        endpoint.methods.each do |method|
+          cases = method.request.cases
+          cases.each do |format_case|
+            response = endpoint.call method, format_case.payload, format_case.headers
+            test = FormatTest.new response, format_case.payload, endpoint.bad_request_response, endpoint.url, method.verb
+            reports.concat test.check
+          end
         end
       end
 
