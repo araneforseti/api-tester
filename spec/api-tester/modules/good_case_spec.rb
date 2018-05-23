@@ -3,7 +3,7 @@ require 'webmock/rspec'
 require 'api-tester/definition/response'
 require 'api-tester/definition/request'
 require 'api-tester/definition/endpoint'
-require 'api-tester/definition/api_contract'
+require 'api-tester/definition/contract'
 require 'api-tester/modules/good_case'
 require 'api-tester/reporter/api_report'
 
@@ -19,7 +19,7 @@ describe ApiTester::GoodCase do
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:code) { 200 }
     let(:endpoint) {ApiTester::Endpoint.new "Test", url}
-    let(:contract) {ApiTester::ApiContract.new "Test"}
+    let(:contract) {ApiTester::Contract.new "Test"}
     let(:response) { ApiTester::Response.new code }
     let(:report) {ApiTester::ApiReport.new}
 
@@ -106,7 +106,7 @@ describe ApiTester::GoodCase do
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
     let(:endpoint) {ApiTester::Endpoint.new "Test", url}
-    let(:contract) {ApiTester::ApiContract.new "Test"}
+    let(:contract) {ApiTester::Contract.new "Test"}
     let(:report) {ApiTester::ApiReport.new}
 
     before :each do

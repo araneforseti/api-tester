@@ -2,7 +2,7 @@ require "spec_helper"
 require 'webmock/rspec'
 require 'api-tester/definition/response'
 require 'api-tester/definition/request'
-require 'api-tester/definition/api_contract'
+require 'api-tester/definition/contract'
 require 'api-tester/definition/endpoint'
 require 'api-tester/modules/unused_fields'
 require 'api-tester/reporter/api_report'
@@ -16,7 +16,7 @@ describe ApiTester::UnusedFields do
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
     let(:endpoint) {ApiTester::Endpoint.new "Test", url}
-    let(:contract) {ApiTester::ApiContract.new "Test"}
+    let(:contract) {ApiTester::Contract.new "Test"}
 
     before :each do
       fields.each do |field|

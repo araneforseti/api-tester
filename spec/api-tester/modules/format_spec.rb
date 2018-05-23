@@ -3,7 +3,7 @@ require 'webmock/rspec'
 require 'api-tester/definition/response'
 require 'api-tester/definition/request'
 require 'api-tester/definition/endpoint'
-require 'api-tester/definition/api_contract'
+require 'api-tester/definition/contract'
 require 'api-tester/modules/format'
 require 'api-tester/reporter/api_report'
 require 'api-tester/test_helper'
@@ -12,7 +12,7 @@ describe ApiTester::Format do
   let(:url) {"www.example.com"}
   let(:request) { ApiTester::Request.new }
   let(:endpoint) {ApiTester::Endpoint.new "Test", url}
-  let(:contract) {ApiTester::ApiContract.new "Test"}
+  let(:contract) {ApiTester::Contract.new "Test"}
   let(:expected_code) {400}
   let(:expected_response) {ApiTester::Response.new expected_code}
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}

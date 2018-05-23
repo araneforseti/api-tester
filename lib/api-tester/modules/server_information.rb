@@ -1,3 +1,5 @@
+require 'pry'
+
 module ApiTester
   module ServerInformation
     def self.go contract
@@ -5,8 +7,10 @@ module ApiTester
       endpoint = contract.endpoints[0]
       response = endpoint.default_call
 
-      if response.headers[:server] then
-        reports << ServerBroadcastReport.new(response.headers[:server])
+      [:server, :x_powered_by, :x_aspnetmvc_version, :x_aspnet_version].each do |server_key|
+        if response.headers[server_key] then
+          reports << ServerBroadcastReport.new(response.headers[server_key])
+        end
       end
 
       reports

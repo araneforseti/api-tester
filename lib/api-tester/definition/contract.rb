@@ -1,5 +1,5 @@
 module ApiTester
-  class ApiContract
+  class Contract
     attr_accessor :name
     attr_accessor :endpoints
 

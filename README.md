@@ -76,9 +76,9 @@ stable release
 
 Define your contract and endpoints using
 ```ruby
-require 'api-tester/definition/api_contract'
+require 'api-tester/definition/contract'
 require 'api-tester/definition/endpoint'
-contract = ApiTester::ApiContract.new "API Name"
+contract = ApiTester::Contract.new "API Name"
 endpoint = ApiTester::Endpoint.new "Some name which is currently unused", "http://yourbase.com/api/endpoint"
 ```
 
@@ -111,7 +111,7 @@ request = ApiTester::Request.new.add_field(ApiTester::Field.new "fieldName")
 expected_response = ApiTester::Response.new(200).add_field(ApiTester::Field.new "fieldName")
 endpoint = ApiTester::Endpoint.new "Unused Name", "http://yourbase.com/api/endpoint"
 endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, request
-contract = ApiContract.new "API Name"
+contract = Contract.new "API Name"
 contract.add_endpoint endpoint
 config = ApiTester::Config().with_module(Format.new)
 expect(ApiTester.go(contract, config)).to be true

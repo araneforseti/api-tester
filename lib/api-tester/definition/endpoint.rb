@@ -1,5 +1,5 @@
 require 'api-tester/definition/response'
-require 'api-tester/definition/api_method'
+require 'api-tester/definition/method'
 require 'api-tester/test_helper'
 require 'rest-client'
 
@@ -60,7 +60,7 @@ module ApiTester
     end
 
     def add_method verb, response, request=Request.new()
-      self.methods << ApiTester::ApiMethod.new(verb, response, request)
+      self.methods << ApiTester::Method.new(verb, response, request)
       self
     end
 

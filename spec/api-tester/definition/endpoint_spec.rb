@@ -18,7 +18,7 @@ describe ApiTester::Endpoint do
   context 'call' do
     it 'should call out with specified verb' do
       stub_request(:get, "test.com").to_return(body: "response happened", status: 200)
-      response = endpoint.call ApiTester::ApiMethod.new(ApiTester::SupportedVerbs::GET, ApiTester::Response.new, ApiTester::Request.new), {}, {}
+      response = endpoint.call ApiTester::Method.new(ApiTester::SupportedVerbs::GET, ApiTester::Response.new, ApiTester::Request.new), {}, {}
       expect(response.code).to eq 200
       expect(response.body).to eq "response happened"
     end

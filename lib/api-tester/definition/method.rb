@@ -1,5 +1,5 @@
 module ApiTester
-  class ApiMethod
+  class Method
     attr_accessor :request
     attr_accessor :expected_response
     attr_accessor :verb
