@@ -9,5 +9,9 @@ module ApiTester
       self.request = request
       self.expected_response = response
     end
+
+    def default_request
+      {:method => self.verb, :payload => request.default_payload, :headers => request.default_headers}
+    end
   end
 end

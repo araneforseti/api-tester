@@ -35,12 +35,10 @@ module ApiTester
 
     def default_call
       self.test_helper.before
-      method = self.methods[0]
+      method_defaults = self.methods[0].default_request
+      method_defaults[:url] = self.url
       begin
-        response = RestClient::Request.execute(method: method.verb,
-          url: self.url,
-          payload: method.request.default_payload, 
-          headers: method.request.default_headers)
+        response = RestClient::Request.execute(method_defaults)
       rescue RestClient::ExceptionWithResponse => e
         response = e.response
       end
