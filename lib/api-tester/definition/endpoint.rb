@@ -2,6 +2,7 @@ require 'api-tester/definition/response'
 require 'api-tester/definition/method'
 require 'api-tester/test_helper'
 require 'rest-client'
+require 'json'
 
 module ApiTester
   class Endpoint
@@ -49,7 +50,7 @@ module ApiTester
     def call method, payload={}, headers={}
       self.test_helper.before
       begin
-        response = RestClient::Request.execute(method: method.verb, url: self.url, payload: payload, headers: headers)
+        response = RestClient::Request.execute(method: method.verb, url: self.url, payload: payload.to_json, headers: headers)
       rescue RestClient::ExceptionWithResponse => e
         response = e.response
       end
