@@ -37,4 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry", "~> 0.11"
 
   spec.add_runtime_dependency "rest-client", "~> 2.0"
+  spec.add_runtime_dependency "injection_vulnerability_library", "0.0.2"
 end
