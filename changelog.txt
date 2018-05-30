@@ -1,5 +1,6 @@
 0.3.1
 
+- Adding ability to change headers for request objects
 - Removing the reports from the sub modules and making them just return their reports
 - Adjusted modules to use the full contract instead of endpoints
 - Created module to check for server information being broadcast

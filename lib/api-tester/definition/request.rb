@@ -28,7 +28,7 @@ module ApiTester
     end
 
     def default_headers
-      {content_type: :json, accept: :json}
+      self.headers || {content_type: :json, accept: :json}
     end
 
     def cases
