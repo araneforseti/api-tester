@@ -4,12 +4,12 @@ module ApiTester
   class ObjectField < Field
       attr_accessor :fields
 
-      def initialize name
-          super(name)
+      def initialize name:
+          super name: name
           self.fields = []
       end
 
-      def with_field(newField)
+      def with_field newField
           self.fields << newField
           self
       end

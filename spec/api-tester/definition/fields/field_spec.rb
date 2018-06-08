@@ -3,7 +3,7 @@ require 'api-tester/definition/fields/field'
 
 describe ApiTester::Field do
   context 'default' do
-    let(:field) { ApiTester::Field.new "testObj"}
+    let(:field) { ApiTester::Field.new name: "testObj"}
     it 'defaults required to false' do
       expect(field.required).to be false
     end
@@ -19,14 +19,14 @@ describe ApiTester::Field do
 
   context "default value" do
     it "can be set" do
-      field = ApiTester::Field.new("testObj", "new foo")
+      field = ApiTester::Field.new(name: "testObj", default_value: "new foo")
       expect(field.default_value).to eq "new foo"
     end
   end
 
   context 'seen' do
     it 'increments' do
-      field = ApiTester::Field.new("testOb")
+      field = ApiTester::Field.new(name: "testOb")
       field.seen
       field.seen
       expect(field.is_seen).to be 2
@@ -35,21 +35,21 @@ describe ApiTester::Field do
 
   context 'required field' do
     it 'has a nil negative boundary case' do
-      field = ApiTester::Field.new("testOb").is_required
+      field = ApiTester::Field.new(name: "testOb").is_required
       expect(field.negative_boundary_values).to include nil
     end
   end
 
   context 'not required field' do
     it 'does not have a nil negative boundary case' do
-      field = ApiTester::Field.new("testOb").is_not_required
+      field = ApiTester::Field.new(name: "testOb").is_not_required
       expect(field.negative_boundary_values).not_to include nil
     end
   end
 
   context '#fields' do
     it 'should return empty' do
-      field = ApiTester::Field.new("testOb")
+      field = ApiTester::Field.new(name: "testOb")
       expect(field.fields).to eq []
     end
   end

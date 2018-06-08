@@ -11,8 +11,8 @@ describe ApiTester::InjectionModule do
   let(:endpoint) {ApiTester::Endpoint.new "test", url}
 
   before :each do
-    expected_request = ApiTester::Request.new().add_field(ApiTester::Field.new "actual")
-    response = ApiTester::Response.new().add_field(ApiTester::Field.new "actual")
+    expected_request = ApiTester::Request.new().add_field(ApiTester::Field.new name: "actual")
+    response = ApiTester::Response.new().add_field(ApiTester::Field.new name: "actual")
     endpoint.add_method ApiTester::SupportedVerbs::POST, response, expected_request
     endpoint.bad_request_response = ApiTester::Response.new 400
     contract.add_endpoint endpoint

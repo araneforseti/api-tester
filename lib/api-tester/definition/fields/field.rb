@@ -5,10 +5,10 @@ module ApiTester
       attr_accessor :required
       attr_accessor :is_seen
 
-      def initialize name, default_value="string"
+      def initialize name:, required:false, default_value:"string"
           self.name = name
           self.default_value = default_value
-          self.required = false
+          self.required = required
           self.is_seen = 0
       end
 

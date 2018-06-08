@@ -11,11 +11,11 @@ describe ApiTester::GoodCase do
   context 'get request' do
     let(:url) {"www.example.com"}
     let(:request) { ApiTester::Request.new }
-    let(:fields) {[ApiTester::Field.new("numKey"),
-                   ApiTester::Field.new("string_key"),
-                   ApiTester::ObjectField.new("object_field")
-                       .with_field(ApiTester::Field.new "inner_field")
-                       .with_field(ApiTester::Field.new("other_field"))]}
+    let(:fields) {[ApiTester::Field.new(name: "numKey"),
+                   ApiTester::Field.new(name: "string_key"),
+                   ApiTester::ObjectField.new(name: "object_field")
+                       .with_field(ApiTester::Field.new name: "inner_field")
+                       .with_field(ApiTester::Field.new name: "other_field")]}
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:code) { 200 }
     let(:endpoint) {ApiTester::Endpoint.new "Test", url}
@@ -52,7 +52,7 @@ describe ApiTester::GoodCase do
       end
 
       it 'fails when a key is missing' do
-        response.add_field(ApiTester::Field.new("missingField"))
+        response.add_field(ApiTester::Field.new(name: "missingField"))
         expect(ApiTester::GoodCase.go(contract).size).to be >= 1
       end
 
@@ -101,7 +101,9 @@ describe ApiTester::GoodCase do
   context 'post request' do
     let(:url) {"www.example.com"}
     let(:request) { ApiTester::Request.new }
-    let(:fields) {[ApiTester::Field.new("numKey"), ApiTester::Field.new("string_key"), ApiTester::ObjectField.new("obj").with_field(ApiTester::Field.new("inner"))]}
+    let(:fields) {[ApiTester::Field.new(name: "numKey"), 
+      ApiTester::Field.new(name: "string_key"), 
+      ApiTester::ObjectField.new(name: "obj").with_field(ApiTester::Field.new(name: "inner"))]}
     let(:body) { '{"numKey": 1, "string_key": "string", "obj": {"inner": "string"}}' }
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
@@ -145,7 +147,7 @@ describe ApiTester::GoodCase do
       end
 
       it 'fails when a key is missing' do
-        response.add_field(ApiTester::Field.new("missingField"))
+        response.add_field(ApiTester::Field.new(name: "missingField"))
         expect(ApiTester::GoodCase.go(contract).size).to be >= 1
       end
     end

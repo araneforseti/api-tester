@@ -1,3 +1,12 @@
+1.0.0
+
+- Switching to using named variables to make future changes less breaky
+
+0.3.2
+
+- Fixing some issues with how config adds modules
+- Fixing README for same module issue as config
+
 0.3.1
 
 - Adding ability to change headers for request objects

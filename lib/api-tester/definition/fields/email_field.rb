@@ -2,8 +2,8 @@ require 'api-tester/definition/fields/field'
 
 module ApiTester
   class EmailField < Field
-    def initialize(name, default_value="test@test.com")
-      super(name, default_value)
+    def initialize name:, default_value: "test@test.com"
+      super name: name, default_value: default_value
     end
 
     def negative_boundary_values

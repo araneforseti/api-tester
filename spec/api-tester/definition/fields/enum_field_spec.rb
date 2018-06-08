@@ -3,7 +3,7 @@ require 'api-tester/definition/fields/enum_field'
 
 describe ApiTester::EnumField do
   context "created with no default, just acceptable values" do
-    field = ApiTester::EnumField.new("testObj", ["1", "2", "3"])
+    field = ApiTester::EnumField.new(name: "testObj", acceptable_values: ["1", "2", "3"])
 
     it 'retrieves values' do
       expect(field.acceptable_values).to eq ["1", "2", "3"]
@@ -15,7 +15,7 @@ describe ApiTester::EnumField do
   end
 
   context "created with default and acceptable values" do
-    field = ApiTester::EnumField.new("testObj", ["1", "2", "3"], "2")
+    field = ApiTester::EnumField.new(name: "testObj", acceptable_values: ["1", "2", "3"], default_value: "2")
 
     it 'retrieves values' do
       expect(field.acceptable_values).to eq ["1", "2", "3"]
@@ -28,7 +28,7 @@ describe ApiTester::EnumField do
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {ApiTester::EnumField.new("testObj", ["1", "2", "3"]).is_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::EnumField.new(name: "testObj", acceptable_values: ["1", "2", "3"]).is_required.negative_boundary_values}
 
       {
           'number' => 123,
@@ -48,7 +48,7 @@ describe ApiTester::EnumField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {ApiTester::EnumField.new("testObj", ["1", "2", "3"]).is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::EnumField.new(name: "testObj", acceptable_values: ["1", "2", "3"]).is_not_required.negative_boundary_values}
 
       {
           'number' => 123,

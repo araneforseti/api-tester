@@ -15,7 +15,6 @@ module ApiTester
           end
         end
       end
-
       reports
     end
 

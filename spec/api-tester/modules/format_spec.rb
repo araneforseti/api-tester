@@ -16,8 +16,8 @@ describe ApiTester::Format do
   let(:expected_code) {400}
   let(:expected_response) {ApiTester::Response.new expected_code}
   let(:expected_body) {'{"numKey": 1, "string_key": "string"}'}
-  let(:expected_fields) {[ApiTester::Field.new("numKey"), ApiTester::Field.new("string_key")]}
-  let(:request_fields) {[ApiTester::ArrayField.new("arr")]}
+  let(:expected_fields) {[ApiTester::Field.new(name: "numKey"), ApiTester::Field.new(name: "string_key")]}
+  let(:request_fields) {[ApiTester::ArrayField.new(name: "arr")]}
   let(:report) {ApiTester::ApiReport.new}
 
   before :each do

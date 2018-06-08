@@ -102,7 +102,7 @@ values_array = field.negative_boundary_values
 
 Define which modules you want to use through a config
 ```ruby
-config = ApiTester::Config().with_module(Format.new)
+config = ApiTester::Config().with_module(Format)
 ```
 
 Put them together and call go and off you go!
@@ -113,7 +113,7 @@ endpoint = ApiTester::Endpoint.new "Unused Name", "http://yourbase.com/api/endpo
 endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, request
 contract = Contract.new "API Name"
 contract.add_endpoint endpoint
-config = ApiTester::Config().with_module(Format.new)
+config = ApiTester::Config().with_module(Format)
 expect(ApiTester.go(contract, config)).to be true
 
 ```

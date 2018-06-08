@@ -24,8 +24,8 @@ describe ApiTester::ResponseEvaluator do
     describe '#expected_fields' do
         it 'should create the field array' do
             response = ApiTester::Response.new 200
-            object_field = ApiTester::ObjectField.new("hash").with_field(ApiTester::Field.new "innerkey").with_field(ApiTester::Field.new "innerkey2")
-            response.add_field(ApiTester::Field.new "name").add_field(ApiTester::Field.new "key").add_field(object_field)
+            object_field = ApiTester::ObjectField.new(name: "hash").with_field(ApiTester::Field.new name: "innerkey").with_field(ApiTester::Field.new name: "innerkey2")
+            response.add_field(ApiTester::Field.new name: "name").add_field(ApiTester::Field.new name: "key").add_field(object_field)
             evaluator = ApiTester::ResponseEvaluator.new({}, response)
             expect(evaluator.expected_fields).to eq ["name", "key", "hash", "hash.innerkey", "hash.innerkey2"]
         end
@@ -34,11 +34,11 @@ describe ApiTester::ResponseEvaluator do
     describe '#expected_fields_hash' do
         it 'should create the field hash' do
             response = ApiTester::Response.new 200
-            innerkey = ApiTester::Field.new "innerkey" 
-            innerkey2 = ApiTester::Field.new "innerkey2"
-            object_field = ApiTester::ObjectField.new("hash").with_field(innerkey).with_field(innerkey2)
-            name_field = ApiTester::Field.new "name"
-            key_field = ApiTester::Field.new "key"
+            innerkey = ApiTester::Field.new name: "innerkey" 
+            innerkey2 = ApiTester::Field.new name: "innerkey2"
+           object_field = ApiTester::ObjectField.new(name: "hash").with_field(innerkey).with_field(innerkey2)
+            name_field = ApiTester::Field.new name: "name"
+            key_field = ApiTester::Field.new name: "key"
             response.add_field(name_field).add_field(key_field).add_field(object_field)
             evaluator = ApiTester::ResponseEvaluator.new({}, response)
             expect(hash_compare(
@@ -51,7 +51,7 @@ describe ApiTester::ResponseEvaluator do
         it 'should return the extra fields' do
             example_body = {"name": "Nam", "key": "value", "hash": {"innerkey": 1, "innerkey2": 2}}
             response = ApiTester::Response.new 200
-            response.add_field(ApiTester::Field.new "name").add_field(ApiTester::Field.new "key")
+            response.add_field(ApiTester::Field.new name: "name").add_field(ApiTester::Field.new name: "key")
             evaluator = ApiTester::ResponseEvaluator.new(example_body, response)
             expect(evaluator.extra_fields).to eq ["hash", "hash.innerkey", "hash.innerkey2"]
         end
@@ -61,8 +61,8 @@ describe ApiTester::ResponseEvaluator do
         it 'should return the missing fields' do
             example_body = {"hash": {"innerkey": 1, "innerkey2": 2}}
             response = ApiTester::Response.new 200
-            object_field = ApiTester::ObjectField.new("hash").with_field(ApiTester::Field.new "innerkey").with_field(ApiTester::Field.new "innerkey2")
-            response.add_field(ApiTester::Field.new "name").add_field(ApiTester::Field.new "key").add_field(object_field)
+            object_field = ApiTester::ObjectField.new(name: "hash").with_field(ApiTester::Field.new name: "innerkey").with_field(ApiTester::Field.new name: "innerkey2")
+            response.add_field(ApiTester::Field.new name: "name").add_field(ApiTester::Field.new name: "key").add_field(object_field)
             evaluator = ApiTester::ResponseEvaluator.new(example_body, response)
             expect(evaluator.missing_fields).to eq ["name", "key"]
         end
@@ -70,7 +70,7 @@ describe ApiTester::ResponseEvaluator do
         it 'should recognize arrays' do
             example_body = {"sheets":[{"strength":10}]}
             response = ApiTester::Response.new 200
-            array_field = ApiTester::ArrayField.new("sheets").with_field(ApiTester::Field.new "strength").with_field(ApiTester::Field.new "missingkey")
+            array_field = ApiTester::ArrayField.new(name: "sheets").with_field(ApiTester::Field.new name: "strength").with_field(ApiTester::Field.new name: "missingkey")
             response.add_field(array_field)
             evaluator = ApiTester::ResponseEvaluator.new(example_body, response)
             expect(evaluator.missing_fields).to eq ["sheets.missingkey"]
@@ -81,11 +81,11 @@ describe ApiTester::ResponseEvaluator do
         it 'should return an array of seen field objects' do
             example_body = {"name": "Nam", "hash": {"innerkey2": 2}}
             response = ApiTester::Response.new 200
-            innerkey = ApiTester::Field.new "innerkey" 
-            innerkey2 = ApiTester::Field.new "innerkey2"
-            object_field = ApiTester::ObjectField.new("hash").with_field(innerkey).with_field(innerkey2)
-            name_field = ApiTester::Field.new "name"
-            key_field = ApiTester::Field.new "key"
+            innerkey = ApiTester::Field.new name: "innerkey" 
+            innerkey2 = ApiTester::Field.new name: "innerkey2"
+            object_field = ApiTester::ObjectField.new(name: "hash").with_field(innerkey).with_field(innerkey2)
+            name_field = ApiTester::Field.new name: "name"
+            key_field = ApiTester::Field.new name: "key"
             response.add_field(name_field).add_field(key_field).add_field(object_field)
             evaluator = ApiTester::ResponseEvaluator.new(example_body, response)
             expect(evaluator.seen_fields).to eq [name_field, object_field, innerkey2]

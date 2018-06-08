@@ -3,15 +3,21 @@ require 'api-tester/definition/boundary_case'
 module ApiTester
   class Request
     attr_accessor :definition
-    attr_accessor :headers
+    attr_accessor :header_fields
     attr_accessor :fields
 
     def initialize
       self.fields = []
+      self.header_fields = []
     end
 
     def add_field(new_field)
       self.fields << new_field
+      self
+    end
+
+    def add_header_field new_header
+      self.header_fields << new_header
       self
     end
 
@@ -28,7 +34,19 @@ module ApiTester
     end
 
     def default_headers
-      self.headers || {content_type: :json, accept: :json}
+      if self.header_fields != []
+        self.headers
+      else
+        {content_type: :json, accept: :json}
+      end
+    end
+
+    def headers
+      header_response = {}
+      self.header_fields.each do |header|
+        header_response[header.name] = header.default_value
+      end
+      header_response
     end
 
     def cases

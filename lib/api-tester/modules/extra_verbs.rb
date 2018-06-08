@@ -7,8 +7,9 @@ module ApiTester
 
       contract.endpoints.each do |endpoint|
         extras = ApiTester::SupportedVerbs.all - endpoint.verbs
+        headers = endpoint.methods[0].request.default_headers
         extras.each do |verb|
-          verb_case = BoundaryCase.new("Verb check with #{verb} for #{endpoint.name}", {}, {})
+          verb_case = BoundaryCase.new("Verb check with #{verb} for #{endpoint.name}", {}, headers)
           method = ApiTester::Method.new verb, ApiTester::Response.new, ApiTester::Request.new
           response = endpoint.call method, verb_case.payload, verb_case.headers
           test = VerbClass.new response, verb_case.payload, endpoint.not_allowed_response, endpoint.url, verb

@@ -21,19 +21,19 @@ module ApiTester
     end
 
     def with_default_modules
-      self.modules << Format.new
-      self.modules << GoodCase.new
-      self.modules << Typo.new
-      self.modules << UnusedFields.new
+      self.modules << Format
+      self.modules << GoodCase
+      self.modules << Typo
+      self.modules << UnusedFields
       self
     end
 
     def with_all_modules
-      self.modules << Format.new
-      self.modules << ExtraVerbs.new
-      self.modules << GoodCase.new
-      self.modules << Typo.new
-      self.modules << UnusedFields.new
+      self.modules << Format
+      self.modules << ExtraVerbs
+      self.modules << GoodCase
+      self.modules << Typo
+      self.modules << UnusedFields
       self
     end
   end

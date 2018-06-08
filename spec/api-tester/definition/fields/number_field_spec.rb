@@ -3,7 +3,7 @@ require 'api-tester/definition/fields/number_field'
 
 describe ApiTester::NumberField do
   context 'default params' do
-    let(:default_number) {ApiTester::NumberField.new("defaultTest")}
+    let(:default_number) {ApiTester::NumberField.new(name: "defaultTest")}
 
     it 'defaults required to false' do
       expect(default_number.required).to be false
@@ -16,19 +16,19 @@ describe ApiTester::NumberField do
 
   context "default value" do
     it "can be set to 0" do
-      field = ApiTester::NumberField.new("testObj", 0)
+      field = ApiTester::NumberField.new(name: "testObj", default_value: 0)
       expect(field.default_value).to eq 0
     end
 
     it "can be set to 1" do
-      field = ApiTester::NumberField.new("testObj", 1)
+      field = ApiTester::NumberField.new(name: "testObj", default_value: 1)
       expect(field.default_value).to eq 1
     end
   end
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {ApiTester::NumberField.new("testObj").is_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::NumberField.new(name: "testObj").is_required.negative_boundary_values}
 
       {
           'string' => 'string',
@@ -46,7 +46,7 @@ describe ApiTester::NumberField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {ApiTester::NumberField.new("testObj").is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) {ApiTester::NumberField.new(name: "testObj").is_not_required.negative_boundary_values}
 
       {
           'string' => 'string',

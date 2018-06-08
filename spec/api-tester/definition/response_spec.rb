@@ -17,7 +17,7 @@ describe ApiTester::Response do
         end
 
         it "can add fields" do
-            response.add_field ApiTester::Field.new("newField")
+            response.add_field ApiTester::Field.new(name: "newField")
             expect(response.body.size).to be 1
             expect(response.body.first.name).to eq "newField"
         end
@@ -25,18 +25,18 @@ describe ApiTester::Response do
 
     context '#to_s' do
         it "prints out names of fields" do
-            response.add_field(ApiTester::Field.new "field1").add_field(ApiTester::Field.new "field2")
+            response.add_field(ApiTester::Field.new name: "field1").add_field(ApiTester::Field.new name: "field2")
             expect(response.to_s).to eq("{\"field1\":\"ApiTester::Field\",\"field2\":\"ApiTester::Field\"}")
         end
 
         it "prints out names of inner fields for object fields" do
-            object_field = ApiTester::ObjectField.new("obj").with_field(ApiTester::Field.new "inner")
+            object_field = ApiTester::ObjectField.new(name: "obj").with_field(ApiTester::Field.new name: "inner")
             response.add_field(object_field)
             expect(response.to_s).to eq("{\"obj\":{\"inner\":\"ApiTester::Field\"}}")
         end
 
         it "prints out names of inner fields for array fields" do
-            array_field = ApiTester::ArrayField.new("arr").with_field(ApiTester::Field.new "inner")
+            array_field = ApiTester::ArrayField.new(name: "arr").with_field(ApiTester::Field.new name: "inner")
             response.add_field(array_field)
             expect(response.to_s).to eq("{\"arr\":{\"inner\":\"ApiTester::Field\"}}")
         end
