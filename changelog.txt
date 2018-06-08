@@ -1,3 +1,7 @@
+1.0.1
+
+- Adding query params to definition
+
 1.0.0
 
 - Switching to using named variables to make future changes less breaky
