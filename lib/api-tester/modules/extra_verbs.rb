@@ -11,7 +11,7 @@ module ApiTester
         extras.each do |verb|
           verb_case = BoundaryCase.new("Verb check with #{verb} for #{endpoint.name}", {}, headers)
           method = ApiTester::Method.new verb, ApiTester::Response.new, ApiTester::Request.new
-          response = endpoint.call method, verb_case.payload, verb_case.headers
+          response = endpoint.call method: method, payload: verb_case.payload, headers: verb_case.headers
           test = VerbClass.new response, verb_case.payload, endpoint.not_allowed_response, endpoint.url, verb
           reports.concat test.check
         end

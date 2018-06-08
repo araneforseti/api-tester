@@ -5,15 +5,26 @@ module ApiTester
     attr_accessor :definition
     attr_accessor :header_fields
     attr_accessor :fields
+    attr_accessor :query_params
 
     def initialize
       self.fields = []
       self.header_fields = []
+      self.query_params = []
     end
 
-    def add_field(new_field)
+    def add_field new_field
       self.fields << new_field
       self
+    end
+
+    def add_query_param new_query_param
+      self.query_params << new_query_param
+      self
+    end
+
+    def default_query
+      self.query_params.map{|param| "#{param.name}=#{param.default_value}"}.join("&")
     end
 
     def add_header_field new_header

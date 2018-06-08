@@ -3,6 +3,7 @@ require 'api-tester/definition/method'
 require 'api-tester/test_helper'
 require 'rest-client'
 require 'json'
+require 'pry'
 
 module ApiTester
   class Endpoint
@@ -47,10 +48,11 @@ module ApiTester
       response
     end
 
-    def call method, payload={}, headers={}
+    def call method:, query:"", payload:{}, headers:{}
       self.test_helper.before
+      url = query ? self.url + "?" + query : self.url
       begin
-        response = RestClient::Request.execute(method: method.verb, url: self.url, payload: payload.to_json, headers: headers)
+        response = RestClient::Request.execute(method: method.verb, url: url, payload: payload.to_json, headers: headers)
       rescue RestClient::ExceptionWithResponse => e
         response = e.response
       end

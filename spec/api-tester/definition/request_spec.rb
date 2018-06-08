@@ -51,4 +51,21 @@ describe ApiTester::Request do
       end
     end
   end
+  
+  context 'query_params' do
+    it 'defaults to no query params' do
+      expect(request.query_params.size).to be 0
+    end
+
+    it 'contains added params' do
+      request.add_query_param ApiTester::Field.new name: "query"
+      expect(request.query_params[0].name).to eq "query"
+    end
+
+    it 'generates default url query' do
+      request.add_query_param ApiTester::Field.new name: "query", default_value: "default"
+      request.add_query_param ApiTester::Field.new name: "query2", default_value: "something"
+      expect(request.default_query).to eq "query=default&query2=something"
+    end
+  end
 end

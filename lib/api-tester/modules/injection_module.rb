@@ -20,7 +20,7 @@ module ApiTester
         sql_injections.each do |injection|
           injection_value = "#{field.default_value}#{injection}"
           payload = method.request.altered_payload(field.name, injection_value)
-          response = endpoint.call method, payload, method.request.default_headers          
+          response = endpoint.call method: method, payload: payload, headers: method.request.default_headers          
           if(!check_response(response, endpoint)) then
             reports << InjectionReport.new("sql", endpoint.url, payload, response)
           end

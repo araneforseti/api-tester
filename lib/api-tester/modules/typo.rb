@@ -20,7 +20,7 @@ module ApiTester
       bad_endpoint = ApiTester::Endpoint.new "Bad URL", bad_url
       typo_case = BoundaryCase.new("Typo URL check", {}, {})
       method = ApiTester::Method.new ApiTester::SupportedVerbs::GET, ApiTester::Response.new(200), ApiTester::Request.new
-      response = bad_endpoint.call method, typo_case.payload, typo_case.headers
+      response = bad_endpoint.call method: method, payload: typo_case.payload, headers: typo_case.headers
 
       test = TypoClass.new response, typo_case.payload, endpoint.not_found_response, bad_url, ApiTester::SupportedVerbs::GET
       test.check

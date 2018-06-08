@@ -18,7 +18,20 @@ describe ApiTester::Endpoint do
   context 'call' do
     it 'should call out with specified verb' do
       stub_request(:get, "test.com").to_return(body: "response happened", status: 200)
-      response = endpoint.call ApiTester::Method.new(ApiTester::SupportedVerbs::GET, ApiTester::Response.new, ApiTester::Request.new), {}, {}
+      response = endpoint.call method: ApiTester::Method.new(ApiTester::SupportedVerbs::GET, ApiTester::Response.new, ApiTester::Request.new), 
+                              payload: {}, 
+                              headers: {}
+      expect(response.code).to eq 200
+      expect(response.body).to eq "response happened"
+    end
+
+    it 'should use specified query string' do
+      stub_request(:get, "test.com?query=hello").to_return(body: "response happened", status: 200)
+      method = ApiTester::Method.new(ApiTester::SupportedVerbs::GET, ApiTester::Response.new, ApiTester::Request.new)
+      response = endpoint.call method: method,
+                              query: "query=hello",
+                              payload: {}, 
+                              headers: {}
       expect(response.code).to eq 200
       expect(response.body).to eq "response happened"
     end
