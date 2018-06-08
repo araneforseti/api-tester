@@ -10,9 +10,9 @@ require 'api-tester/config'
 
 describe ApiTester do
   let(:url) {"www.example.com"}
-  let(:contract) {ApiTester::Contract.new "Test"}
+  let(:contract) {ApiTester::Contract.new "Test", url}
   let(:request) { ApiTester::Request.new }
-  let(:endpoint) {ApiTester::Endpoint.new "Test", url}
+  let(:endpoint) {ApiTester::Endpoint.new "Test", ""}
   let(:expected_code) {200}
   let(:unexpected_code) {404}
   let(:not_allowed_code) {415}
@@ -73,7 +73,7 @@ describe ApiTester do
     let(:path_param) { "test" }
 
     before :each do
-      endpoint.base_url = "#{url}/{#{path_param}}"
+      endpoint.relative_url = "/{#{path_param}}"
       endpoint.add_path_param path_param
       endpoint.test_helper = PathParamCreator.new path_param, path_var
 

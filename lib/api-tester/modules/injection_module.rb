@@ -6,13 +6,13 @@ module ApiTester
       reports = []
       contract.endpoints.each do |endpoint|
         endpoint.methods.each do |method|
-          reports.concat inject_payload endpoint, method
+          reports.concat inject_payload contract.base_url, endpoint, method
         end
       end
       reports
     end
 
-    def self.inject_payload endpoint, method
+    def self.inject_payload base_url, endpoint, method
       reports = []
       sql_injections = InjectionVulnerabilityLibrary.sql_vulnerabilities
 
@@ -20,7 +20,7 @@ module ApiTester
         sql_injections.each do |injection|
           injection_value = "#{field.default_value}#{injection}"
           payload = method.request.altered_payload(field.name, injection_value)
-          response = endpoint.call method: method, payload: payload, headers: method.request.default_headers          
+          response = endpoint.call base_url: base_url, method: method, payload: payload, headers: method.request.default_headers          
           if(!check_response(response, endpoint)) then
             reports << InjectionReport.new("sql", endpoint.url, payload, response)
           end

@@ -7,8 +7,8 @@ describe ApiTester::InjectionModule do
   let(:expected_response) {'{"error":"bad request"}'}
   let(:good_request) { '{"actual": "something"}' }
   let(:bad_request) { {"actual"=>"string%7C"} }
-  let(:contract) {ApiTester::Contract.new "Test"}
-  let(:endpoint) {ApiTester::Endpoint.new "test", url}
+  let(:contract) {ApiTester::Contract.new "Test", url}
+  let(:endpoint) {ApiTester::Endpoint.new "test", ""}
 
   before :each do
     expected_request = ApiTester::Request.new().add_field(ApiTester::Field.new name: "actual")

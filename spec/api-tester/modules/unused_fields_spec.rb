@@ -15,8 +15,8 @@ describe ApiTester::UnusedFields do
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
-    let(:endpoint) {ApiTester::Endpoint.new "Test", url}
-    let(:contract) {ApiTester::Contract.new "Test"}
+    let(:endpoint) {ApiTester::Endpoint.new "Test", ""}
+    let(:contract) {ApiTester::Contract.new "Test", url}
 
     before :each do
       fields.each do |field|

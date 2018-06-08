@@ -1,6 +1,8 @@
 1.1.0
 
 - Adding query params to definition
+- Moved base_url to contract
+- Changed endpoints to be relative urls
 
 1.0.0
 

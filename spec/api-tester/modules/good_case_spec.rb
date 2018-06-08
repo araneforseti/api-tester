@@ -18,8 +18,8 @@ describe ApiTester::GoodCase do
                        .with_field(ApiTester::Field.new name: "other_field")]}
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:code) { 200 }
-    let(:endpoint) {ApiTester::Endpoint.new "Test", url}
-    let(:contract) {ApiTester::Contract.new "Test"}
+    let(:endpoint) {ApiTester::Endpoint.new "Test", ""}
+    let(:contract) {ApiTester::Contract.new "Test", url}
     let(:response) { ApiTester::Response.new code }
     let(:report) {ApiTester::ApiReport.new}
 
@@ -107,8 +107,8 @@ describe ApiTester::GoodCase do
     let(:body) { '{"numKey": 1, "string_key": "string", "obj": {"inner": "string"}}' }
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
-    let(:endpoint) {ApiTester::Endpoint.new "Test", url}
-    let(:contract) {ApiTester::Contract.new "Test"}
+    let(:endpoint) {ApiTester::Endpoint.new "Test", ""}
+    let(:contract) {ApiTester::Contract.new "Test", url}
     let(:report) {ApiTester::ApiReport.new}
 
     before :each do

@@ -1,6 +1,7 @@
 require 'webmock/rspec'
 
 describe ApiTester::Endpoint do
+  let(:base_url) { "" }
   let(:endpoint) {ApiTester::Endpoint.new "test", "test.com"}
 
   context 'verbs' do
@@ -18,9 +19,10 @@ describe ApiTester::Endpoint do
   context 'call' do
     it 'should call out with specified verb' do
       stub_request(:get, "test.com").to_return(body: "response happened", status: 200)
-      response = endpoint.call method: ApiTester::Method.new(ApiTester::SupportedVerbs::GET, ApiTester::Response.new, ApiTester::Request.new), 
-                              payload: {}, 
-                              headers: {}
+      response = endpoint.call base_url: base_url,
+        method: ApiTester::Method.new(ApiTester::SupportedVerbs::GET, ApiTester::Response.new, ApiTester::Request.new), 
+        payload: {}, 
+        headers: {}
       expect(response.code).to eq 200
       expect(response.body).to eq "response happened"
     end
@@ -28,10 +30,11 @@ describe ApiTester::Endpoint do
     it 'should use specified query string' do
       stub_request(:get, "test.com?query=hello").to_return(body: "response happened", status: 200)
       method = ApiTester::Method.new(ApiTester::SupportedVerbs::GET, ApiTester::Response.new, ApiTester::Request.new)
-      response = endpoint.call method: method,
-                              query: "query=hello",
-                              payload: {}, 
-                              headers: {}
+      response = endpoint.call base_url: base_url,
+        method: method,
+        query: "query=hello",
+        payload: {}, 
+        headers: {}
       expect(response.code).to eq 200
       expect(response.body).to eq "response happened"
     end

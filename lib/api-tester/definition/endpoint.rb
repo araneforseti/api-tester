@@ -8,7 +8,7 @@ require 'pry'
 module ApiTester
   class Endpoint
     attr_accessor :name
-    attr_accessor :base_url
+    attr_accessor :relative_url
     attr_accessor :path_params
     attr_accessor :methods
     attr_accessor :test_helper
@@ -17,7 +17,7 @@ module ApiTester
     attr_accessor :not_found_response
 
     def initialize name, url
-      self.base_url = url
+      self.relative_url = url
       self.name = name
       self.methods = []
       self.path_params = []
@@ -28,17 +28,17 @@ module ApiTester
     end
 
     def url
-      temp_url = self.base_url
+      temp_url = self.relative_url
       self.path_params.each do |param|
         temp_url.sub! "{#{param}}", self.test_helper.retrieve_param(param)
       end
       temp_url
     end
 
-    def default_call
+    def default_call base_url
       self.test_helper.before
       method_defaults = self.methods[0].default_request
-      method_defaults[:url] = self.url
+      method_defaults[:url] = "#{base_url}#{self.url}"
       begin
         response = RestClient::Request.execute(method_defaults)
       rescue RestClient::ExceptionWithResponse => e
@@ -48,9 +48,9 @@ module ApiTester
       response
     end
 
-    def call method:, query:"", payload:{}, headers:{}
+    def call base_url:, method:, query:"", payload:{}, headers:{}
       self.test_helper.before
-      url = query ? self.url + "?" + query : self.url
+      url = query ? "#{base_url}#{self.url}?#{query}" : "#{base_url}#{self.url}"
       begin
         response = RestClient::Request.execute(method: method.verb, url: url, payload: payload.to_json, headers: headers)
       rescue RestClient::ExceptionWithResponse => e

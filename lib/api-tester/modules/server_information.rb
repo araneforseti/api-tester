@@ -5,7 +5,7 @@ module ApiTester
     def self.go contract
       reports = []
       endpoint = contract.endpoints[0]
-      response = endpoint.default_call
+      response = endpoint.default_call contract.base_url
 
       [:server, :x_powered_by, :x_aspnetmvc_version, :x_aspnet_version].each do |server_key|
         if response.headers[server_key] then
