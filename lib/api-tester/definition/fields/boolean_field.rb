@@ -2,8 +2,8 @@ require 'api-tester/definition/fields/field'
 
 module ApiTester
   class BooleanField < Field
-    def initialize name:, default_value: true
-      super name: name, default_value: default_value
+    def initialize name:, default_value: true, required:false
+      super name: name, default_value: default_value, required: required
     end
 
     def negative_boundary_values

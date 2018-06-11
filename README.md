@@ -13,38 +13,6 @@ relates to the unpublished gem version actively under development
 
 Check out [API Tester Example](https://github.com/araneforseti/example_api-tester) for an example in action
 
-# Feature Plan
-## Under Development
-Check out our [Trello Board](https://trello.com/b/R3RtsJ2A/api-tester) to see progress and where we are headed!
-Feel free to leave feedback through github's issue tracker
-
-- Format module:
-     - Checks syntax problems with the request and
-        ensuring a consistent response
-- Typo module:
-     - Tests simulates typos in the url
-- Extra Verbs module:
-     - Checks all the supported verbs to ensure no vulnerabilities are exposed
-- Good Case (name pending) module:
-     - Checks expected good requests will work
-        (eg, number field should accept integers
-        between 1 - 100)
-- Unused Fields module:
-    - A module which runs after all the others and reports on any response fields which were never returned
-
-## Intended Features Before "Release"
-
-- Other Param Testing
-    - Path params
-    - Query
-    - Headers
-- Endpoint Testing
-    - Unused Response Fields
-    - Invalid method names
-    - Invalid method types
-- Documentation
-    - Generate Swagger-compliant documentation
-    - Generate definitions from Swagger documentation
 
 ## What is this not intended for?
 
@@ -57,7 +25,7 @@ required)
 Add this line to your application's Gemfile (Note: specify your version due to gem's currently volatile nature):
 
 ```ruby
-gem 'api-tester', '0.0.3'
+gem 'api-tester', '1.0.0'
 ```
 
 And then execute:
@@ -78,8 +46,8 @@ Define your contract and endpoints using
 ```ruby
 require 'api-tester/definition/contract'
 require 'api-tester/definition/endpoint'
-contract = ApiTester::Contract.new "API Name"
-endpoint = ApiTester::Endpoint.new "Some name which is currently unused", "http://yourbase.com/api/endpoint"
+contract = ApiTester::Contract.new "API Name", "http://yourbase.com/api"
+endpoint = ApiTester::Endpoint.new "Some name which is currently unused", "/endpoint" 
 ```
 
 Define methods on endpoints
@@ -109,9 +77,9 @@ Put them together and call go and off you go!
 ```ruby
 request = ApiTester::Request.new.add_field(ApiTester::Field.new "fieldName")
 expected_response = ApiTester::Response.new(200).add_field(ApiTester::Field.new "fieldName")
-endpoint = ApiTester::Endpoint.new "Unused Name", "http://yourbase.com/api/endpoint"
+endpoint = ApiTester::Endpoint.new "Unused Name", "/endpoint"
 endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, request
-contract = Contract.new "API Name"
+contract = Contract.new "API Name", "http://yourbase.com/api"
 contract.add_endpoint endpoint
 config = ApiTester::Config().with_module(Format)
 expect(ApiTester.go(contract, config)).to be true
@@ -213,6 +181,17 @@ run `bundle exec rake install`.
 Bug reports and pull requests are welcome on GitHub at
 https://github.com/araneforseti/api-tester.
 
+## Future Features Under Development
+Check out our [Trello Board](https://trello.com/b/R3RtsJ2A/api-tester) to see progress and where we are headed!
+Feel free to leave feedback through github's issue tracker
+
+- Other Param Testing
+    - Path params
+    - Query
+    - Headers
+- Documentation
+    - Generate Swagger-compliant documentation
+    - Generate definitions from Swagger documentation
 
 # License
 

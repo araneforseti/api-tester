@@ -4,8 +4,8 @@ module ApiTester
   class ObjectField < Field
       attr_accessor :fields
 
-      def initialize name:
-          super name: name
+      def initialize name:, required:false
+          super name: name, required: required
           self.fields = []
       end
 

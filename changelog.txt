@@ -1,5 +1,6 @@
-1.1.0
+2.0.0
 
+- Added Required Fields module
 - Adding query params to definition
 - Moved base_url to contract
 - Changed endpoints to be relative urls
