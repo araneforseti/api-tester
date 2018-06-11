@@ -76,5 +76,13 @@ module ApiTester
       body[field_name] = value
       body
     end
+
+    def altered_payload_with fields
+      body = payload
+      fields.each do |field|
+        body[field[:name]] = field[:value]
+      end
+      body
+    end
   end
 end

@@ -43,7 +43,7 @@ describe ApiTester::RequiredFields do
       expect(ApiTester::RequiredFields.go(contract).size).to eq 0
     end
 
-    it 'gets a simple string' do
+    it 'checks case of missing arguments' do
       stub_request(:post, url).with(body: bad_request).to_return(body: 'bad request', status: expected_code)
       expect(ApiTester::RequiredFields.go(contract).size).to be >= 1
     end
