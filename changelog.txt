@@ -1,6 +1,7 @@
 2.0.0
 
 - Added Required Fields module
+- Added Unexpected Fields module
 - Adding query params to definition
 - Moved base_url to contract
 - Changed endpoints to be relative urls

@@ -135,6 +135,12 @@ detailing unreturned response fields. When using this
 module, it is recommended the good case module is also
 used.
 
+## Required Fields
+This module tests out all the various invalid combinations of required fields to ensure consistent response
+
+## Unexpected Fields
+This moudle calls out if the API returns anything unexpected in its reponse
+
 ## Custom Modules
 Do you want to do something with the definition which this gem currently does not support?
 You can create your own test module and add it to the config instance class!
