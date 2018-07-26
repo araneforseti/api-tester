@@ -54,8 +54,8 @@ module ApiTester
 
     def headers
       header_response = {}
-      self.header_fields.each do |header|
-        header_response[header.name] = header.default_value
+      self.header_fields.each do |key, value|
+        header_response[key] = value
       end
       header_response
     end
