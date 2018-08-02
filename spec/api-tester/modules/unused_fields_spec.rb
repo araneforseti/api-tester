@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 require 'webmock/rspec'
 require 'api-tester/definition/response'
 require 'api-tester/definition/request'
@@ -9,14 +9,17 @@ require 'api-tester/reporter/api_report'
 
 describe ApiTester::UnusedFields do
   context 'post request' do
-    let(:url) {"www.example.com"}
+    let(:url) { 'www.example.com' }
     let(:request) { ApiTester::Request.new }
-    let(:fields) {[ApiTester::Field.new(name: "numKey"), ApiTester::Field.new(name: "string_key")]}
+    let(:fields) { 
+      [ApiTester::Field.new(name: 'numKey'),
+       ApiTester::Field.new(name: 'string_key')]
+    }
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
-    let(:endpoint) {ApiTester::Endpoint.new "Test", ""}
-    let(:contract) {ApiTester::Contract.new "Test", url}
+    let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
+    let(:contract) { ApiTester::Contract.new 'Test', url }
 
     before :each do
       fields.each do |field|
@@ -38,9 +41,7 @@ describe ApiTester::UnusedFields do
 
     context 'all fields marked' do
       before :each do
-        fields.each do |field|
-          field.seen
-        end
+        fields.map(&:seen)
       end
 
       it 'passes' do
@@ -54,7 +55,7 @@ describe ApiTester::UnusedFields do
 
     context 'only one field marked' do
       before :each do
-        marked_field = ApiTester::Field.new name: "testField"
+        marked_field = ApiTester::Field.new name: 'testField'
         marked_field.seen
         response.add_field marked_field
       end

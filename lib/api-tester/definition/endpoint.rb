@@ -6,6 +6,7 @@ require 'json'
 require 'pry'
 
 module ApiTester
+  # Class for defining and interacting with endpoints in a contract
   class Endpoint
     attr_accessor :name
     attr_accessor :relative_url
@@ -16,7 +17,7 @@ module ApiTester
     attr_accessor :not_allowed_response
     attr_accessor :not_found_response
 
-    def initialize name, url
+    def initialize(name, url)
       self.relative_url = url
       self.name = name
       self.methods = []
@@ -28,50 +29,53 @@ module ApiTester
     end
 
     def url
-      temp_url = self.relative_url
-      self.path_params.each do |param|
-        temp_url.sub! "{#{param}}", self.test_helper.retrieve_param(param)
+      temp_url = relative_url
+      path_params.each do |param|
+        temp_url.sub! "{#{param}}", test_helper.retrieve_param(param)
       end
       temp_url
     end
 
-    def default_call base_url
-      self.test_helper.before
-      method_defaults = self.methods[0].default_request
-      method_defaults[:url] = "#{base_url}#{self.url}"
+    def default_call(base_url)
+      test_helper.before
+      method_defaults = methods[0].default_request
+      method_defaults[:url] = "#{base_url}#{url}"
       begin
         response = RestClient::Request.execute(method_defaults)
       rescue RestClient::ExceptionWithResponse => e
         response = e.response
       end
-      self.test_helper.after
+      test_helper.after
       response
     end
 
-    def call base_url:, method:, query:"", payload:{}, headers:{}
-      self.test_helper.before
+    def call(base_url:, method:, query:"", payload:{}, headers:{})
+      test_helper.before
       url = query ? "#{base_url}#{self.url}?#{query}" : "#{base_url}#{self.url}"
       begin
-        response = RestClient::Request.execute(method: method.verb, url: url, payload: payload.to_json, headers: headers)
+        response = RestClient::Request.execute(method: method.verb, 
+                                               url: url,
+                                               payload: payload.to_json,
+                                               headers: headers)
       rescue RestClient::ExceptionWithResponse => e
         response = e.response
       end
-      self.test_helper.after
+      test_helper.after
       response
     end
 
-    def add_method verb, response, request=Request.new()
-      self.methods << ApiTester::Method.new(verb, response, request)
+    def add_method(verb, response, request = Request.new)
+      methods << ApiTester::Method.new(verb, response, request)
       self
     end
 
-    def add_path_param param
-      self.path_params << param
+    def add_path_param(param)
+      path_params << param
       self
     end
 
     def verbs
-      self.methods.map(&:verb)
+      methods.map(&:verb)
     end
   end
 end

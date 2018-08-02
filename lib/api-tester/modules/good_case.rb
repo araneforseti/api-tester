@@ -2,8 +2,9 @@ require 'api-tester/reporter/status_code_report'
 require 'api-tester/method_case_test'
 
 module ApiTester
-  class GoodCase
-    def self.go contract
+  # Checks the good case as defined in contract
+  module GoodCase
+    def self.go(contract)
       reports = []
 
       contract.endpoints.each do |endpoint|
@@ -18,14 +19,19 @@ module ApiTester
     end
 
     def self.order
-        1
+      1
     end
   end
 
-
+  # Test layout used by module
   class GoodCaseTest < MethodCaseTest
-      def initialize response, url, method
-          super response, method.request.default_payload, method.expected_response, url, method.verb, "GoodCaseModule"
-      end
+    def initialize(response, url, method)
+      super response,
+            method.request.default_payload,
+            method.expected_response,
+            url,
+            method.verb,
+            'GoodCaseModule'
+    end
   end
 end

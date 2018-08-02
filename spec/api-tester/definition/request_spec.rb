@@ -2,24 +2,24 @@ require "spec_helper"
 require 'api-tester/definition/request'
 
 describe ApiTester::Request do
-  let(:request) {ApiTester::Request.new}
+  let(:request) { ApiTester::Request.new }
 
   context 'body' do
-    it "starts with no fields" do
+    it 'starts with no fields' do
       expect(request.fields).to eq []
     end
 
-    it "can add fields" do
-      request.add_field ApiTester::Field.new(name: "newField")
+    it 'can add fields' do
+      request.add_field ApiTester::Field.new(name: 'newField')
       expect(request.fields.size).to be 1
-      expect(request.fields.first.name).to eq "newField"
+      expect(request.fields.first.name).to eq 'newField'
     end
   end
 
   context 'headers' do
     context 'no headers set' do
       it 'has default headers of content_type and accept' do
-        expect(request.default_headers).to eq({content_type: :json, accept: :json})
+        expect(request.default_headers).to eq(content_type: :json, accept: :json)
       end
     end
 
@@ -39,7 +39,9 @@ describe ApiTester::Request do
 
     context 'headers set to something' do
       before :each do
-        request.add_header_field ApiTester::Field.new(name: :Authorization, required: true, default_value: "something")
+        request.add_header_field ApiTester::Field.new(name: :Authorization,
+                                                      required: true,
+                                                      default_value: 'something')
       end
 
       it 'has no headers' do
@@ -47,25 +49,27 @@ describe ApiTester::Request do
       end
 
       it 'has default headers using field default' do
-        expect(request.default_headers).to eq({Authorization: "something"})
+        expect(request.default_headers).to eq(Authorization: 'something')
       end
     end
   end
-  
+
   context 'query_params' do
     it 'defaults to no query params' do
       expect(request.query_params.size).to be 0
     end
 
     it 'contains added params' do
-      request.add_query_param ApiTester::Field.new name: "query"
-      expect(request.query_params[0].name).to eq "query"
+      request.add_query_param ApiTester::Field.new name: 'query'
+      expect(request.query_params[0].name).to eq 'query'
     end
 
     it 'generates default url query' do
-      request.add_query_param ApiTester::Field.new name: "query", default_value: "default"
-      request.add_query_param ApiTester::Field.new name: "query2", default_value: "something"
-      expect(request.default_query).to eq "query=default&query2=something"
+      request.add_query_param ApiTester::Field.new name: 'query',
+                                                   default_value: 'default'
+      request.add_query_param ApiTester::Field.new name: 'query2',
+                                                   default_value: 'something'
+      expect(request.default_query).to eq 'query=default&query2=something'
     end
   end
 end

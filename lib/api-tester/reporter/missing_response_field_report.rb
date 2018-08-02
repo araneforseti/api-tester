@@ -1,4 +1,5 @@
 module ApiTester
+  # Report used for when response is missing a field
   class MissingResponseFieldReport
     attr_accessor :url
     attr_accessor :verb
@@ -13,9 +14,9 @@ module ApiTester
     end
 
     def print
-      puts "#{self.description}:"
-      puts "   #{self.verb} #{self.url} is missing response field:"
-      puts "      #{self.expected_field}"
+      puts "#{description}:"
+      puts "   #{verb} #{url} is missing response field:"
+      puts "      #{expected_field}"
     end
   end
 end

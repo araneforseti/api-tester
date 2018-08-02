@@ -1,19 +1,20 @@
 module ApiTester
+  # Class defining the verbs this tool supports
   class SupportedVerbs
-    def SupportedVerbs.add_item(key, value)
+    def self.add_item(key, value)
       @hash ||= {}
       @hash[key] = value
     end
 
-    def SupportedVerbs.const_missing(key)
+    def self.const_missing(key)
       @hash[key]
     end
 
-    def SupportedVerbs.each
-      @hash.each {|key,value| yield(key,value)}
+    def self.each
+      @hash.each { |key, value| yield(key, value) }
     end
 
-    def SupportedVerbs.all
+    def self.all
       @hash.values
     end
 

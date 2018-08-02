@@ -1,6 +1,7 @@
 require 'api-tester/definition/boundary_case'
 
 module ApiTester
+  # Class for defining requests in a contract
   class Request
     attr_accessor :definition
     attr_accessor :header_fields
@@ -13,28 +14,28 @@ module ApiTester
       self.query_params = []
     end
 
-    def add_field new_field
-      self.fields << new_field
+    def add_field(new_field)
+      fields << new_field
       self
     end
 
-    def add_query_param new_query_param
-      self.query_params << new_query_param
+    def add_query_param(new_query_param)
+      query_params << new_query_param
       self
     end
 
     def default_query
-      self.query_params.map{|param| "#{param.name}=#{param.default_value}"}.join("&")
+      query_params.map { |param| "#{param.name}=#{param.default_value}" }.join('&')
     end
 
-    def add_header_field new_header
-      self.header_fields << new_header
+    def add_header_field(new_header)
+      header_fields << new_header
       self
     end
 
     def payload
-      response = Hash.new
-      self.fields.each do |field|
+      response = {}
+      fields.each do |field|
         response[field.name] = field.default_value
       end
       response
@@ -45,39 +46,41 @@ module ApiTester
     end
 
     def default_headers
-      if self.header_fields != []
-        self.headers
+      if header_fields != []
+        headers
       else
-        {content_type: :json, accept: :json}
+        { content_type: :json, accept: :json }
       end
     end
 
     def headers
       header_response = {}
-      self.header_fields.each do | header_field |
+      header_fields.each do |header_field|
         header_response[header_field.name] = header_field.default_value
       end
       header_response
     end
 
     def cases
-      boundary_cases = Array.new
-      self.fields.each do |field|
+      boundary_cases = []
+      fields.each do |field|
         field.negative_boundary_values.each do |value|
-          bcase = BoundaryCase.new("Setting #{field.name} to #{value}", altered_payload(field.name, value), default_headers)
+          bcase = BoundaryCase.new("Setting #{field.name} to #{value}",
+                                   altered_payload(field.name, value),
+                                   default_headers)
           boundary_cases.push(bcase)
         end
       end
       boundary_cases
     end
 
-    def altered_payload field_name, value
+    def altered_payload(field_name, value)
       body = payload
       body[field_name] = value
       body
     end
 
-    def altered_payload_with fields
+    def altered_payload_with(fields)
       body = payload
       fields.each do |field|
         body[field[:name]] = field[:value]

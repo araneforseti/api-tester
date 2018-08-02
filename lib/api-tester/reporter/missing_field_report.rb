@@ -1,4 +1,5 @@
 module ApiReport
+  # Report used for when an expected field is missing from a response
   class MissingFieldReport
     attr_accessor :description
     attr_accessor :url
@@ -15,11 +16,11 @@ module ApiReport
     end
 
     def print
-      puts "#{self.description}: "
-      puts "   Requested #{self.url} with payload:"
-      puts "      #{self.request}"
+      puts "#{description}: "
+      puts "   Requested #{url} with payload:"
+      puts "      #{request}"
       puts '   Missing field: '
-      puts "      #{self.expected_field}"
+      puts "      #{expected_field}"
     end
   end
 end

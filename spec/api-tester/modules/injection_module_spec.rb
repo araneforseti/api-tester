@@ -1,19 +1,21 @@
-require "spec_helper"
+require 'spec_helper'
 require 'webmock/rspec'
-require "api-tester/modules/injection_module"
+require 'api-tester/modules/injection_module'
 
 describe ApiTester::InjectionModule do
-  let(:url) {"http://www.test.com"}
-  let(:expected_response) {'{"error":"bad request"}'}
-  let(:good_request) { '{"actual": "something"}' }
-  let(:bad_request) { {"actual"=>"string%7C"} }
-  let(:contract) {ApiTester::Contract.new "Test", url}
-  let(:endpoint) {ApiTester::Endpoint.new "test", ""}
+  let(:url) { 'http://www.test.com' }
+  let(:expected_response) { "{'error':'bad request'}" }
+  let(:good_request) { "{'actual': 'something'}" }
+  let(:bad_request) { { 'actual'=>'string%7C' } }
+  let(:contract) { ApiTester::Contract.new 'Test', url }
+  let(:endpoint) { ApiTester::Endpoint.new 'test', '' }
 
   before :each do
-    expected_request = ApiTester::Request.new().add_field(ApiTester::Field.new name: "actual")
-    response = ApiTester::Response.new().add_field(ApiTester::Field.new name: "actual")
-    endpoint.add_method ApiTester::SupportedVerbs::POST, response, expected_request
+    expected_request = ApiTester::Request.new.add_field(ApiTester::Field.new(name: 'actual'))
+    response = ApiTester::Response.new.add_field(ApiTester::Field.new(name: 'actual'))
+    endpoint.add_method ApiTester::SupportedVerbs::POST,
+                        response, 
+                        expected_request
     endpoint.bad_request_response = ApiTester::Response.new 400
     contract.add_endpoint endpoint
 
@@ -22,7 +24,7 @@ describe ApiTester::InjectionModule do
   end
 
   context 'go' do
-    it 'should not generate reports if all requests receive appropriate message' do
+    it 'should not generate reports if all requests receive right messages' do
       expect(ApiTester::InjectionModule.go(contract).size).to eq 0
     end
 
@@ -33,8 +35,8 @@ describe ApiTester::InjectionModule do
   end
 
   context 'check_response' do
-    let(:response_body) { {"error": "Nam", "badKey": "a thing"} }
-    let(:response) { instance_double "Response "}
+    let(:response_body) { { 'error': 'Nam', 'badKey': 'a thing' } }
+    let(:response) { instance_double 'Response ' }
 
     it 'should return true if response is successful' do
       allow(response).to receive(:code) { 200 }

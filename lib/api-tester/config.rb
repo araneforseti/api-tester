@@ -1,39 +1,40 @@
 require 'api-tester/reporter/api_report'
 
 module ApiTester
+  # Config class for changing how the tool operates
   class Config
     attr_accessor :reporter
     attr_accessor :modules
 
-    def initialize reporter=ApiTester::ApiReport.new
+    def initialize(reporter = ApiTester::ApiReport.new)
       self.reporter = reporter
       self.modules = []
     end
 
-    def with_reporter reporter
+    def with_reporter(reporter)
       self.reporter = reporter
       self
     end
 
-    def with_module new_module
-      self.modules << new_module
+    def with_module(new_module)
+      modules << new_module
       self
     end
 
     def with_default_modules
-      self.modules << Format
-      self.modules << GoodCase
-      self.modules << Typo
-      self.modules << UnusedFields
+      modules << Format
+      modules << GoodCase
+      modules << Typo
+      modules << UnusedFields
       self
     end
 
     def with_all_modules
-      self.modules << Format
-      self.modules << ExtraVerbs
-      self.modules << GoodCase
-      self.modules << Typo
-      self.modules << UnusedFields
+      modules << Format
+      modules << ExtraVerbs
+      modules << GoodCase
+      modules << Typo
+      modules << UnusedFields
       self
     end
   end

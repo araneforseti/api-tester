@@ -1,8 +1,9 @@
-require "injection_vulnerability_library"
+require 'injection_vulnerability_library'
 
 module ApiTester
+  # Tests injection cases
   module InjectionModule
-    def self.go contract
+    def self.go(contract)
       reports = []
       contract.endpoints.each do |endpoint|
         endpoint.methods.each do |method|
@@ -12,7 +13,7 @@ module ApiTester
       reports
     end
 
-    def self.inject_payload base_url, endpoint, method
+    def self.inject_payload(base_url, endpoint, method)
       reports = []
       sql_injections = InjectionVulnerabilityLibrary.sql_vulnerabilities
 
@@ -20,9 +21,15 @@ module ApiTester
         sql_injections.each do |injection|
           injection_value = "#{field.default_value}#{injection}"
           payload = method.request.altered_payload(field.name, injection_value)
-          response = endpoint.call base_url: base_url, method: method, payload: payload, headers: method.request.default_headers          
-          if(!check_response(response, endpoint)) then
-            reports << InjectionReport.new("sql", endpoint.url, payload, response)
+          response = endpoint.call base_url: base_url,
+                                   method: method,
+                                   payload: payload,
+                                   headers: method.request.default_headers
+          unless check_response(response, endpoint)
+            reports << InjectionReport.new('sql',
+                                           endpoint.url,
+                                           payload,
+                                           response)
           end
         end
       end
@@ -34,22 +41,25 @@ module ApiTester
       response.code == 200 || check_error(response, endpoint)
     end
 
-    def self.check_error response, endpoint
-      evaluator = ApiTester::ResponseEvaluator.new response.body, endpoint.bad_request_response
+    def self.check_error(response, endpoint)
+      evaluator = ApiTester::ResponseEvaluator.new response.body,
+                                                   endpoint.bad_request_response
       missing_fields = evaluator.missing_fields
       extra_fields = evaluator.extra_fields
-      response.code == endpoint.bad_request_response.code && missing_fields.size == 0 && extra_fields.size == 0
+      response.code == endpoint.bad_request_response.code &&
+        missing_fields.size.zero? && extra_fields.size.zero?
     end
   end
 end
 
+# Report for InjectionModule
 class InjectionReport
   attr_accessor :injection_type
   attr_accessor :url
   attr_accessor :payload
   attr_accessor :response
 
-  def initialize injection_type, url, payload, response
+  def initialize(injection_type, url, payload, response)
     self.injection_type = injection_type
     self.url = url
     self.payload = payload
@@ -57,10 +67,10 @@ class InjectionReport
   end
 
   def print
-    puts "Found potential #{self.injection_type}: "
-    puts "   Requested #{self.url} with payload:"
-    puts "      #{self.payload}"
+    puts "Found potential #{injection_type}: "
+    puts "   Requested #{url} with payload:"
+    puts "      #{payload}"
     puts '   Received: '
-    puts "      #{self.response}"
+    puts "      #{response}"
   end
 end

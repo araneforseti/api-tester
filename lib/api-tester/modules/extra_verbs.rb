@@ -1,8 +1,9 @@
- require 'api-tester/util/supported_verbs'
+require 'api-tester/util/supported_verbs'
 
 module ApiTester
+  # Check verbs not explicitly defined in contract
   module ExtraVerbs
-    def self.go contract
+    def self.go(contract)
       reports = []
 
       contract.endpoints.each do |endpoint|
@@ -25,9 +26,10 @@ module ApiTester
     end
   end
 
+  # Test template used for module
   class VerbClass < MethodCaseTest
-      def initialize response, payload, expected_response, url, verb
-          super response, payload, expected_response, url, verb, "VerbModule"
-      end
+    def initialize(response, payload, expected_response, url, verb)
+      super response, payload, expected_response, url, verb, 'VerbModule'
+    end
   end
 end
