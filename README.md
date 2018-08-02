@@ -1,4 +1,5 @@
 # Api::Tester
+
 [![Gem Version](https://badge.fury.io/rb/api-tester.svg)](https://badge.fury.io/rb/api-tester)
 [![Build Status](https://travis-ci.org/araneforseti/api-tester.svg?branch=master)](https://travis-ci.org/araneforseti/api-tester)
 
@@ -13,14 +14,13 @@ relates to the unpublished gem version actively under development
 
 Check out [API Tester Example](https://github.com/araneforseti/example_api-tester) for an example in action
 
+## Out of Project Scope
 
-## What is this not intended for?
+- Logic testing (eg, if X is between A and B, then Y is required)
 
-- Logic testing (eg, if X is between A and B, then Y is
-required)
+## Usage
 
-# Usage
-## Installation
+### Installation
 
 Add this line to your application's Gemfile (Note: specify your version due to gem's currently volatile nature):
 
@@ -30,24 +30,25 @@ gem 'api-tester', '1.0.0'
 
 And then execute:
 
-    $ bundle
+    bundle
 
 Or install it yourself as:
 
-    $ gem install api-tester
+    gem install api-tester
 
-## Usage in Code
+### Usage in Code
 
 Warning: This gem is still in alpha stage. Use at own risk
 understanding the contract will change until the first
 stable release
 
 Define your contract and endpoints using
+
 ```ruby
 require 'api-tester/definition/contract'
 require 'api-tester/definition/endpoint'
 contract = ApiTester::Contract.new "API Name", "http://yourbase.com/api"
-endpoint = ApiTester::Endpoint.new "Some name which is currently unused", "/endpoint" 
+endpoint = ApiTester::Endpoint.new "Some name which is currently unused", "/endpoint"
 ```
 
 Define methods on endpoints
@@ -55,25 +56,31 @@ Define methods on endpoints
 ```ruby
 endpoint.add_method ApiTester::SupportedVerbs::GET, expected_response, expected_request
 ```
+
 Note: While an extensive list of verbs exists in ApiTester::SupportedVerbs, you can define your own (with the caveat they have to be supported by RestClient)
 
 Define fields used by the method (both Request and Response)
+
 ```ruby
 expected_request = Request.new.add_field(ApiTester::Field.new "fieldName")
 ```
+
 Note: Similar to methods, you can create your own fields.
-They need to repond to:
+They need to respond to:
+
 ```ruby
 field.has_subfields?
 values_array = field.negative_boundary_values
 ```
 
 Define which modules you want to use through a config
+
 ```ruby
 config = ApiTester::Config().with_module(Format)
 ```
 
 Put them together and call go and off you go!
+
 ```ruby
 request = ApiTester::Request.new.add_field(ApiTester::Field.new "fieldName")
 expected_response = ApiTester::Response.new(200).add_field(ApiTester::Field.new "fieldName")
@@ -86,7 +93,7 @@ expect(ApiTester.go(contract, config)).to be true
 
 ```
 
-## Dependencies
+### Dependencies
 
 If any of your API endpoints have some setup which needs to happen before or after each call (eg, path param represents resource which needs to be created), you can use the TestHelper interface:
 
@@ -110,45 +117,55 @@ endpoint.test_helper = InfoCreator.new
 expect(tester.go).to be true
 ```  
 
-# Modules
-## Boundary
+## Modules
+
+### Boundary
+
 This module will test out various edge cases and
 ensure error handling is consistent
 
-## Good Case
+### Good Case
+
 This module ensures your 'default request' works
 appropriately
 
-## Typo
+### Typo
+
 This module checks for common integration issues when an
 API is first being worked against such as urls which don't
 exist
 
-## Extra Verbs
+### Extra Verbs
+
 This module checks to ensure consistency in response when
 the api receives verbs it doesn't explicitly support
 
-## Unused Fields
+### Unused Fields
+
 If any response fields are not returned during tests run
 by previous modules, this will fail with a report
 detailing unreturned response fields. When using this
 module, it is recommended the good case module is also
 used.
 
-## Required Fields
+### Required Fields
+
 This module tests out all the various invalid combinations of required fields to ensure consistent response
 
-## Unexpected Fields
-This moudle calls out if the API returns anything unexpected in its reponse
+### Unexpected Fields
 
-## Custom Modules
+This module calls out if the API returns anything unexpected in its response
+
+### Custom Modules
+
 Do you want to do something with the definition which this gem currently does not support?
 You can create your own test module and add it to the config instance class!
 Just make sure it adheres to the following interface:
+
 ```ruby
 module CustomModule
   def self.go contract
-    # Your test code here    
+    # Your test code here
     # the contract object is the full definition created
   end
 
@@ -161,18 +178,20 @@ end
 config.with_module(CustomModule)
 ```
 
-# Reporting
+## Reporting
+
 Right now the default reporting mechanism prints out to
 the console all the issues which were found. You can
 create your own reporting class (so long as it responds
 to the same methods) or just extend the current one and
 override the print method. Then set the report
 tool in the config:
+
 ```ruby
 config.with_reporter(new_reporter)
 ```
 
-# Development
+## Development
 
 After checking out the repo, run `bin/setup` to install
 dependencies. Then, run `rake spec` to run the tests.
@@ -184,22 +203,22 @@ run `bundle exec rake install`.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at
-https://github.com/araneforseti/api-tester.
+Bug reports and pull requests are welcome on [GitHub repo](https://github.com/araneforseti/api-tester).
 
 ## Future Features Under Development
+
 Check out our [Trello Board](https://trello.com/b/R3RtsJ2A/api-tester) to see progress and where we are headed!
-Feel free to leave feedback through github's issue tracker
+Feel free to leave feedback through Github's issue tracker
 
 - Other Param Testing
-    - Path params
-    - Query
-    - Headers
+  - Path params
+  - Query
+  - Headers
 - Documentation
-    - Generate Swagger-compliant documentation
-    - Generate definitions from Swagger documentation
+  - Generate Swagger-compliant documentation
+  - Generate definitions from Swagger documentation
 
-# License
+## License
 
 The gem is available as open source under the terms
 of the [MIT License](http://opensource.org/licenses/MIT).
