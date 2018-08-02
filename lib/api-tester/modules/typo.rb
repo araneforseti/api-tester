@@ -19,7 +19,9 @@ module ApiTester
     def self.check_typo_url(base_url, endpoint)
       bad_url = "#{endpoint.url}gibberishadsfasdf"
       bad_endpoint = ApiTester::Endpoint.new 'Bad URL', bad_url
-      typo_case = BoundaryCase.new('Typo URL check', {}, {})
+      typo_case = BoundaryCase.new description: 'Typo URL check', 
+                                   payload: {}, 
+                                   headers: {}
       method = ApiTester::Method.new(ApiTester::SupportedVerbs::GET,
                                      ApiTester::Response.new(200),
                                      ApiTester::Request.new)
