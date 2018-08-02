@@ -12,7 +12,7 @@ describe ApiTester::RequiredFields do
   let(:url) { 'www.example.com' }
   let(:request) { ApiTester::Request.new }
   let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
-  let(:contract) { ApiTester::Contract.new 'Test', url }
+  let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
   let(:expected_code) { 400 }
   let(:expected_response) { ApiTester::Response.new expected_code }
   let(:expected_body) { '{"numKey": 1, "string_key": "string"}' }

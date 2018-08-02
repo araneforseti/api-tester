@@ -11,15 +11,17 @@ describe ApiTester::GoodCase do
   context 'get request' do
     let(:url) { 'www.example.com' }
     let(:request) { ApiTester::Request.new }
-    let(:fields) { [ApiTester::Field.new(name: 'numKey'),
-                   ApiTester::Field.new(name: 'string_key'),
-                   ApiTester::ObjectField.new(name: 'object_field')
-                       .with_field(ApiTester::Field.new name: 'inner_field')
-                       .with_field(ApiTester::Field.new name: 'other_field')] }
+    let(:fields) { 
+      [ApiTester::Field.new(name: 'numKey'),
+       ApiTester::Field.new(name: 'string_key'),
+       ApiTester::ObjectField.new(name: 'object_field')
+                             .with_field(ApiTester::Field.new(name: 'inner_field'))
+                             .with_field(ApiTester::Field.new(name: 'other_field'))] 
+    }
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' }
     let(:code) { 200 }
     let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
-    let(:contract) { ApiTester::Contract.new 'Test', url }
+    let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
     let(:response) { ApiTester::Response.new code }
     let(:report) { ApiTester::ApiReport.new }
 
@@ -99,17 +101,18 @@ describe ApiTester::GoodCase do
   end
 
   context 'post request' do
-    let(:url) {'www.example.com'}
+    let(:url) { 'www.example.com' }
     let(:request) { ApiTester::Request.new }
-    let(:fields) {[ApiTester::Field.new(name: 'numKey'), 
-      ApiTester::Field.new(name: 'string_key'), 
-      ApiTester::ObjectField.new(name: 'obj').with_field(ApiTester::Field.new(name: 'inner'))]}
+    let(:fields) {
+      [ApiTester::Field.new(name: 'numKey'),
+       ApiTester::Field.new(name: 'string_key'),
+       ApiTester::ObjectField.new(name: 'obj').with_field(ApiTester::Field.new(name: 'inner'))]}
     let(:body) { '{"numKey": 1, "string_key": "string", "obj": {"inner": "string"}}' }
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new code }
-    let(:endpoint) {ApiTester::Endpoint.new 'Test', ''}
-    let(:contract) {ApiTester::Contract.new 'Test', url}
-    let(:report) {ApiTester::ApiReport.new}
+    let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
+    let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
+    let(:report) { ApiTester::ApiReport.new }
 
     before :each do
       fields.each do |field|

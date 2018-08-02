@@ -10,7 +10,7 @@ require 'api-tester/config'
 
 describe ApiTester do
   let(:url) { 'www.example.com' }
-  let(:contract) { ApiTester::Contract.new 'Test', url }
+  let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
   let(:request) { ApiTester::Request.new }
   let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
   let(:expected_code) { 200 }

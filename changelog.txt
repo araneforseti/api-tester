@@ -5,6 +5,8 @@
 - Adding query params to definition
 - Moved base_url to contract
 - Changed endpoints to be relative urls
+- Removed missing field report as it was unused
+- Changing everything with more than one parameter to named parameters
 
 1.0.0
 

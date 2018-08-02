@@ -19,7 +19,7 @@ describe ApiTester::UnexpectedFields do
     let(:body) { "{'numKey': 1, 'string_key': 'string', 'object_field': {'inner_field': 'string', 'other_field': 'string'}}" }
     let(:code) { 200 }
     let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
-    let(:contract) { ApiTester::Contract.new 'Test', url }
+    let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
     let(:response) { ApiTester::Response.new code }
     let(:report) { ApiTester::ApiReport.new }
 

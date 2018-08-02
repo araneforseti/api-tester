@@ -5,7 +5,7 @@ module ApiTester
     attr_accessor :endpoints
     attr_accessor :base_url
 
-    def initialize(name, base_url)
+    def initialize(name:, base_url:)
       self.name = name
       self.endpoints = []
       self.base_url = base_url

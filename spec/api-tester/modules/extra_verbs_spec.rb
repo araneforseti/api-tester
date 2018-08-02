@@ -4,7 +4,7 @@ describe ApiTester::ExtraVerbs do
   let(:url) { 'www.example.com' }
   let(:bad_url) { "#{url}gibberishadsfasdf" }
   let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
-  let(:contract) { ApiTester::Contract.new 'Test', url }
+  let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
   let(:not_found) { ApiTester::Response.new 404 }
   let(:not_allow) { ApiTester::Response.new 415 }
   let(:report) { ApiTester::ApiReport.new }
