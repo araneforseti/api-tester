@@ -1,6 +1,6 @@
 module ApiTester
   # Report used for when response is missing a field
-  class MissingResponseFieldReport
+  class MissingFieldReport
     attr_accessor :url
     attr_accessor :verb
     attr_accessor :expected_field

@@ -26,12 +26,11 @@ module ApiTester
                                    method: method,
                                    payload: payload,
                                    headers: method.request.default_headers
-          unless check_response(response, endpoint)
-            reports << InjectionReport.new('sql',
-                                           endpoint.url,
-                                           payload,
-                                           response)
-          end
+          next if check_response(response, endpoint)
+          reports << InjectionReport.new('sql',
+                                         endpoint.url,
+                                         payload,
+                                         response)
         end
       end
 
