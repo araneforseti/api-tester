@@ -66,7 +66,8 @@ module ApiTester
       fields.each do |field|
         field.negative_boundary_values.each do |value|
           bcase = BoundaryCase.new description: "Setting #{field.name} to #{value}",
-                                   payload: altered_payload(field.name, value),
+                                   payload: altered_payload(field_name: field.name, 
+                                                            value: value),
                                    headers: default_headers
           boundary_cases.push bcase
         end
@@ -74,7 +75,7 @@ module ApiTester
       boundary_cases
     end
 
-    def altered_payload(field_name, value)
+    def altered_payload(field_name:, value:)
       body = payload
       body[field_name] = value
       body

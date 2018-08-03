@@ -3,7 +3,7 @@ require 'api-tester/definition/response'
 
 describe ApiTester::Response do
   let(:code) { 200 }
-  let(:response) { ApiTester::Response.new code }
+  let(:response) { ApiTester::Response.new status_code: code }
 
   context 'code' do
     it 'starts has status_code' do

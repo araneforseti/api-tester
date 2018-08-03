@@ -10,7 +10,7 @@ module ApiTester
     attr_accessor :url
     attr_accessor :module_name
 
-    def initialize(response, payload, expected_response, url, verb, module_name)
+    def initialize(response:, payload:, expected_response:, url:, verb:, module_name:)
       self.payload = payload
       self.response = response
       self.expected_response = expected_response
@@ -20,21 +20,21 @@ module ApiTester
     end
 
     def response_code_report
-      report = StatusCodeReport.new "#{module_name} - Incorrect response code",
-                                    url,
-                                    payload,
-                                    expected_response.code,
-                                    response.code
+      report = StatusCodeReport.new description: "#{module_name} - Incorrect response code",
+                                    url: url,
+                                    request: payload,
+                                    expected_status_code: expected_response.code,
+                                    actual_status_code: response.code
       reports << report
       nil
     end
 
     def missing_field_report(field)
-      report = Report.new "#{module_name} - Missing field #{field}",
-                          url,
-                          payload,
-                          expected_response,
-                          response
+      report = Report.new description: "#{module_name} - Missing field #{field}",
+                          url: url,
+                          request: payload,
+                          expected_response: expected_response,
+                          actual_response: response
       reports << report
       nil
     end
@@ -51,8 +51,8 @@ module ApiTester
 
     def check
       if check_response_code
-        evaluator = ApiTester::ResponseEvaluator.new json_parse(response.body),
-                                                     expected_response
+        evaluator = ApiTester::ResponseEvaluator.new actual_body: json_parse(response.body),
+                                                     expected_fields: expected_response
         evaluator.missing_fields.map { |field| missing_field_report(field) }
         evaluator.extra_fields.map { |field| extra_field_report(field) }
         increment_fields evaluator.seen_fields

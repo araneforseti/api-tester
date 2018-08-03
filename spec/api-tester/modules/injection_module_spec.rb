@@ -6,17 +6,17 @@ describe ApiTester::InjectionModule do
   let(:url) { 'http://www.test.com' }
   let(:expected_response) { "{'error':'bad request'}" }
   let(:good_request) { "{'actual': 'something'}" }
-  let(:bad_request) { { 'actual'=>'string%7C' } }
+  let(:bad_request) { { 'actual' => 'string%7C' } }
   let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
-  let(:endpoint) { ApiTester::Endpoint.new 'test', '' }
+  let(:endpoint) { ApiTester::Endpoint.new name: 'test', relative_url: '' }
 
   before :each do
     expected_request = ApiTester::Request.new.add_field(ApiTester::Field.new(name: 'actual'))
     response = ApiTester::Response.new.add_field(ApiTester::Field.new(name: 'actual'))
-    endpoint.add_method ApiTester::SupportedVerbs::POST,
-                        response, 
-                        expected_request
-    endpoint.bad_request_response = ApiTester::Response.new 400
+    endpoint.add_method verb: ApiTester::SupportedVerbs::POST,
+                        response: response,
+                        request: expected_request
+    endpoint.bad_request_response = ApiTester::Response.new status_code: 400
     contract.add_endpoint endpoint
 
     stub_request(:post, url).to_return(body: good_request, status: 400)

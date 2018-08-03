@@ -1,6 +1,5 @@
 require 'api-tester/reporter/status_code_report'
 require 'api-tester/method_case_test'
-require 'pry'
 
 module ApiTester
   # Checks the format constraints defined in contract
@@ -15,11 +14,11 @@ module ApiTester
                                      method: method,
                                      payload: format_case.payload,
                                      headers: format_case.headers
-            test = FormatTest.new response,
-                                  format_case.payload,
-                                  endpoint.bad_request_response,
-                                  endpoint.url,
-                                  method.verb
+            test = FormatTest.new response: response,
+                                  payload: format_case.payload,
+                                  expected_response: endpoint.bad_request_response,
+                                  url: endpoint.url,
+                                  verb: method.verb
             reports.concat test.check
           end
         end
@@ -34,8 +33,13 @@ module ApiTester
 
   # Test layout used by Format module
   class FormatTest < MethodCaseTest
-    def initialize(response, payload, expected_response, url, verb)
-      super response, payload, expected_response, url, verb, 'FormatModule'
+    def initialize(response:, payload:, expected_response:, url:, verb:)
+      super response: response,
+            payload: payload,
+            expected_response: expected_response,
+            url: url,
+            verb: verb,
+            module_name: 'FormatModule'
     end
   end
 end

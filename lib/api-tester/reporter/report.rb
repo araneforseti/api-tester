@@ -7,7 +7,7 @@ module ApiTester
     attr_accessor :expected_response
     attr_accessor :actual_response
 
-    def initialize(description, url, request, expected_response, actual_response)
+    def initialize(description:, url:, request:, expected_response:, actual_response:)
       self.description = description
       self.url = url
       self.request = request

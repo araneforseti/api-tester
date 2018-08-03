@@ -6,7 +6,7 @@ module ApiTester
     attr_accessor :reporter
     attr_accessor :modules
 
-    def initialize(reporter = ApiTester::ApiReport.new)
+    def initialize(reporter: ApiTester::ApiReport.new)
       self.reporter = reporter
       self.modules = []
     end

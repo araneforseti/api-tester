@@ -18,13 +18,14 @@ module ApiTester
 
     def self.check_typo_url(base_url, endpoint)
       bad_url = "#{endpoint.url}gibberishadsfasdf"
-      bad_endpoint = ApiTester::Endpoint.new 'Bad URL', bad_url
-      typo_case = BoundaryCase.new description: 'Typo URL check', 
-                                   payload: {}, 
+      bad_endpoint = ApiTester::Endpoint.new name: 'Bad URL', 
+                                             relative_url: bad_url
+      typo_case = BoundaryCase.new description: 'Typo URL check',
+                                   payload: {},
                                    headers: {}
-      method = ApiTester::Method.new(ApiTester::SupportedVerbs::GET,
-                                     ApiTester::Response.new(200),
-                                     ApiTester::Request.new)
+      method = ApiTester::Method.new verb: ApiTester::SupportedVerbs::GET,
+                                     response: ApiTester::Response.new(status_code: 200),
+                                     request: ApiTester::Request.new
       response = bad_endpoint.call base_url: base_url,
                                    method: method,
                                    payload: typo_case.payload,
@@ -54,7 +55,12 @@ module ApiTester
   # Test layout for TypoModule
   class TypoClass < MethodCaseTest
     def initialize(response, payload, expected_response, url, verb)
-      super response, payload, expected_response, url, verb, 'TypoModule'
+      super response: response,
+            payload: payload,
+            expected_response: expected_response,
+            url: url,
+            verb: verb,
+            module_name: 'TypoModule'
     end
   end
 end

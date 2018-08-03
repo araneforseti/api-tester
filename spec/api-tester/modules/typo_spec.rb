@@ -10,14 +10,14 @@ require 'api-tester/util/supported_verbs'
 describe ApiTester::Typo do
   let(:url) { 'www.example.com' }
   let(:bad_url) { "#{url}gibberishadsfasdf" }
-  let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
+  let(:endpoint) { ApiTester::Endpoint.new name: 'Test', relative_url: '' }
   let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
-  let(:not_found) { ApiTester::Response.new 404 }
-  let(:not_allow) { ApiTester::Response.new 415 }
+  let(:not_found) { ApiTester::Response.new status_code: 404 }
+  let(:not_allow) { ApiTester::Response.new status_code: 415 }
 
   before :each do
-    endpoint.add_method ApiTester::SupportedVerbs::GET, 
-                        ApiTester::Response.new(200)
+    endpoint.add_method verb: ApiTester::SupportedVerbs::GET,
+                        response: ApiTester::Response.new(status_code: 200)
     endpoint.not_allowed_response = not_allow
     endpoint.not_found_response = not_found
     contract.add_endpoint endpoint

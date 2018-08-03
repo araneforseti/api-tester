@@ -12,11 +12,11 @@ describe ApiTester do
   let(:url) { 'www.example.com' }
   let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
   let(:request) { ApiTester::Request.new }
-  let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
+  let(:endpoint) { ApiTester::Endpoint.new name: 'Test', relative_url: '' }
   let(:expected_code) { 200 }
   let(:unexpected_code) { 404 }
   let(:not_allowed_code) { 415 }
-  let(:expected_response) { ApiTester::Response.new expected_code }
+  let(:expected_response) { ApiTester::Response.new status_code: expected_code }
   let(:expected_body) { '{"numKey": 1, "string_key": "string"}' }
   let(:expected_fields) { 
     [ApiTester::Field.new(name: 'numKey'),
@@ -42,9 +42,9 @@ describe ApiTester do
       request.add_field field
     end
 
-    endpoint.add_method ApiTester::SupportedVerbs::GET,
-                        expected_response,
-                        request
+    endpoint.add_method verb: ApiTester::SupportedVerbs::GET,
+                        response: expected_response,
+                        request: request
     endpoint.bad_request_response = expected_response
 
     contract.add_endpoint endpoint
@@ -84,9 +84,9 @@ describe ApiTester do
       endpoint.add_path_param path_param
       endpoint.test_helper = PathParamCreator.new path_param, path_var
 
-      endpoint.add_method ApiTester::SupportedVerbs::GET,
-                          expected_response,
-                          request
+      endpoint.add_method verb: ApiTester::SupportedVerbs::GET,
+                          response: expected_response,
+                          request: request
       endpoint.bad_request_response = expected_response
 
       contract.add_endpoint endpoint

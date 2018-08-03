@@ -11,23 +11,27 @@ describe ApiTester::UnexpectedFields do
   context 'get request' do
     let(:url) { 'www.example.com' }
     let(:request) { ApiTester::Request.new }
-    let(:fields) { [ApiTester::Field.new(name: 'numKey'),
-                    ApiTester::Field.new(name: 'string_key'),
-                    ApiTester::ObjectField.new(name: 'object_field')
-                       .with_field(ApiTester::Field.new name: 'inner_field')
-                       .with_field(ApiTester::Field.new name: 'other_field')] }
+    let(:fields) { 
+      [ApiTester::Field.new(name: 'numKey'),
+       ApiTester::Field.new(name: 'string_key'),
+       ApiTester::ObjectField.new(name: 'object_field')
+                             .with_field(ApiTester::Field.new(name: 'inner_field'))
+                             .with_field(ApiTester::Field.new(name: 'other_field'))] 
+    }
     let(:body) { "{'numKey': 1, 'string_key': 'string', 'object_field': {'inner_field': 'string', 'other_field': 'string'}}" }
     let(:code) { 200 }
-    let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
+    let(:endpoint) { ApiTester::Endpoint.new name: 'Test', relative_url: '' }
     let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
-    let(:response) { ApiTester::Response.new code }
+    let(:response) { ApiTester::Response.new status_code: code }
     let(:report) { ApiTester::ApiReport.new }
 
     before :each do
       fields.each do |field|
         response.add_field field
       end
-      endpoint.add_method ApiTester::SupportedVerbs::GET, response, request
+      endpoint.add_method verb: ApiTester::SupportedVerbs::GET,
+                          response: response,
+                          request: request
       contract.add_endpoint endpoint
 
       stub_request(:get, 'www.example.com').to_return(body: body, status: code)
@@ -52,7 +56,7 @@ describe ApiTester::UnexpectedFields do
 
         it 'passes when expecting an empty body' do
           stub_request(:get, 'www.example.com').to_return(body: '[]', status: code)
-          response = ApiTester::Response.new 200
+          response = ApiTester::Response.new status_code: 200
           endpoint.methods[0].expected_response = response
           expect(ApiTester::UnexpectedFields.go(contract).size).to eq 0
         end

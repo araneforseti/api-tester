@@ -17,15 +17,15 @@ module ApiTester
     attr_accessor :not_allowed_response
     attr_accessor :not_found_response
 
-    def initialize(name, url)
-      self.relative_url = url
+    def initialize(name:, relative_url:)
+      self.relative_url = relative_url
       self.name = name
       self.methods = []
       self.path_params = []
       self.test_helper = ApiTester::TestHelper.new
-      self.bad_request_response = ApiTester::Response.new 400
-      self.not_allowed_response = ApiTester::Response.new 415
-      self.not_found_response = ApiTester::Response.new 404
+      self.bad_request_response = ApiTester::Response.new status_code: 400
+      self.not_allowed_response = ApiTester::Response.new status_code: 415
+      self.not_found_response = ApiTester::Response.new status_code: 404
     end
 
     def url
@@ -64,8 +64,10 @@ module ApiTester
       response
     end
 
-    def add_method(verb, response, request = Request.new)
-      methods << ApiTester::Method.new(verb, response, request)
+    def add_method(verb:, response:, request: Request.new)
+      methods << ApiTester::Method.new(verb: verb,
+                                       response: response,
+                                       request: request)
       self
     end
 

@@ -17,15 +17,17 @@ describe ApiTester::UnusedFields do
     }
     let(:body) { '{"numKey": 1, "string_key": "string"}' }
     let(:code) { 200 }
-    let(:response) { ApiTester::Response.new code }
-    let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
+    let(:response) { ApiTester::Response.new status_code: code }
+    let(:endpoint) { ApiTester::Endpoint.new name: 'Test', relative_url: '' }
     let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
 
     before :each do
       fields.each do |field|
         response.add_field field
       end
-      endpoint.add_method ApiTester::SupportedVerbs::POST, response, request
+      endpoint.add_method verb: ApiTester::SupportedVerbs::POST,
+                          response: response,
+                          request: request
       contract.add_endpoint endpoint
     end
 

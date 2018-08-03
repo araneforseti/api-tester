@@ -11,10 +11,10 @@ require 'api-tester/test_helper'
 describe ApiTester::RequiredFields do
   let(:url) { 'www.example.com' }
   let(:request) { ApiTester::Request.new }
-  let(:endpoint) { ApiTester::Endpoint.new 'Test', '' }
+  let(:endpoint) { ApiTester::Endpoint.new name: 'Test', relative_url: '' }
   let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
   let(:expected_code) { 400 }
-  let(:expected_response) { ApiTester::Response.new expected_code }
+  let(:expected_response) { ApiTester::Response.new status_code: expected_code }
   let(:expected_body) { '{"numKey": 1, "string_key": "string"}' }
   let(:expected_fields) { [ApiTester::Field.new(name: 'numKey'), ApiTester::Field.new(name: 'string_key')] }
   let(:request_fields) { [ApiTester::ArrayField.new(name: 'arr', required: true)] }
@@ -30,13 +30,13 @@ describe ApiTester::RequiredFields do
       request.add_field field
     end
 
-    endpoint.add_method ApiTester::SupportedVerbs::POST,
-                        expected_response,
-                        request
+    endpoint.add_method verb: ApiTester::SupportedVerbs::POST,
+                        response: expected_response,
+                        request: request
     endpoint.bad_request_response = expected_response
     contract.add_endpoint endpoint
 
-    stub_request(:post, url).to_return(body: expected_body, 
+    stub_request(:post, url).to_return(body: expected_body,
                                        status: expected_code)
   end
 

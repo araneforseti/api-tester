@@ -9,7 +9,7 @@ module ApiTester
       self.reports = []
     end
 
-    def add_new(url, request, expected_response, actual_response, description = 'case')
+    def add_new(url:, request:, expected_response:, actual_response:, description: 'case')
       report = Report.new description,
                           url,
                           request,

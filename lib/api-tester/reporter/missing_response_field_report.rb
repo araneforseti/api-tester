@@ -6,7 +6,7 @@ module ApiTester
     attr_accessor :expected_field
     attr_accessor :description
 
-    def initialize(url, verb, expected_field, description)
+    def initialize(url:, verb:, expected_field:, description:)
       self.url = url
       self.verb = verb
       self.expected_field = expected_field

@@ -6,8 +6,12 @@ module ApiTester
     attr_accessor :expected_status_code
     attr_accessor :actual_status_code
 
-    def initialize(description, url, request, expected_status_code, actual_status_code)
-      super description, url, request, expected_status_code, actual_status_code
+    def initialize(description:, url:, request:, expected_status_code:, actual_status_code:)
+      super description: description,
+            url: url,
+            request: request,
+            expected_response: expected_status_code,
+            actual_response: actual_status_code
       self.expected_status_code = expected_status_code
       self.actual_status_code = actual_status_code
     end

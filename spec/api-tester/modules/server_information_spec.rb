@@ -3,12 +3,12 @@ require 'api-tester/modules/server_information'
 describe ApiTester::ServerInformation do
   let(:url) { 'test.com' }
   let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
-  let(:endpoint) { ApiTester::Endpoint.new 'Test Endpoint', '' }
+  let(:endpoint) { ApiTester::Endpoint.new name: 'Test Endpoint', relative_url: '' }
 
   before(:each) do
-    endpoint.add_method ApiTester::SupportedVerbs::GET,
-                        ApiTester::Response.new,
-                        ApiTester::Request.new
+    endpoint.add_method verb: ApiTester::SupportedVerbs::GET,
+                        response: ApiTester::Response.new,
+                        request: ApiTester::Request.new
     contract.add_endpoint endpoint
   end
 

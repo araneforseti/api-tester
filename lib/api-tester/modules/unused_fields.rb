@@ -10,10 +10,10 @@ module ApiTester
         endpoint.methods.each do |method|
           method.expected_response.body.each do |field|
             if field.is_seen.zero?
-              reports << MissingResponseFieldReport.new(endpoint.url, 
-                                                        method.verb,
-                                                        field.name,
-                                                        'UnusedFieldsModule')
+              reports << MissingResponseFieldReport.new(url: endpoint.url,
+                                                        verb: method.verb,
+                                                        expected_field: field.name,
+                                                        description: 'UnusedFieldsModule')
             end
           end
         end

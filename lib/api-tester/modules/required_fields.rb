@@ -17,11 +17,11 @@ module ApiTester
                                      method: method,
                                      payload: payload,
                                      headers: request_def.default_headers
-            test = RequiredFieldsTest.new response,
-                                          payload,
-                                          endpoint.bad_request_response,
-                                          endpoint.url,
-                                          method.verb
+            test = RequiredFieldsTest.new response: response,
+                                          payload: payload,
+                                          expected_response: endpoint.bad_request_response,
+                                          url: endpoint.url,
+                                          verb: method.verb
             reports.concat test.check
           end
         end
@@ -37,9 +37,13 @@ module ApiTester
 
   # Test layout used for RequiredFieldsModule
   class RequiredFieldsTest < MethodCaseTest
-    def initialize(response, payload, expected_response, url, verb)
-      super response, payload, expected_response, url, verb,
-            'RequiredFieldsModule'
+    def initialize(response:, payload:, expected_response:, url:, verb:)
+      super response: response,
+            payload: payload,
+            expected_response: expected_response,
+            url: url,
+            verb: verb,
+            module_name: 'RequiredFieldsModule'
     end
   end
 end

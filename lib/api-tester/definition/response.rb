@@ -4,7 +4,7 @@ module ApiTester
     attr_accessor :code
     attr_accessor :body
 
-    def initialize(status_code = 200)
+    def initialize(status_code:200)
       self.code = status_code
       self.body = []
     end

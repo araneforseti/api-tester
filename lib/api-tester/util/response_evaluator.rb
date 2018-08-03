@@ -4,9 +4,9 @@ module ApiTester
     attr_accessor :response_body
     attr_accessor :expected_response
 
-    def initialize(actual_response_body, expected_response_fields)
-      self.response_body = actual_response_body
-      self.expected_response = expected_response_fields
+    def initialize(actual_body:, expected_fields:)
+      self.response_body = actual_body
+      self.expected_response = expected_fields
     end
 
     def response_field_array
@@ -43,17 +43,19 @@ module ApiTester
       fields = {}
       expected_fields.each do |field|
         fields[field.name] = field
-        fields = fields.merge inner_expected_field(field.fields, field.name)
+        fields = fields.merge inner_expected_field(expected_fields: field.fields,
+                                                   name: field.name)
       end
       fields
     end
 
-    def inner_expected_field(expected_fields, name)
+    def inner_expected_field(expected_fields:, name:)
       fields = {}
       expected_fields.each do |field|
         inner_name = "#{name}.#{field.name}"
         fields[inner_name] = field
-        fields = fields.merge inner_expected_field(field.fields, inner_name)
+        fields = fields.merge inner_expected_field(expected_fields: field.fields,
+                                                   name: inner_name)
       end
       fields
     end

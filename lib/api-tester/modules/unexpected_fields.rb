@@ -30,23 +30,28 @@ module ApiTester
   # Test layout for UnexpectedFields module
   class UnexpectedFieldsTest < MethodCaseTest
     def initialize(response, url, method)
-      super response,
-            method.request.default_payload,
-            method.expected_response,
-            url,
-            method.verb,
-            'UnexpectedFieldsModule'
+      super response: response,
+            payload: method.request.default_payload,
+            expected_response: method.expected_response,
+            url: url,
+            verb: method.verb,
+            module_name: 'UnexpectedFieldsModule'
     end
 
     def check
-      evaluator = ApiTester::ResponseEvaluator.new json_parse(response.body),
-                                                   expected_response
+      evaluator = ApiTester::ResponseEvaluator.new actual_body: json_parse(response.body),
+                                                   expected_fields: expected_response
       response_fields = evaluator.response_field_array
       expected_fields = evaluator.expected_fields
       increment_fields evaluator.seen_fields
       extra = response_fields - expected_fields
       extra.each do |extra_field|
-        reports << Report.new("UnexpectedFieldsModule - Found unexpected field #{extra_field}", url, payload, expected_response, response)
+        report = Report.new description: "UnexpectedFieldsModule - Found unexpected field #{extra_field}",
+                            url: url,
+                            request: payload,
+                            expected_response: expected_response,
+                            actual_response: response
+        reports << report
       end
       reports
     end

@@ -16,7 +16,9 @@ module ApiTester
                                    method: method,
                                    payload: default_case.payload,
                                    headers: default_case.headers
-          test = GoodCaseTest.new response, endpoint.url, method
+          test = GoodCaseTest.new response: response,
+                                  url: endpoint.url,
+                                  method: method
           reports.concat test.check
         end
       end
@@ -30,13 +32,13 @@ module ApiTester
 
   # Test layout used by module
   class GoodCaseTest < MethodCaseTest
-    def initialize(response, url, method)
-      super response,
-            method.request.default_payload,
-            method.expected_response,
-            url,
-            method.verb,
-            'GoodCaseModule'
+    def initialize(response:, url:, method:)
+      super response: response,
+            payload: method.request.default_payload,
+            expected_response: method.expected_response,
+            url: url,
+            verb: method.verb,
+            module_name: 'GoodCaseModule'
     end
   end
 end
