@@ -38,6 +38,7 @@ module ApiTester
           puts '\n'
           puts '\n'
         end
+        puts "Total issues: #{reports.size}"
       end
     end
   end
