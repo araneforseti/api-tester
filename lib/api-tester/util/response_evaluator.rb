@@ -63,7 +63,12 @@ module ApiTester
     def field_array(object)
       fields = []
       object.each do |key, value|
-        if value
+        if key.respond_to?('each')
+          fields.concat(field_array(key))
+        elsif value
+          fields << key.to_s
+          fields.concat(field_array(value).map { |i| "#{key}.#{i}" })
+        elsif value == false || value == 0 || value == nil
           fields << key.to_s
           fields.concat(field_array(value).map { |i| "#{key}.#{i}" })
         else

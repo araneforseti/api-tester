@@ -30,6 +30,13 @@ describe ApiTester::ResponseEvaluator do
                                                     'arr.numKey',
                                                     'arr.string_key']
     end
+
+    it 'should see keys of false, 0, and null values' do
+      example_body = { 'nullKey': nil, 'false_key': false, 'zero': 0 }
+      evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
+                                                   expected_fields: good_response
+      expect(evaluator.response_field_array).to eq %w[nullKey false_key zero]
+    end
   end
 
   describe '#expected_fields' do
@@ -90,6 +97,16 @@ describe ApiTester::ResponseEvaluator do
       evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
                                                    expected_fields: response
       expect(evaluator.missing_fields).to eq %w[name key]
+    end
+
+    it 'should report fields with false values as present' do
+      example_body = { 'hash': { 'innerkey': 1, 'innerkey2': 2 }, name: false, key: false }
+      response = ApiTester::Response.new status_code: 200
+      object_field = ApiTester::ObjectField.new(name: 'hash').with_field(ApiTester::Field.new name: 'innerkey').with_field(ApiTester::Field.new name: 'innerkey2')
+      response.add_field(ApiTester::Field.new(name: 'name')).add_field(ApiTester::Field.new name: 'key').add_field(object_field)
+      evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
+                                                   expected_fields: response
+      expect(evaluator.missing_fields).to eq %w[]
     end
 
     it 'should recognize arrays' do

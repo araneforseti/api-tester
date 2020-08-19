@@ -9,7 +9,7 @@ module ApiTester
 
       contract.endpoints.each do |endpoint|
         endpoint.methods.each do |method|
-          default_case = BoundaryCase.new description: endpoint.url,
+          default_case = BoundaryCase.new description: contract.base_url + endpoint.url,
                                           payload: method.request.default_payload,
                                           headers: method.request.default_headers
           response = endpoint.call base_url: contract.base_url,
@@ -17,7 +17,7 @@ module ApiTester
                                    payload: default_case.payload,
                                    headers: default_case.headers
           test = GoodCaseTest.new response: response,
-                                  url: endpoint.url,
+                                  url: contract.base_url + endpoint.url,
                                   method: method
           reports.concat test.check
         end

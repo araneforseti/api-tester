@@ -24,7 +24,7 @@ module ApiTester
                                     url: url,
                                     request: payload,
                                     expected_status_code: expected_response.code,
-                                    actual_status_code: response.code
+                                    actual_status_code: "#{response.code} : #{response.body}"
       reports << report
       nil
     end
@@ -40,11 +40,11 @@ module ApiTester
     end
 
     def extra_field_report(field)
-      report = Report.new "#{module_name} - Found extra field #{field}",
-                          url,
-                          payload,
-                          expected_response,
-                          response
+      report = Report.new description: "#{module_name} - Found extra field #{field}",
+                          url: url,
+                          request: payload,
+                          expected_response: expected_response,
+                          actual_response: response
       reports << report
       nil
     end

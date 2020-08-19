@@ -3,7 +3,6 @@ require 'api-tester/definition/method'
 require 'api-tester/test_helper'
 require 'rest-client'
 require 'json'
-require 'pry'
 
 module ApiTester
   # Class for defining and interacting with endpoints in a contract

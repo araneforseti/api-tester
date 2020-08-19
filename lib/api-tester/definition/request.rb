@@ -36,7 +36,9 @@ module ApiTester
     def payload
       response = {}
       fields.each do |field|
-        response[field.name] = field.default_value
+        if field.required == true
+          response[field.name] = field.default_value
+        end
       end
       response
     end
