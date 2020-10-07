@@ -18,13 +18,15 @@ module ApiTester
 
     def self.check_typo_url(base_url, endpoint)
       bad_url = "#{endpoint.url}gibberishadsfasdf"
-      bad_endpoint = ApiTester::Endpoint.new name: 'Bad URL', 
+      bad_endpoint = ApiTester::Endpoint.new name: 'Bad URL',
                                              relative_url: bad_url
       typo_case = BoundaryCase.new description: 'Typo URL check',
                                    payload: {},
                                    headers: {}
       method = ApiTester::Method.new verb: ApiTester::SupportedVerbs::GET,
-                                     response: ApiTester::Response.new(status_code: 200),
+                                     response: ApiTester::Response.new(
+                                       status_code: 200
+                                     ),
                                      request: ApiTester::Request.new
       response = bad_endpoint.call base_url: base_url,
                                    method: method,

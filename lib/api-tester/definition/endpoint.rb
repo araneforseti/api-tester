@@ -48,11 +48,11 @@ module ApiTester
       response
     end
 
-    def call(base_url:, method:, query:"", payload:{}, headers:{})
+    def call(base_url:, method:, query: '', payload: {}, headers: {})
       test_helper.before
       url = query ? "#{base_url}#{self.url}?#{query}" : "#{base_url}#{self.url}"
       begin
-        response = RestClient::Request.execute(method: method.verb, 
+        response = RestClient::Request.execute(method: method.verb,
                                                url: url,
                                                payload: payload.to_json,
                                                headers: headers)

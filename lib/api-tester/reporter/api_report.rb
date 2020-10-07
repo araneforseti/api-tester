@@ -19,7 +19,7 @@ module ApiTester
     end
 
     def add_new_report(report)
-      self.reports << report
+      reports << report
     end
 
     def add_reports(reports)
@@ -29,7 +29,7 @@ module ApiTester
     end
 
     def print
-      if self.reports.size.zero?
+      if reports.size.zero?
         puts 'No issues found'
       else
         puts "Issues discovered: #{reports.size}"
