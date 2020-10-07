@@ -11,7 +11,7 @@ describe ApiTester::UnusedFields do
   context 'post request' do
     let(:url) { 'www.example.com' }
     let(:request) { ApiTester::Request.new }
-    let(:fields) { 
+    let(:fields) {
       [ApiTester::Field.new(name: 'numKey'),
        ApiTester::Field.new(name: 'string_key')]
     }

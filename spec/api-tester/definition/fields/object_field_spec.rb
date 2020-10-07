@@ -26,7 +26,7 @@ describe ApiTester::ObjectField do
     it 'contains defaults from the fields' do
       sub_field = ApiTester::Field.new name: 'sub', default_value: 'default_foo'
       field = ApiTester::ObjectField.new(name: 'testObj').with_field(sub_field)
-      value = Hash.new
+      value = {}
       value['sub'] = 'default_foo'
       expect(field.default_value).to eq value
     end
@@ -34,7 +34,7 @@ describe ApiTester::ObjectField do
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {ApiTester::ObjectField.new(name: 'testObj').is_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::ObjectField.new(name: 'testObj').is_required.negative_boundary_values }
 
       {
         'string' => 'string',
@@ -55,7 +55,7 @@ describe ApiTester::ObjectField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {ApiTester::ObjectField.new(name: 'testObj').is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::ObjectField.new(name: 'testObj').is_not_required.negative_boundary_values }
 
       {
         'string' => 'string',

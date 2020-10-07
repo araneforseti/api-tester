@@ -18,7 +18,7 @@ describe ApiTester do
   let(:not_allowed_code) { 415 }
   let(:expected_response) { ApiTester::Response.new status_code: expected_code }
   let(:expected_body) { '{"numKey": 1, "string_key": "string"}' }
-  let(:expected_fields) { 
+  let(:expected_fields) {
     [ApiTester::Field.new(name: 'numKey'),
      ApiTester::Field.new(name: 'string_key')]
   }

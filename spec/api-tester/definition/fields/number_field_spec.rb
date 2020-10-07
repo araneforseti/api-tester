@@ -28,7 +28,7 @@ describe ApiTester::NumberField do
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {ApiTester::NumberField.new(name: 'testObj').is_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::NumberField.new(name: 'testObj').is_required.negative_boundary_values }
 
       {
         'string' => 'string',
@@ -46,7 +46,7 @@ describe ApiTester::NumberField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {ApiTester::NumberField.new(name: 'testObj').is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::NumberField.new(name: 'testObj').is_not_required.negative_boundary_values }
 
       {
         'string' => 'string',

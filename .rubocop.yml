@@ -4,6 +4,7 @@ AllCops:
     - '*.gemspec'
     - 'Rakefile'
     - '**/*.rake'
+    - 'bin/*'
 
 Metrics/BlockLength:
   Enabled: false
@@ -24,4 +25,31 @@ Naming/PredicateName:
   Enabled: false
 
 Style/IfUnlessModifier:
+  Enabled: false
+
+Style/NilComparison:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/MultipleComparison:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/EmptyLiteral:
+  Enabled: false
+
+Lint/BooleanSymbol:
+  Enabled: false
+
+Style/GuardClause:
   Enabled: false

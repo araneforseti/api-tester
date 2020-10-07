@@ -62,14 +62,14 @@ module ApiTester
 
     def field_array(object)
       fields = []
- 
+
       object.each do |key, value|
         if key.respond_to?('each')
           fields.concat(field_array(key))
-        elsif value == false || value == 0 || value == nil
+        elsif value == nil || value == 0 || value == false
           fields << key.to_s
           fields.concat(field_array(value).map { |i| "#{key}.#{i}" })
-        elsif value.to_s[0] == "[" and value.to_s[-1] == "]" and not value.to_s.include?("=>")
+        elsif value.to_s[0] == '[' && value.to_s[-1] == ']' && !value.to_s.include?('=>')
           fields << key.to_s
         elsif value
           fields << key.to_s
@@ -79,7 +79,7 @@ module ApiTester
         end
       end
       fields
-    rescue => error
+    rescue NoMethodError
       fields
     end
   end

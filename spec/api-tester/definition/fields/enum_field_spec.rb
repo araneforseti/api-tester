@@ -51,7 +51,7 @@ describe ApiTester::EnumField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {ApiTester::EnumField.new(name: 'testObj', acceptable_values: %w[1 2 3]).is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::EnumField.new(name: 'testObj', acceptable_values: %w[1 2 3]).is_not_required.negative_boundary_values }
 
       {
         'number' => 123,
