@@ -2,6 +2,7 @@ require 'api-tester/util/response_evaluator'
 
 describe ApiTester::ResponseEvaluator do
   let(:good_response) { ApiTester::Response.new(status_code: 200) }
+
   describe '#response_field_array' do
     it 'should create the field array' do
       example_body = { 'name': 'Nam', 'key': 'value',
@@ -37,20 +38,32 @@ describe ApiTester::ResponseEvaluator do
                                                    expected_fields: good_response
       expect(evaluator.response_field_array).to eq %w[nullKey false_key zero]
     end
+
+    it 'should handle plain arrays' do
+      example_body = { 'array_field': ["foo"] }
+      evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
+                                                   expected_fields: good_response
+      expect(evaluator.response_field_array).to eq %w[array_field]
+    end
   end
 
   describe '#expected_fields' do
     it 'should create the field array' do
       response = ApiTester::Response.new status_code: 200
-      object_field = ApiTester::ObjectField.new(name: 'hash').with_field(ApiTester::Field.new(name: 'innerkey')).with_field(ApiTester::Field.new(name: 'innerkey2'))
-      response.add_field(ApiTester::Field.new(name: 'name')).add_field(ApiTester::Field.new(name: 'key')).add_field(object_field)
+      object_field = ApiTester::ObjectField.new(name: 'hash').with_field(ApiTester::Field.new(name: 'innerkey'))
+                                                             .with_field(ApiTester::Field.new(name: 'innerkey2'))
+      response.add_field(ApiTester::Field.new(name: 'name'))
+              .add_field(ApiTester::Field.new(name: 'key'))
+              .add_field(object_field)
+              .add_field(ApiTester::PlainArrayField.new(name: 'array_field'))
       evaluator = ApiTester::ResponseEvaluator.new actual_body: {},
                                                    expected_fields: response
       expect(evaluator.expected_fields).to eq ['name',
                                                'key',
                                                'hash',
                                                'hash.innerkey',
-                                               'hash.innerkey2']
+                                               'hash.innerkey2',
+                                               'array_field']
     end
   end
 
