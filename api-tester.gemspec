@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.58.2'
   spec.add_development_dependency 'terminal-notifier', '~> 2.0.0'
-  spec.add_development_dependency 'terminal-notifier-guard', '~> 1.6.0'
+  spec.add_development_dependency 'terminal-notifier-guard', '~> 1.7.0'
   spec.add_development_dependency 'webmock', '~> 3.4'
 
   spec.add_runtime_dependency 'injection_vulnerability_library', '0.0.2'
