@@ -11,12 +11,12 @@ describe ApiTester::UnexpectedFields do
   context 'get request' do
     let(:url) { 'www.example.com' }
     let(:request) { ApiTester::Request.new }
-    let(:fields) { 
+    let(:fields) {
       [ApiTester::Field.new(name: 'numKey'),
        ApiTester::Field.new(name: 'string_key'),
        ApiTester::ObjectField.new(name: 'object_field')
                              .with_field(ApiTester::Field.new(name: 'inner_field'))
-                             .with_field(ApiTester::Field.new(name: 'other_field'))] 
+                             .with_field(ApiTester::Field.new(name: 'other_field'))]
     }
     let(:body) { "{'numKey': 1, 'string_key': 'string', 'object_field': {'inner_field': 'string', 'other_field': 'string'}}" }
     let(:code) { 200 }
@@ -43,7 +43,7 @@ describe ApiTester::UnexpectedFields do
       end
 
       it 'fails when an extra key is present' do
-        body = '{"extra": 0, "numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}' 
+        body = '{"extra": 0, "numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}'
         stub_request(:get, 'www.example.com').to_return(body: body, status: code)
         expect(ApiTester::UnexpectedFields.go(contract).size).to be >= 1
       end

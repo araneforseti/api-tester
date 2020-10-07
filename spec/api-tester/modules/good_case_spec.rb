@@ -11,14 +11,16 @@ describe ApiTester::GoodCase do
   context 'get request' do
     let(:url) { 'www.example.com' }
     let(:request) { ApiTester::Request.new }
-    let(:fields) {[
-      ApiTester::Field.new(name: 'numKey'),
-      ApiTester::Field.new(name: 'string_key'),
-      ApiTester::ObjectField.new(name: 'object_field')
-                             .with_field(ApiTester::Field.new(name: 'inner_field'))
-                             .with_field(ApiTester::Field.new(name: 'other_field')),
-      ApiTester::PlainArrayField.new(name: 'array_field', default_value: ["foo"])
-    ]}
+    let(:fields) {
+      [
+        ApiTester::Field.new(name: 'numKey'),
+        ApiTester::Field.new(name: 'string_key'),
+        ApiTester::ObjectField.new(name: 'object_field')
+                              .with_field(ApiTester::Field.new(name: 'inner_field'))
+                              .with_field(ApiTester::Field.new(name: 'other_field')),
+        ApiTester::PlainArrayField.new(name: 'array_field', default_value: ['foo'])
+      ]
+    }
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}, "array_field": ["foo"]}' }
     let(:code) { 200 }
     let(:endpoint) { ApiTester::Endpoint.new name: 'Test', relative_url: '' }
@@ -43,7 +45,7 @@ describe ApiTester::GoodCase do
         expect(ApiTester::GoodCase.go(contract).size).to eq 0
       end
 
-      [100, 201, 300, 400, 529].each do | status |
+      [100, 201, 300, 400, 529].each do |status|
         it "will fail different status code #{status}" do
           response.code = status
           expect(ApiTester::GoodCase.go(contract).size).to be >= 1
@@ -109,7 +111,8 @@ describe ApiTester::GoodCase do
     let(:fields) {
       [ApiTester::Field.new(name: 'numKey'),
        ApiTester::Field.new(name: 'string_key'),
-       ApiTester::ObjectField.new(name: 'obj').with_field(ApiTester::Field.new(name: 'inner'))]}
+       ApiTester::ObjectField.new(name: 'obj').with_field(ApiTester::Field.new(name: 'inner'))]
+    }
     let(:body) { '{"numKey": 1, "string_key": "string", "obj": {"inner": "string"}}' }
     let(:code) { 200 }
     let(:response) { ApiTester::Response.new status_code: code }

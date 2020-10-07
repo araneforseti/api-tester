@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 require 'api-tester/definition/fields/plain_array_field'
 
 describe ApiTester::BooleanField do
@@ -16,7 +16,7 @@ describe ApiTester::BooleanField do
 
   context 'default value' do
     it 'can be set to something' do
-      value = ["foo", "bar"]
+      value = %w[foo bar]
       field = ApiTester::PlainArrayField.new(name: 'testObj', default_value: value)
       expect(field.default_value).to eq value
     end
@@ -30,7 +30,7 @@ describe ApiTester::BooleanField do
 
   context 'negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {ApiTester::PlainArrayField.new(name: 'testObj').is_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::PlainArrayField.new(name: 'testObj').is_required.negative_boundary_values }
 
       {
         'string' => 'string',
@@ -52,7 +52,7 @@ describe ApiTester::BooleanField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {ApiTester::PlainArrayField.new(name: 'testObj').is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::PlainArrayField.new(name: 'testObj').is_not_required.negative_boundary_values }
 
       {
         'string' => 'string',

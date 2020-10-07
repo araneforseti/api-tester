@@ -1,5 +1,55 @@
-Metrics/BlockLength:
+AllCops:
   Exclude:
+    - 'Guardfile'
+    - '*.gemspec'
     - 'Rakefile'
     - '**/*.rake'
-    - 'spec/**/*.rb'
+    - 'bin/*'
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/NilComparison:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/MultipleComparison:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/EmptyLiteral:
+  Enabled: false
+
+Lint/BooleanSymbol:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false

@@ -37,11 +37,11 @@ describe ApiTester::Endpoint do
     end
 
     it 'should use specified query string' do
-      stub_request(:get, 
+      stub_request(:get,
                    'test.com?query=hello').to_return(body: 'response happened',
                                                      status: 200)
       method = ApiTester::Method.new verb: ApiTester::SupportedVerbs::GET,
-                                     response: ApiTester::Response.new, 
+                                     response: ApiTester::Response.new,
                                      request: ApiTester::Request.new
       response = endpoint.call base_url: base_url,
                                method: method,

@@ -1,11 +1,11 @@
 describe ApiTester::MethodCaseTest do
-  let(:payload) { '{}'}
+  let(:payload) { '{}' }
   let(:response) { MockResponse.new 200, '{"numKey": 1, "string_key": "string"}' }
   let(:expected_response) { ApiTester::Response.new status_code: 200 }
   let(:url) { '' }
   let(:verb) { 'GET' }
   let(:module_name) { 'test' }
-  let(:method) { 
+  let(:method) {
     ApiTester::MethodCaseTest.new response: response,
                                   payload: payload,
                                   expected_response: expected_response,

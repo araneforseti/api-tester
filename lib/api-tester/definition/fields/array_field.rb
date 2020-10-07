@@ -5,7 +5,7 @@ module ApiTester
   class ArrayField < Field
     attr_accessor :fields
 
-    def initialize(name:, required:false)
+    def initialize(name:, required: false)
       super name: name, required: required
       self.fields = []
     end

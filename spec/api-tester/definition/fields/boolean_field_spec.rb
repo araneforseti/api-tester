@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 require 'api-tester/definition/fields/boolean_field'
 
 describe ApiTester::BooleanField do
@@ -28,7 +28,7 @@ describe ApiTester::BooleanField do
 
   context 'required negative_boundary_values' do
     context 'for required' do
-      let(:negative_boundary_values) {ApiTester::BooleanField.new(name: 'testObj').is_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::BooleanField.new(name: 'testObj').is_required.negative_boundary_values }
 
       {
         'string' => 'string',
@@ -47,7 +47,7 @@ describe ApiTester::BooleanField do
     end
 
     context 'for not required' do
-      let(:negative_boundary_values) {ApiTester::BooleanField.new(name: 'testObj').is_not_required.negative_boundary_values}
+      let(:negative_boundary_values) { ApiTester::BooleanField.new(name: 'testObj').is_not_required.negative_boundary_values }
 
       {
         'string' => 'string',
