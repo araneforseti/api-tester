@@ -1,7 +1,7 @@
 # Api::Tester
 
 [![Gem Version](https://badge.fury.io/rb/api-tester.svg)](https://badge.fury.io/rb/api-tester)
-[![Build Status](https://travis-ci.org/araneforseti/api-tester.svg?branch=master)](https://travis-ci.org/araneforseti/api-tester)
+[![Build Status](https://github.com/araneforseti/api-tester/workflows/Test/badge.svg)](https://github.com/araneforseti/api-tester/actions?query=workflow%3ATest)
 
 Work in Progress! Use at own risk, definitely not ready
 for prime time! To isolate your project from the changes, be sure to specify which gem version you use.
