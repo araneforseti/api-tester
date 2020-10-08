@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Class for evaluating responses against what is expected
   class ResponseEvaluator

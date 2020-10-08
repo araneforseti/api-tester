@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/definition/fields/field'
 
 module ApiTester

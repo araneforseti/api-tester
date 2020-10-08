@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/modules/server_information'
 
 describe ApiTester::ServerInformation do

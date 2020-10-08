@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Class defining the verbs this tool supports
   class SupportedVerbs

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'injection_vulnerability_library'
 
 module ApiTester
@@ -27,6 +29,7 @@ module ApiTester
                                    payload: payload,
                                    headers: method.request.default_headers
           next if check_response(response, endpoint)
+
           reports << InjectionReport.new('sql',
                                          endpoint.url,
                                          payload,

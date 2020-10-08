@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/util/response_evaluator.rb'
 
 module ApiTester

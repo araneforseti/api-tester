@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/reporter/missing_field_report'
 
 module ApiTester
@@ -10,6 +12,7 @@ module ApiTester
         endpoint.methods.each do |method|
           method.expected_response.body.each do |field|
             next unless field.is_seen.zero?
+
             reports << MissingFieldReport.new(url: endpoint.url,
                                               verb: method.verb,
                                               expected_field: field.name,

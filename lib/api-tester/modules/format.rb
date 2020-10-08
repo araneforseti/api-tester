@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/reporter/status_code_report'
 require 'api-tester/method_case_test'
 

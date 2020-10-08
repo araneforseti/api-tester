@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tool for testing through API definitions
 module ApiTester
   def self.go(contract, config)

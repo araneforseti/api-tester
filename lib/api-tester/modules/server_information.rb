@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Module for ensuring the server isn't broadcasting information about itself
   module ServerInformation

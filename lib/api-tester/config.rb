@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/reporter/api_report'
 
 module ApiTester

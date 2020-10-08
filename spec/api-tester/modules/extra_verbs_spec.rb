@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/modules/extra_verbs'
 
 describe ApiTester::ExtraVerbs do
