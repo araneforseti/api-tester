@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Report used for when response is missing a field
   class MissingFieldReport

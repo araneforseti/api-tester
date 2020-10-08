@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Base class for field definitions
   class Field

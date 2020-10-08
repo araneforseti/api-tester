@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Class for defining methods as part of an endpoint
   class Method

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Class for defining expected responses
   class Response

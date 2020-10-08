@@ -53,3 +53,9 @@ Lint/BooleanSymbol:
 
 Style/GuardClause:
   Enabled: false
+
+Naming/FileName:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Ensures the fields marked as required in contract are guarded
   module RequiredFields

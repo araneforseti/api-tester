@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Class to define the whole contract
   class Contract

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/util/supported_verbs'
 
 module ApiTester

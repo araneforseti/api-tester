@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe ApiTester::MethodCaseTest do
   let(:payload) { '{}' }
   let(:response) { MockResponse.new 200, '{"numKey": 1, "string_key": "string"}' }

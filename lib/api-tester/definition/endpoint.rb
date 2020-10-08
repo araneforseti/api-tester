@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'api-tester/definition/response'
 require 'api-tester/definition/method'
 require 'api-tester/test_helper'

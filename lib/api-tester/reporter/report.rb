@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiTester
   # Standard report format for differing responses
   class Report
