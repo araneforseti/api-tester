@@ -37,7 +37,7 @@ describe ApiTester::InjectionModule do
   end
 
   context 'check_response' do
-    let(:response_body) { { 'error': 'Nam', 'badKey': 'a thing' } }
+    let(:response_body) { { error: 'Nam', badKey: 'a thing' } }
     let(:response) { instance_double 'Response ' }
 
     it 'should return true if response is successful' do

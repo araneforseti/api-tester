@@ -105,10 +105,10 @@ describe ApiTester do
 end
 
 class PathParamCreator < ApiTester::TestHelper
-  attr_accessor :key
-  attr_accessor :value
+  attr_accessor :key, :value
 
   def initialize(key, value)
+    super()
     self.key = key
     self.value = value
   end

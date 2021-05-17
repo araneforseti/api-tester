@@ -3,10 +3,7 @@
 module ApiTester
   # Report used for when response is missing a field
   class MissingFieldReport
-    attr_accessor :url
-    attr_accessor :verb
-    attr_accessor :expected_field
-    attr_accessor :description
+    attr_accessor :url, :verb, :expected_field, :description
 
     def initialize(url:, verb:, expected_field:, description:)
       self.url = url

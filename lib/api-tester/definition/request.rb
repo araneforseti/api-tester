@@ -5,10 +5,7 @@ require 'api-tester/definition/boundary_case'
 module ApiTester
   # Class for defining requests in a contract
   class Request
-    attr_accessor :definition
-    attr_accessor :header_fields
-    attr_accessor :fields
-    attr_accessor :query_params
+    attr_accessor :definition, :header_fields, :fields, :query_params
 
     def initialize
       self.fields = []
@@ -50,10 +47,10 @@ module ApiTester
     end
 
     def default_headers
-      if header_fields != []
-        headers
-      else
+      if header_fields == []
         { content_type: :json, accept: :json }
+      else
+        headers
       end
     end
 

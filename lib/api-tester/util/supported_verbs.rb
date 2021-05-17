@@ -12,8 +12,8 @@ module ApiTester
       @hash[key]
     end
 
-    def self.each
-      @hash.each { |key, value| yield(key, value) }
+    def self.each(&block)
+      @hash.each(&block)
     end
 
     def self.all

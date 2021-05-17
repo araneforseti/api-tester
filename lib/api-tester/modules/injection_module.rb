@@ -59,10 +59,7 @@ end
 
 # Report for InjectionModule
 class InjectionReport
-  attr_accessor :injection_type
-  attr_accessor :url
-  attr_accessor :payload
-  attr_accessor :response
+  attr_accessor :injection_type, :url, :payload, :response
 
   def initialize(injection_type, url, payload, response)
     self.injection_type = injection_type

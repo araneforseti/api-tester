@@ -3,10 +3,7 @@
 module ApiTester
   # Base class for field definitions
   class Field
-    attr_accessor :name
-    attr_accessor :default_value
-    attr_accessor :required
-    attr_accessor :is_seen
+    attr_accessor :name, :default_value, :required, :is_seen
 
     def initialize(name:, required: false, default_value: 'string')
       self.name = name

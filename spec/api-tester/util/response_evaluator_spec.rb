@@ -7,8 +7,8 @@ describe ApiTester::ResponseEvaluator do
 
   describe '#response_field_array' do
     it 'should create the field array' do
-      example_body = { 'name': 'Nam', 'key': 'value',
-                       'hash': { 'innerkey': 1, 'innerkey2': 2 } }
+      example_body = { name: 'Nam', key: 'value',
+                       hash: { innerkey: 1, innerkey2: 2 } }
       evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
                                                    expected_fields: good_response
       expect(evaluator.response_field_array).to eq ['name',
@@ -19,14 +19,14 @@ describe ApiTester::ResponseEvaluator do
     end
 
     it 'should create this field array' do
-      example_body = { 'numKey': 1, 'string_key': 'string' }
+      example_body = { numKey: 1, string_key: 'string' }
       evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
                                                    expected_fields: good_response
       expect(evaluator.response_field_array).to eq %w[numKey string_key]
     end
 
     it 'should handle arrays' do
-      example_body = { 'arr': [{ 'numKey': 1, 'string_key': 'string' }] }
+      example_body = { arr: [{ numKey: 1, string_key: 'string' }] }
       evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
                                                    expected_fields: good_response
       expect(evaluator.response_field_array).to eq ['arr',
@@ -35,14 +35,14 @@ describe ApiTester::ResponseEvaluator do
     end
 
     it 'should see keys of false, 0, and null values' do
-      example_body = { 'nullKey': nil, 'false_key': false, 'zero': 0 }
+      example_body = { nullKey: nil, false_key: false, zero: 0 }
       evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
                                                    expected_fields: good_response
       expect(evaluator.response_field_array).to eq %w[nullKey false_key zero]
     end
 
     it 'should handle plain arrays' do
-      example_body = { 'array_field': %w[foo] }
+      example_body = { array_field: %w[foo] }
       evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
                                                    expected_fields: good_response
       expect(evaluator.response_field_array).to eq %w[array_field]
@@ -83,7 +83,7 @@ describe ApiTester::ResponseEvaluator do
                                                    expected_fields: response
       expect(hash_compare(
                evaluator.expected_fields_hash,
-               'name': name_field, 'key': key_field, 'hash': object_field,
+               name: name_field, key: key_field, hash: object_field,
                'hash.innerkey': innerkey, 'hash.innerkey2': innerkey2
              )).to be true
     end
@@ -91,9 +91,9 @@ describe ApiTester::ResponseEvaluator do
 
   describe '#extra_fields' do
     it 'should return the extra fields' do
-      example_body = { 'name': 'Nam',
-                       'key': 'value',
-                       'hash': { 'innerkey': 1, 'innerkey2': 2 } }
+      example_body = { name: 'Nam',
+                       key: 'value',
+                       hash: { innerkey: 1, innerkey2: 2 } }
       response = ApiTester::Response.new status_code: 200
       response.add_field(ApiTester::Field.new(name: 'name')).add_field(ApiTester::Field.new(name: 'key'))
       evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
@@ -106,7 +106,7 @@ describe ApiTester::ResponseEvaluator do
 
   describe '#missing_fields' do
     it 'should return the missing fields' do
-      example_body = { 'hash': { 'innerkey': 1, 'innerkey2': 2 } }
+      example_body = { hash: { innerkey: 1, innerkey2: 2 } }
       response = ApiTester::Response.new status_code: 200
       object_field = ApiTester::ObjectField.new(name: 'hash').with_field(ApiTester::Field.new(name: 'innerkey')).with_field(ApiTester::Field.new(name: 'innerkey2'))
       response.add_field(ApiTester::Field.new(name: 'name')).add_field(ApiTester::Field.new(name: 'key')).add_field(object_field)
@@ -116,7 +116,7 @@ describe ApiTester::ResponseEvaluator do
     end
 
     it 'should report fields with false values as present' do
-      example_body = { 'hash': { 'innerkey': 1, 'innerkey2': 2 }, name: false, key: false }
+      example_body = { hash: { innerkey: 1, innerkey2: 2 }, name: false, key: false }
       response = ApiTester::Response.new status_code: 200
       object_field = ApiTester::ObjectField.new(name: 'hash').with_field(ApiTester::Field.new(name: 'innerkey')).with_field(ApiTester::Field.new(name: 'innerkey2'))
       response.add_field(ApiTester::Field.new(name: 'name')).add_field(ApiTester::Field.new(name: 'key')).add_field(object_field)
@@ -126,7 +126,7 @@ describe ApiTester::ResponseEvaluator do
     end
 
     it 'should recognize arrays' do
-      example_body = { 'sheets': [{ 'strength': 10 }] }
+      example_body = { sheets: [{ strength: 10 }] }
       response = ApiTester::Response.new status_code: 200
       array_field = ApiTester::ArrayField.new(name: 'sheets').with_field(ApiTester::Field.new(name: 'strength')).with_field(ApiTester::Field.new(name: 'missingkey'))
       response.add_field(array_field)
@@ -138,7 +138,7 @@ describe ApiTester::ResponseEvaluator do
 
   describe '#seen_fields' do
     it 'should return an array of seen field objects' do
-      example_body = { 'name': 'Nam', 'hash': { 'innerkey2': 2 } }
+      example_body = { name: 'Nam', hash: { innerkey2: 2 } }
       response = ApiTester::Response.new status_code: 200
       innerkey = ApiTester::Field.new name: 'innerkey'
       innerkey2 = ApiTester::Field.new name: 'innerkey2'

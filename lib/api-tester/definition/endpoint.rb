@@ -9,14 +9,7 @@ require 'json'
 module ApiTester
   # Class for defining and interacting with endpoints in a contract
   class Endpoint
-    attr_accessor :name
-    attr_accessor :relative_url
-    attr_accessor :path_params
-    attr_accessor :methods
-    attr_accessor :test_helper
-    attr_accessor :bad_request_response
-    attr_accessor :not_allowed_response
-    attr_accessor :not_found_response
+    attr_accessor :name, :relative_url, :path_params, :methods, :test_helper, :bad_request_response, :not_allowed_response, :not_found_response
 
     def initialize(name:, relative_url:)
       self.relative_url = relative_url

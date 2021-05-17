@@ -3,8 +3,7 @@
 module ApiTester
   # Class for defining expected responses
   class Response
-    attr_accessor :code
-    attr_accessor :body
+    attr_accessor :code, :body
 
     def initialize(status_code: 200)
       self.code = status_code
