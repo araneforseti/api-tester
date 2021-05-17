@@ -47,10 +47,10 @@ module ApiTester
     end
 
     def default_headers
-      if header_fields != []
-        headers
-      else
+      if header_fields == []
         { content_type: :json, accept: :json }
+      else
+        headers
       end
     end
 
