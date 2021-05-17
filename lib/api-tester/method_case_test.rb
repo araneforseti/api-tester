@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
-require 'api-tester/util/response_evaluator.rb'
+require 'api-tester/util/response_evaluator'
 
 module ApiTester
   # Class for testing methods
   class MethodCaseTest
-    attr_accessor :expected_response
-    attr_accessor :payload
-    attr_accessor :response
-    attr_accessor :reports
-    attr_accessor :url
-    attr_accessor :module_name
+    attr_accessor :expected_response, :payload, :response, :reports, :url, :module_name
 
     def initialize(response:, payload:, expected_response:, url:, verb:, module_name:)
       self.payload = payload

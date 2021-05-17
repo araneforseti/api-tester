@@ -3,9 +3,7 @@
 module ApiTester
   # Class for defining methods as part of an endpoint
   class Method
-    attr_accessor :request
-    attr_accessor :expected_response
-    attr_accessor :verb
+    attr_accessor :request, :expected_response, :verb
 
     def initialize(verb:, response:, request:)
       self.verb = verb

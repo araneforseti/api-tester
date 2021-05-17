@@ -3,11 +3,7 @@
 module ApiTester
   # Standard report format for differing responses
   class Report
-    attr_accessor :description
-    attr_accessor :url
-    attr_accessor :request
-    attr_accessor :expected_response
-    attr_accessor :actual_response
+    attr_accessor :description, :url, :request, :expected_response, :actual_response
 
     def initialize(description:, url:, request:, expected_response:, actual_response:)
       self.description = description
@@ -22,7 +18,7 @@ module ApiTester
       puts "   Requested #{url} with payload:"
       puts "      #{request.to_json}"
       puts '   Expecting: '
-      puts '      ' + expected_response.to_s
+      puts "      #{expected_response}"
       puts '   Receiving: '
       puts "      #{actual_response}"
     end

@@ -3,8 +3,7 @@
 module ApiTester
   # Class for evaluating responses against what is expected
   class ResponseEvaluator
-    attr_accessor :response_body
-    attr_accessor :expected_response
+    attr_accessor :response_body, :expected_response
 
     def initialize(actual_body:, expected_fields:)
       self.response_body = actual_body

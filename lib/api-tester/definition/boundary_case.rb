@@ -3,9 +3,7 @@
 module ApiTester
   # Holds data necessary for tests
   class BoundaryCase
-    attr_accessor :payload
-    attr_accessor :headers
-    attr_accessor :description
+    attr_accessor :payload, :headers, :description
 
     def initialize(description:, payload:, headers:)
       self.description = description

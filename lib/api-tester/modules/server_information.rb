@@ -26,8 +26,7 @@ end
 
 # Report used by module
 class ServerBroadcastReport
-  attr_accessor :server_info
-  attr_accessor :server_key
+  attr_accessor :server_info, :server_key
 
   def initialize(server_info, server_key)
     self.server_info = server_info

@@ -78,8 +78,7 @@ describe ApiTester::MethodCaseTest do
 end
 
 class MockResponse
-  attr_accessor :code
-  attr_accessor :body
+  attr_accessor :code, :body
 
   def initialize(code, body)
     self.code = code
