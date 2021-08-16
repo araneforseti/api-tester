@@ -207,7 +207,7 @@ Bug reports and pull requests are welcome on [GitHub repo](https://github.com/ar
 
 ## Future Features Under Development
 
-Check out our [Trello Board](https://trello.com/b/R3RtsJ2A/api-tester) to see progress and where we are headed!
+Check out our [Project Board](https://github.com/araneforseti/api-tester/projects/1) to see progress and where we are headed!
 Feel free to leave feedback through Github's issue tracker
 
 - Other Param Testing
