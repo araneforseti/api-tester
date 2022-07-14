@@ -3,11 +3,12 @@
 module ApiTester
   # Class for evaluating responses against what is expected
   class ResponseEvaluator
-    attr_accessor :response_body, :expected_response
+    attr_accessor :response_body, :expected_response, :expected_fields_hash
 
     def initialize(actual_body:, expected_fields:)
       self.response_body = actual_body
       self.expected_response = expected_fields
+      self.expected_fields_hash = expected_field_array(expected_response.body)
     end
 
     def response_field_array
@@ -26,10 +27,6 @@ module ApiTester
         seen << expected[field_key]
       end
       seen
-    end
-
-    def expected_fields_hash
-      expected_field_array expected_response.body
     end
 
     def extra_fields
