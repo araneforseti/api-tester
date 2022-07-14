@@ -48,11 +48,18 @@ describe ApiTester::ResponseEvaluator do
       expect(evaluator.response_field_array).to eq %w[array_field]
     end
 
+    it 'should handle keyless arrays' do
+      example_body = [key1: 'something', key2: 'somethingelse']
+      evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
+                                                   expected_fields: good_response
+      expect(evaluator.response_field_array).to eq %w[array.key1 array.key2]
+    end
+
     it 'should handle keyless arrays with keyless objects' do
       example_body = [{ key1: 'something', key2: 'somethingelse' }]
       evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
                                                    expected_fields: good_response
-      expect(evaluator.response_field_array).to eq %w[array.object.key1 array.object.key2]
+      expect(evaluator.response_field_array).to eq %w[array.key1 array.key2]
     end
   end
 
