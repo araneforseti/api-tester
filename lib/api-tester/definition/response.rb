@@ -18,7 +18,11 @@ module ApiTester
     def to_s
       des = {}
       body.map do |f|
-        des[f.name] = field_display f
+        if f.has_key then
+          des[f.name] = field_display f
+        else
+          des = field_display f
+        end
       end
       des.to_json
     end
@@ -28,7 +32,11 @@ module ApiTester
       if field.subfields?
         des = {}
         field.fields.map do |f|
-          des[f.name] = field_display f
+          if f.has_key then
+            des[f.name] = field_display f
+          else
+            des = field_display f
+          end
         end
         des.to_json
       end
