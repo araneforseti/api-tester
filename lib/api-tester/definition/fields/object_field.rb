@@ -22,7 +22,7 @@ module ApiTester
     end
 
     def type
-      "object"
+      'object'
     end
 
     def default_value

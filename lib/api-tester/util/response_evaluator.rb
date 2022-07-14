@@ -73,8 +73,8 @@ module ApiTester
     def field_array(object)
       fields = []
 
-      if object.class == Array
-        name = "array"
+      if object.instance_of?(Array)
+        name = 'array'
         fields.concat(field_array(object[0]).map { |i| "#{name}.#{i}" })
       else
         object.each do |key, value|
@@ -87,11 +87,9 @@ module ApiTester
             fields << key.to_s
           elsif value
             passed_value = value
-            if value.class == Array
-              fields << key.to_s
+            fields << key.to_s
+            if value.instance_of?(Array)
               passed_value = value[0]
-            else
-              fields << key.to_s
             end
             fields.concat(field_array(passed_value).map { |i| "#{key}.#{i}" })
           else

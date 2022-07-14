@@ -22,7 +22,7 @@ module ApiTester
     end
 
     def type
-      "array"
+      'array'
     end
 
     def default_value

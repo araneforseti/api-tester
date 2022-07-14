@@ -14,7 +14,7 @@ module ApiTester
     end
 
     def type
-      "field"
+      'field'
     end
 
     def is_required
