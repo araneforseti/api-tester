@@ -25,12 +25,12 @@ module ApiTester
       'array'
     end
 
-    def default_value
+    def default
       return [] if fields.size.zero?
 
       obj = {}
       fields.each do |field|
-        obj[field.name] = field.default_value
+        obj[field.name] = field.default
       end
       [obj]
     end

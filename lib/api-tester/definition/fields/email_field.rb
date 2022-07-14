@@ -5,8 +5,8 @@ require 'api-tester/definition/fields/field'
 module ApiTester
   # Class for defining email fields in contract
   class EmailField < Field
-    def initialize(name:, default_value: 'test@test.com', required: false)
-      super name: name, default_value: default_value, required: required
+    def initialize(name:, default: 'test@test.com', required: false)
+      super name: name, default: default, required: required
     end
 
     def negative_boundary_values

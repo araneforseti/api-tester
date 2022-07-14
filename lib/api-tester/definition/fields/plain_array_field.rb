@@ -5,8 +5,8 @@ require 'api-tester/definition/fields/field'
 module ApiTester
   # Class for defining plain arrays
   class PlainArrayField < Field
-    def initialize(name:, default_value: [], required: false)
-      super name: name, default_value: default_value, required: required
+    def initialize(name:, default: [], required: false)
+      super name: name, default: default, required: required
     end
 
     def negative_boundary_values

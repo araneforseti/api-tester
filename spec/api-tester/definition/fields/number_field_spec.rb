@@ -11,20 +11,20 @@ describe ApiTester::NumberField do
       expect(default_number.required).to be false
     end
 
-    it 'defaults default_value to true' do
-      expect(default_number.default_value).to eq 5
+    it 'defaults default to true' do
+      expect(default_number.default).to eq 5
     end
   end
 
   context 'default value' do
     it 'can be set to 0' do
-      field = ApiTester::NumberField.new(name: 'testObj', default_value: 0)
-      expect(field.default_value).to eq 0
+      field = ApiTester::NumberField.new(name: 'testObj', default: 0)
+      expect(field.default).to eq 0
     end
 
     it 'can be set to 1' do
-      field = ApiTester::NumberField.new(name: 'testObj', default_value: 1)
-      expect(field.default_value).to eq 1
+      field = ApiTester::NumberField.new(name: 'testObj', default: 1)
+      expect(field.default).to eq 1
     end
   end
 

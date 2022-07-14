@@ -11,22 +11,22 @@ describe ApiTester::BooleanField do
       expect(default_array.required).to be false
     end
 
-    it 'defaults default_value to empty array' do
-      expect(default_array.default_value).to eq []
+    it 'defaults default to empty array' do
+      expect(default_array.default).to eq []
     end
   end
 
   context 'default value' do
     it 'can be set to something' do
       value = %w[foo bar]
-      field = ApiTester::PlainArrayField.new(name: 'testObj', default_value: value)
-      expect(field.default_value).to eq value
+      field = ApiTester::PlainArrayField.new(name: 'testObj', default: value)
+      expect(field.default).to eq value
     end
 
     it 'can be set to empty array' do
       value = []
-      field = ApiTester::BooleanField.new(name: 'testObj', default_value: value)
-      expect(field.default_value).to eq value
+      field = ApiTester::BooleanField.new(name: 'testObj', default: value)
+      expect(field.default).to eq value
     end
   end
 

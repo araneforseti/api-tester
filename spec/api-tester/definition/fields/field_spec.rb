@@ -10,8 +10,8 @@ describe ApiTester::Field do
       expect(field.required).to be false
     end
 
-    it 'defaults default_value to \'string\'' do
-      expect(field.default_value).to eq 'string'
+    it 'defaults default to \'string\'' do
+      expect(field.default).to eq 'string'
     end
 
     it 'defaults seen count to 0' do
@@ -21,8 +21,8 @@ describe ApiTester::Field do
 
   context 'default value' do
     it 'can be set' do
-      field = ApiTester::Field.new(name: 'testObj', default_value: 'new foo')
-      expect(field.default_value).to eq 'new foo'
+      field = ApiTester::Field.new(name: 'testObj', default: 'new foo')
+      expect(field.default).to eq 'new foo'
     end
   end
 

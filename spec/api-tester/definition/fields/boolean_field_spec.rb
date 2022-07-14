@@ -11,20 +11,20 @@ describe ApiTester::BooleanField do
       expect(default_boolean.required).to be false
     end
 
-    it 'defaults default_value to true' do
-      expect(default_boolean.default_value).to eq true
+    it 'defaults default to true' do
+      expect(default_boolean.default).to eq true
     end
   end
 
   context 'default value' do
     it 'can be set to false' do
-      field = ApiTester::BooleanField.new(name: 'testObj', default_value: false)
-      expect(field.default_value).to eq false
+      field = ApiTester::BooleanField.new(name: 'testObj', default: false)
+      expect(field.default).to eq false
     end
 
     it 'can be set to true' do
-      field = ApiTester::BooleanField.new(name: 'testObj', default_value: true)
-      expect(field.default_value).to eq true
+      field = ApiTester::BooleanField.new(name: 'testObj', default: true)
+      expect(field.default).to eq true
     end
   end
 

@@ -24,7 +24,7 @@ module ApiTester
     end
 
     def default_query
-      query_params.map { |param| "#{param.name}=#{param.default_value}" }.join('&')
+      query_params.map { |param| "#{param.name}=#{param.default}" }.join('&')
     end
 
     def add_header_field(new_header)
@@ -36,7 +36,7 @@ module ApiTester
       response = {}
       fields.each do |field|
         if field.required == true
-          response[field.name] = field.default_value
+          response[field.name] = field.default
         end
       end
       response
@@ -57,7 +57,7 @@ module ApiTester
     def headers
       header_response = {}
       header_fields.each do |header_field|
-        header_response[header_field.name] = header_field.default_value
+        header_response[header_field.name] = header_field.default
       end
       header_response
     end

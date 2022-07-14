@@ -21,7 +21,7 @@ module ApiTester
 
       method.request.fields.each do |field|
         sql_injections.each do |injection|
-          injection_value = "#{field.default_value}#{injection}"
+          injection_value = "#{field.default}#{injection}"
           payload = method.request.altered_payload field_name: field.name,
                                                    value: injection_value
           response = endpoint.call base_url: base_url,

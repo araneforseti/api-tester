@@ -25,11 +25,11 @@ module ApiTester
       'object'
     end
 
-    def default_value
+    def default
       obj = {}
 
       fields.each do |field|
-        obj[field.name] = field.default_value
+        obj[field.name] = field.default
       end
 
       obj
