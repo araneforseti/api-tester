@@ -52,7 +52,6 @@ module ApiTester
 
     def inner_expected_field(expected_fields:, name:)
       fields = {}
-      print expected_fields
       expected_fields.each do |field|
         inner_name = "#{name}.#{field.name}"
         fields[inner_name] = field
