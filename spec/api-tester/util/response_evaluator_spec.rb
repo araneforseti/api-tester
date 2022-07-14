@@ -79,7 +79,7 @@ describe ApiTester::ResponseEvaluator do
     it 'should handle keyless fields' do
       response = ApiTester::Response.new status_code: 200
       array_field = ApiTester::ArrayField.new(name: 'sample', has_key: false)
-                                         .with_field(ApiTester::ObjectField.new(name: 'test', has_key: false)
+        .with_field(ApiTester::ObjectField.new(name: 'test', has_key: false)
           .with_field(ApiTester::Field.new(name: 'stringfield')))
       response.add_field(array_field)
       evaluator = ApiTester::ResponseEvaluator.new actual_body: {},

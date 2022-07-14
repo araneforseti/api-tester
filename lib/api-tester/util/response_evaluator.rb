@@ -43,9 +43,14 @@ module ApiTester
     def expected_field_array(expected_fields)
       fields = {}
       expected_fields.each do |field|
-        fields[field.name] = field
+        field_name = field.name
+        if field.has_key
+          fields[field.name] = field
+        else
+          field_name = field.type
+        end
         fields = fields.merge inner_expected_field(expected_fields: field.fields,
-                                                   name: field.name)
+                                                   name: field_name)
       end
       fields
     end
@@ -54,7 +59,11 @@ module ApiTester
       fields = {}
       expected_fields.each do |field|
         inner_name = "#{name}.#{field.name}"
-        fields[inner_name] = field
+        if field.has_key
+          fields[inner_name] = field
+        else
+          inner_name = "#{name}.#{field.type}"
+        end
         fields = fields.merge inner_expected_field(expected_fields: field.fields,
                                                    name: inner_name)
       end

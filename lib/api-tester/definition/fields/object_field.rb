@@ -21,6 +21,10 @@ module ApiTester
       true
     end
 
+    def type
+      "object"
+    end
+
     def default_value
       obj = {}
 

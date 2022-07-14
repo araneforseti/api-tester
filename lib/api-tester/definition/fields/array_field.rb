@@ -21,6 +21,10 @@ module ApiTester
       true
     end
 
+    def type
+      "array"
+    end
+
     def default_value
       return [] if fields.size.zero?
 

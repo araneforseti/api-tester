@@ -13,6 +13,10 @@ module ApiTester
       self.has_key = has_key
     end
 
+    def type
+      "field"
+    end
+
     def is_required
       self.required = true
       self
