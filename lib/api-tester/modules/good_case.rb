@@ -11,7 +11,7 @@ module ApiTester
 
       contract.endpoints.each do |endpoint|
         endpoint.methods.each do |method|
-          default_case = BoundaryCase.new description: contract.base_url + endpoint.url,
+          default_case = BoundaryCase.new description: contract.base_url + endpoint.display_url,
                                           payload: method.request.default_payload,
                                           headers: method.request.default_headers
           response = endpoint.call base_url: contract.base_url,

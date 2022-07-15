@@ -1,12 +1,25 @@
 # frozen_string_literal: true
+require 'securerandom'
 
 require 'api-tester/definition/fields/field'
 
 module ApiTester
   # Class for defining email fields in contract
   class EmailField < Field
-    def initialize(name:, default: 'test@test.com', required: false)
+    attr_accessor :randomize
+
+    def initialize(name:, default: 'test@test.com', required: false, randomize: false)
       super name: name, default: default, required: required
+      self.randomize = randomize
+    end
+
+    def default
+      # Since many APIs have unique email checks, this allows us to generate hopefully unique emails
+      if self.randomize
+        "test" + SecureRandom.hex(10) + "@test.com"
+      else
+        super
+      end
     end
 
     def negative_boundary_values

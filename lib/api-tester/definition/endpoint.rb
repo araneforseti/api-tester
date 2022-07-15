@@ -22,10 +22,14 @@ module ApiTester
       self.not_found_response = ApiTester::Response.new status_code: 404
     end
 
+    def display_url
+      relative_url
+    end
+
     def url
       temp_url = relative_url
       path_params.each do |param|
-        temp_url.sub! "{#{param}}", test_helper.retrieve_param(param)
+        temp_url.sub! "{#{param}}", test_helper.retrieve_param(param).to_s
       end
       temp_url
     end
