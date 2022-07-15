@@ -27,7 +27,7 @@ module ApiTester
     end
 
     def url
-      temp_url = relative_url
+      temp_url = relative_url.clone
       path_params.each do |param|
         temp_url.sub! "{#{param}}", test_helper.retrieve_param(param).to_s
       end
@@ -49,10 +49,10 @@ module ApiTester
 
     def call(base_url:, method:, query: '', payload: {}, headers: {})
       test_helper.before
-      url = query ? "#{base_url}#{self.url}?#{query}" : "#{base_url}#{self.url}"
+      call_url = query ? "#{base_url}#{self.url}?#{query}" : "#{base_url}#{self.url}"
       begin
         response = RestClient::Request.execute(method: method.verb,
-                                               url: url,
+                                               url: call_url,
                                                payload: payload.to_json,
                                                headers: headers)
       rescue RestClient::ExceptionWithResponse => e
