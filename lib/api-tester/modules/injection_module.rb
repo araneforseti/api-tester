@@ -59,10 +59,10 @@ module ApiTester
       response.code == endpoint.bad_request_response.code &&
         missing_fields.size.zero? && extra_fields.size.zero?
     end
-  end
-  
-  def self.order
-    5
+
+    def self.order
+      5
+    end
   end
 end
 
