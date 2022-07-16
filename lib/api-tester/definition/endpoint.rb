@@ -16,7 +16,7 @@ module ApiTester
       self.name = name
       self.methods = []
       self.path_params = []
-      self.test_helper = ApiTester::TestHelper.new
+      self.test_helper = ApiTester::TestHelper.new ''
       self.bad_request_response = ApiTester::Response.new status_code: 400
       self.not_allowed_response = ApiTester::Response.new status_code: 415
       self.not_found_response = ApiTester::Response.new status_code: 404
@@ -29,7 +29,8 @@ module ApiTester
     def url
       temp_url = relative_url.clone
       path_params.each do |param|
-        temp_url.sub! "{#{param}}", test_helper.retrieve_param(param).to_s
+        value = test_helper.retrieve_param(param).to_s
+        temp_url = relative_url.sub "{#{param}}", value
       end
       temp_url
     end
