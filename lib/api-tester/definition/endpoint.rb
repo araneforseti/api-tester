@@ -3,19 +3,22 @@
 require 'api-tester/definition/response'
 require 'api-tester/definition/method'
 require 'api-tester/test_helper'
+require 'benchmark'
 require 'rest-client'
 require 'json'
+require 'pry'
 
 module ApiTester
   # Class for defining and interacting with endpoints in a contract
   class Endpoint
-    attr_accessor :name, :relative_url, :path_params, :methods, :test_helper, :bad_request_response, :not_allowed_response, :not_found_response
+    attr_accessor :name, :relative_url, :path_params, :methods, :test_helper, :bad_request_response, :not_allowed_response, :not_found_response, :longest_time
 
     def initialize(name:, relative_url:)
       self.relative_url = relative_url
       self.name = name
       self.methods = []
       self.path_params = []
+      self.longest_time = {time: 0}
       self.test_helper = ApiTester::TestHelper.new ''
       self.bad_request_response = ApiTester::Response.new status_code: 400
       self.not_allowed_response = ApiTester::Response.new status_code: 415
@@ -52,10 +55,18 @@ module ApiTester
       test_helper.before
       call_url = query ? "#{base_url}#{self.url}?#{query}" : "#{base_url}#{self.url}"
       begin
-        response = RestClient::Request.execute(method: method.verb,
-                                               url: call_url,
-                                               payload: payload.to_json,
-                                               headers: headers)
+        response = nil
+        time = Benchmark.measure {
+          response = RestClient::Request.execute(method: method.verb,
+            url: call_url,
+            payload: payload.to_json,
+            headers: headers)
+        }
+        if time.real > longest_time[:time]
+          longest_time[:time] = time.real
+          longest_time[:payload] = payload.to_json
+          longest_time[:verb] = method.verb
+        end
       rescue RestClient::ExceptionWithResponse => e
         response = e.response
       end

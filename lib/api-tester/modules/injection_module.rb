@@ -55,6 +55,10 @@ module ApiTester
         missing_fields.size.zero? && extra_fields.size.zero?
     end
   end
+  
+  def self.order
+    5
+  end
 end
 
 # Report for InjectionModule
