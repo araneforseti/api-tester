@@ -48,6 +48,7 @@ module ApiTester
 
     def check
       if check_response_code
+        print "."
         evaluator = ApiTester::ResponseEvaluator.new actual_body: json_parse(response.body),
                                                      expected_fields: expected_response
         evaluator.missing_fields.map { |field| missing_field_report(field) }
@@ -59,6 +60,7 @@ module ApiTester
 
     def check_response_code
       if response.code != expected_response.code
+        print "F"
         response_code_report
         return false
       end
