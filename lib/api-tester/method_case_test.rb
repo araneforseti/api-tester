@@ -17,6 +17,7 @@ module ApiTester
     end
 
     def response_code_report
+      print "F"
       report = StatusCodeReport.new description: "#{module_name} - Incorrect response code",
                                     url: url,
                                     request: payload,
@@ -27,6 +28,7 @@ module ApiTester
     end
 
     def missing_field_report(field)
+      print "F"
       report = Report.new description: "#{module_name} - Missing field #{field}",
                           url: url,
                           request: payload,
@@ -37,6 +39,7 @@ module ApiTester
     end
 
     def extra_field_report(field)
+      print "F"
       report = Report.new description: "#{module_name} - Found extra field #{field}",
                           url: url,
                           request: payload,
@@ -59,7 +62,7 @@ module ApiTester
     end
 
     def check_response_code
-      if response.code != expected_response.code
+      if response && (response.code != expected_response.code)
         print "F"
         response_code_report
         return false

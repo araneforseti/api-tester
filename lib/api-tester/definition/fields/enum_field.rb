@@ -28,5 +28,9 @@ module ApiTester
           {}
         ]
     end
+
+    def good_cases
+      self.acceptable_values
+    end
   end
 end

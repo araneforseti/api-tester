@@ -19,5 +19,12 @@ module ApiTester
           {}
         ]
     end
+
+    def good_cases
+      [
+        true,
+        false
+      ]
+    end
   end
 end

@@ -43,7 +43,15 @@ module ApiTester
       method_defaults = methods[0].default_request
       method_defaults[:url] = "#{base_url}#{url}"
       begin
-        response = RestClient::Request.execute(method_defaults)
+        response = nil
+        time = Benchmark.measure {
+          response = RestClient::Request.execute(method_defaults)
+        }
+        if time.real > longest_time[:time]
+          longest_time[:time] = time.real
+          longest_time[:payload] = payload.to_json
+          longest_time[:verb] = method.verb
+        end
       rescue RestClient::ExceptionWithResponse => e
         response = e.response
       end

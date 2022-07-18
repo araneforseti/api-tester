@@ -18,5 +18,16 @@ module ApiTester
           {}
         ]
     end
+
+    def good_cases
+      [
+        -1,
+         0,
+         1,
+         100,
+         9999,
+         12345678901234567890
+      ]
+    end
   end
 end

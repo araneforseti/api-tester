@@ -41,6 +41,10 @@ module ApiTester
       cases
     end
 
+    def good_cases
+      []
+    end
+
     def seen
       self.is_seen += 1
     end
