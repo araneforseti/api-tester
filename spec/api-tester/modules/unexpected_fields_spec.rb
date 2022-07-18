@@ -68,6 +68,10 @@ describe ApiTester::UnexpectedFields do
     context 'should use test helper' do
       before :each do
         test_helper_mock = Class.new(ApiTester::TestHelper) do
+          def initialize
+            super ''
+          end
+
           def before
             RestClient.get('www.test.com/before')
           end

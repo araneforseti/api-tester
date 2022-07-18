@@ -11,3 +11,19 @@ RSpec.configure do |config|
     WebMock.reset!
   end
 end
+
+def test_helper_mock
+  Class.new(ApiTester::TestHelper) do
+    def initialize
+      super ''
+    end
+
+    def before
+      RestClient.get('www.test.com/before')
+    end
+
+    def after
+      RestClient.get('www.test.com/after')
+    end
+  end
+end

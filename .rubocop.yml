@@ -75,7 +75,7 @@ Metrics/BlockLength:
   Enabled: false
 Metrics/MethodLength:
   Enabled: false
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 Metrics/AbcSize:
   Enabled: false
@@ -124,7 +124,7 @@ Style/OpenStructUse: # new in 1.23
 Style/QuotedSymbols: # new in 1.16
   Enabled: true
 Style/RedundantInitialize: # new in 1.27
-  Enabled: true
+  Enabled: false
 Style/RedundantSelfAssignmentBranch: # new in 1.19
   Enabled: true
 Style/SelectByRegexp: # new in 1.22

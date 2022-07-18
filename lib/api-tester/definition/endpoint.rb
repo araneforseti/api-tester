@@ -48,7 +48,7 @@ module ApiTester
         time = Benchmark.measure {
           response = RestClient::Request.execute(method_defaults)
         }
-        if time.real > longest_time[:time]
+        if time.real > longest_time[:time] && longest_time[:time] > 0
           longest_time[:time] = time.real
           longest_time[:payload] = payload.to_json
           longest_time[:verb] = method.verb

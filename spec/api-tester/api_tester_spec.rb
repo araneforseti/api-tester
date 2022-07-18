@@ -108,7 +108,7 @@ class PathParamCreator < ApiTester::TestHelper
   attr_accessor :key, :value
 
   def initialize(key, value)
-    super()
+    super ''
     self.key = key
     self.value = value
   end
