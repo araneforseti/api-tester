@@ -13,21 +13,21 @@ describe ApiTester::EnumField do
     end
 
     it 'sets default value to first' do
-      expect(field.default_value).to eq '1'
+      expect(field.default).to eq '1'
     end
   end
 
   context 'created with default and acceptable values' do
     field = ApiTester::EnumField.new(name: 'testObj',
                                      acceptable_values: %w[1 2 3],
-                                     default_value: '2')
+                                     default: '2')
 
     it 'retrieves values' do
       expect(field.acceptable_values).to eq %w[1 2 3]
     end
 
     it 'sets default value to first' do
-      expect(field.default_value).to eq '2'
+      expect(field.default).to eq '2'
     end
   end
 

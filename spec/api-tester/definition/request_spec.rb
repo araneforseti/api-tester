@@ -43,7 +43,7 @@ describe ApiTester::Request do
       before :each do
         request.add_header_field ApiTester::Field.new(name: :Authorization,
                                                       required: true,
-                                                      default_value: 'something')
+                                                      default: 'something')
       end
 
       it 'has no headers' do
@@ -68,9 +68,9 @@ describe ApiTester::Request do
 
     it 'generates default url query' do
       request.add_query_param ApiTester::Field.new name: 'query',
-                                                   default_value: 'default'
+                                                   default: 'default'
       request.add_query_param ApiTester::Field.new name: 'query2',
-                                                   default_value: 'something'
+                                                   default: 'something'
       expect(request.default_query).to eq 'query=default&query2=something'
     end
   end

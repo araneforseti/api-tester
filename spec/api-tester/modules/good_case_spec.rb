@@ -20,7 +20,7 @@ describe ApiTester::GoodCase do
         ApiTester::ObjectField.new(name: 'object_field')
                               .with_field(ApiTester::Field.new(name: 'inner_field'))
                               .with_field(ApiTester::Field.new(name: 'other_field')),
-        ApiTester::PlainArrayField.new(name: 'array_field', default_value: ['foo'])
+        ApiTester::PlainArrayField.new(name: 'array_field', default: ['foo'])
       ]
     }
     let(:body) { '{"numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}, "array_field": ["foo"]}' }
@@ -82,15 +82,6 @@ describe ApiTester::GoodCase do
 
     context 'should use test helper' do
       before :each do
-        test_helper_mock = Class.new(ApiTester::TestHelper) do
-          def before
-            RestClient.get('www.test.com/before')
-          end
-
-          def after
-            RestClient.get('www.test.com/after')
-          end
-        end
         endpoint.test_helper = test_helper_mock.new
         stub_request(:get, 'www.test.com/before').to_return(body: '', status: 200)
         stub_request(:get, 'www.test.com/after').to_return(body: '', status: 200)
@@ -167,15 +158,6 @@ describe ApiTester::GoodCase do
 
     context 'should use test helper' do
       before :each do
-        test_helper_mock = Class.new(ApiTester::TestHelper) do
-          def before
-            RestClient.get('www.test.com/before')
-          end
-
-          def after
-            RestClient.get('www.test.com/after')
-          end
-        end
         endpoint.test_helper = test_helper_mock.new
         stub_request(:get, 'www.test.com/before').to_return(body: '', status: 200)
         stub_request(:get, 'www.test.com/after').to_return(body: '', status: 200)

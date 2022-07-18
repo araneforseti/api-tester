@@ -48,15 +48,6 @@ describe ApiTester::ExtraVerbs do
 
   context 'should use test helper' do
     before :each do
-      test_helper_mock = Class.new(ApiTester::TestHelper) do
-        def before
-          RestClient.get('www.test.com/before')
-        end
-
-        def after
-          RestClient.get('www.test.com/after')
-        end
-      end
       endpoint.test_helper = test_helper_mock.new
       stub_request(:get, 'www.test.com/before').to_return(body: '', status: 200)
       stub_request(:get, 'www.test.com/after').to_return(body: '', status: 200)

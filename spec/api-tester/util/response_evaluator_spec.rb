@@ -47,6 +47,20 @@ describe ApiTester::ResponseEvaluator do
                                                    expected_fields: good_response
       expect(evaluator.response_field_array).to eq %w[array_field]
     end
+
+    it 'should handle keyless arrays' do
+      example_body = [key1: 'something', key2: 'somethingelse']
+      evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
+                                                   expected_fields: good_response
+      expect(evaluator.response_field_array).to eq %w[array.key1 array.key2]
+    end
+
+    it 'should handle keyless arrays with keyless objects' do
+      example_body = [{ key1: 'something', key2: 'somethingelse' }]
+      evaluator = ApiTester::ResponseEvaluator.new actual_body: example_body,
+                                                   expected_fields: good_response
+      expect(evaluator.response_field_array).to eq %w[array.key1 array.key2]
+    end
   end
 
   describe '#expected_fields' do
@@ -67,6 +81,18 @@ describe ApiTester::ResponseEvaluator do
                                                'hash.innerkey',
                                                'hash.innerkey2',
                                                'array_field']
+    end
+
+    it 'should handle keyless fields' do
+      response = ApiTester::Response.new status_code: 200
+      array_field = ApiTester::ArrayField.new(name: 'sample', has_key: false)
+                                         .with_field(ApiTester::ObjectField.new(name: 'test', has_key: false)
+          .with_field(ApiTester::Field.new(name: 'stringfield')))
+      response.add_field(array_field)
+      evaluator = ApiTester::ResponseEvaluator.new actual_body: {},
+                                                   expected_fields: response
+
+      expect(evaluator.expected_fields).to eq ['array.object.stringfield']
     end
   end
 

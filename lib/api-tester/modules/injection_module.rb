@@ -21,7 +21,7 @@ module ApiTester
 
       method.request.fields.each do |field|
         sql_injections.each do |injection|
-          injection_value = "#{field.default_value}#{injection}"
+          injection_value = "#{field.default}#{injection}"
           payload = method.request.altered_payload field_name: field.name,
                                                    value: injection_value
           response = endpoint.call base_url: base_url,
@@ -41,7 +41,12 @@ module ApiTester
     end
 
     def self.check_response(response, endpoint)
-      response.code == 200 || check_error(response, endpoint)
+      if response.code == 200 || check_error(response, endpoint)
+        print '.'
+        return true
+      end
+      print 'F'
+      false
     end
 
     def self.check_error(response, endpoint)
@@ -53,6 +58,10 @@ module ApiTester
       extra_fields = evaluator.extra_fields
       response.code == endpoint.bad_request_response.code &&
         missing_fields.size.zero? && extra_fields.size.zero?
+    end
+
+    def self.order
+      5
     end
   end
 end

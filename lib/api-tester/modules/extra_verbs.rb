@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'api-tester/util/supported_verbs'
+require 'api-tester/definition/method'
+require 'api-tester/method_case_test'
 
 module ApiTester
   # Check verbs not explicitly defined in contract
@@ -9,7 +11,7 @@ module ApiTester
       reports = []
 
       contract.endpoints.each do |endpoint|
-        extras = ApiTester::SupportedVerbs.all - endpoint.verbs
+        extras = supported_verbs - endpoint.verbs
         headers = endpoint.methods[0].request.default_headers
         extras.each do |verb|
           verb_case = BoundaryCase.new description: "Verb check with #{verb} for #{endpoint.name}",
@@ -32,6 +34,10 @@ module ApiTester
       end
 
       reports
+    end
+
+    def self.supported_verbs
+      ApiTester::SupportedVerbs.all
     end
 
     def self.order

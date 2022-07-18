@@ -22,13 +22,13 @@ describe ApiTester::ArrayField do
   context 'default value' do
     it 'defaults to [] with no fields' do
       field = ApiTester::ArrayField.new name: 'testObj'
-      expect(field.default_value).to eq []
+      expect(field.default).to eq []
     end
 
     it 'contains defaults from the fields' do
-      sub_field = ApiTester::Field.new name: 'sub', default_value: 'default_foo'
+      sub_field = ApiTester::Field.new name: 'sub', default: 'default_foo'
       field = ApiTester::ArrayField.new(name: 'testObj').with_field(sub_field)
-      expect(field.default_value).to eq [{ 'sub' => 'default_foo' }]
+      expect(field.default).to eq [{ 'sub' => 'default_foo' }]
     end
   end
 

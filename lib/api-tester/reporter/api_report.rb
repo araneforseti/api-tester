@@ -31,14 +31,15 @@ module ApiTester
     end
 
     def print
+      puts ''
       if reports.size.zero?
         puts 'No issues found'
       else
         puts "Issues discovered: #{reports.size}"
         reports.each do |report|
           report.print
-          puts '\n'
-          puts '\n'
+          puts ''
+          puts ''
         end
         puts "Total issues: #{reports.size}"
       end

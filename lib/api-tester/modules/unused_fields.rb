@@ -10,7 +10,7 @@ module ApiTester
 
       contract.endpoints.each do |endpoint|
         endpoint.methods.each do |method|
-          method.expected_response.body.each do |field|
+          method.expected_response.body.filter(&:has_key).each do |field|
             next unless field.is_seen.zero?
 
             reports << MissingFieldReport.new(url: endpoint.url,
