@@ -2,48 +2,43 @@
 
 require 'api-tester/reporter/status_code_report'
 require 'api-tester/util/supported_verbs'
+require 'pry'
 
 module ApiTester
   # Module checking various not found scenarios
-  module Typo
+  module MissingResource
     def self.go(contract)
       reports = []
 
       contract.endpoints.each do |endpoint|
-        allowances(endpoint).each do
-          reports.concat check_typo_url(contract.base_url, endpoint)
+
+        endpoint.path_params.each do |path_param|
+          bad_resource = endpoint.relative_url.gsub("{#{path_param}}", 'gibberish')
+
+          bad_endpoint = ApiTester::Endpoint.new name: 'Bad Resource',
+                                             relative_url: bad_resource
+          method = ApiTester::Method.new verb: ApiTester::SupportedVerbs::GET,
+                                     response: ApiTester::Response.new(
+                                       status_code: 200
+                                     ),
+                                     request: ApiTester::Request.new
+          response = bad_endpoint.call base_url: contract.base_url + bad_resource,
+                                   method: method,
+                                   payload: {},
+                                   headers: contract.required_headers
+          test = MissingResourceTest.new response,
+                           {},
+                           endpoint.not_found_response,
+                           bad_resource,
+                           ApiTester::SupportedVerbs::GET
+          test.check
         end
       end
 
       reports
     end
 
-    def self.check_typo_url(base_url, endpoint)
-      bad_url = "#{endpoint.url}gibberishadsfasdf"
-      bad_endpoint = ApiTester::Endpoint.new name: 'Bad URL',
-                                             relative_url: bad_url
-      typo_case = BoundaryCase.new description: 'Typo URL check',
-                                   payload: {},
-                                   headers: {}
-      method = ApiTester::Method.new verb: ApiTester::SupportedVerbs::GET,
-                                     response: ApiTester::Response.new(
-                                       status_code: 200
-                                     ),
-                                     request: ApiTester::Request.new
-      response = bad_endpoint.call base_url: base_url,
-                                   method: method,
-                                   payload: typo_case.payload,
-                                   headers: typo_case.headers
-
-      test = TypoClass.new response,
-                           typo_case.payload,
-                           endpoint.not_found_response,
-                           bad_url,
-                           ApiTester::SupportedVerbs::GET
-      test.check
-    end
-
-    def self.allowances(endpoint)
+    def self.allowed_verbs(endpoint)
       allowances = []
       endpoint.methods.each do |method|
         allowances << method.verb
@@ -56,15 +51,15 @@ module ApiTester
     end
   end
 
-  # Test layout for TypoModule
-  class TypoClass < MethodCaseTest
+  # Test layout for Missing Resource
+  class MissingResourceTest < MethodCaseTest
     def initialize(response, payload, expected_response, url, verb)
       super response: response,
             payload: payload,
             expected_response: expected_response,
             url: url,
             verb: verb,
-            module_name: 'TypoModule'
+            module_name: 'Missing Resource'
     end
   end
 end

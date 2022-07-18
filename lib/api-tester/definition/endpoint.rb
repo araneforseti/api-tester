@@ -11,7 +11,7 @@ require 'pry'
 module ApiTester
   # Class for defining and interacting with endpoints in a contract
   class Endpoint
-    attr_accessor :name, :relative_url, :path_params, :methods, :test_helper, :bad_request_response, :not_allowed_response, :not_found_response, :longest_time
+    attr_accessor :name, :relative_url, :path_params, :methods, :test_helper, :bad_request_response, :not_allowed_response, :not_found_response, :longest_time, :required_headers
 
     def initialize(name:, relative_url:)
       self.relative_url = relative_url
@@ -23,6 +23,7 @@ module ApiTester
       self.bad_request_response = ApiTester::Response.new status_code: 400
       self.not_allowed_response = ApiTester::Response.new status_code: 415
       self.not_found_response = ApiTester::Response.new status_code: 404
+      self.required_headers = {}
     end
 
     def display_url
