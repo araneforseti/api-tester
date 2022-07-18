@@ -11,26 +11,25 @@ module ApiTester
       reports = []
 
       contract.endpoints.each do |endpoint|
-
         endpoint.path_params.each do |path_param|
           bad_resource = endpoint.relative_url.gsub("{#{path_param}}", 'gibberish')
 
           bad_endpoint = ApiTester::Endpoint.new name: 'Bad Resource',
-                                             relative_url: bad_resource
+                                                 relative_url: bad_resource
           method = ApiTester::Method.new verb: ApiTester::SupportedVerbs::GET,
-                                     response: ApiTester::Response.new(
-                                       status_code: 200
-                                     ),
-                                     request: ApiTester::Request.new
+                                         response: ApiTester::Response.new(
+                                           status_code: 200
+                                         ),
+                                         request: ApiTester::Request.new
           response = bad_endpoint.call base_url: contract.base_url + bad_resource,
-                                   method: method,
-                                   payload: {},
-                                   headers: contract.required_headers
+                                       method: method,
+                                       payload: {},
+                                       headers: contract.required_headers
           test = MissingResourceTest.new response,
-                           {},
-                           endpoint.not_found_response,
-                           bad_resource,
-                           ApiTester::SupportedVerbs::GET
+                                         {},
+                                         endpoint.not_found_response,
+                                         bad_resource,
+                                         ApiTester::SupportedVerbs::GET
           test.check
         end
       end

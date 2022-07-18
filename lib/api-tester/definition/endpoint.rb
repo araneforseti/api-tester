@@ -18,7 +18,7 @@ module ApiTester
       self.name = name
       self.methods = []
       self.path_params = []
-      self.longest_time = {time: 0}
+      self.longest_time = { time: 0 }
       self.test_helper = ApiTester::TestHelper.new ''
       self.bad_request_response = ApiTester::Response.new status_code: 400
       self.not_allowed_response = ApiTester::Response.new status_code: 415
@@ -62,14 +62,14 @@ module ApiTester
 
     def call(base_url:, method:, query: '', payload: {}, headers: {})
       test_helper.before
-      call_url = query ? "#{base_url}#{self.url}?#{query}" : "#{base_url}#{self.url}"
+      call_url = query ? "#{base_url}#{url}?#{query}" : "#{base_url}#{url}"
       begin
         response = nil
         time = Benchmark.measure {
           response = RestClient::Request.execute(method: method.verb,
-            url: call_url,
-            payload: payload.to_json,
-            headers: headers)
+                                                 url: call_url,
+                                                 payload: payload.to_json,
+                                                 headers: headers)
         }
         if time.real > longest_time[:time]
           longest_time[:time] = time.real

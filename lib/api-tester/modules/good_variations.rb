@@ -16,15 +16,15 @@ module ApiTester
               payload = method.request.default_payload
               payload[field.name] = value
               call = BoundaryCase.new description: contract.base_url + endpoint.display_url,
-                payload: payload,
-                headers: method.request.default_headers
+                                      payload: payload,
+                                      headers: method.request.default_headers
               response = endpoint.call base_url: contract.base_url,
-                method: method,
-                payload: payload,
-                headers: call.headers
+                                       method: method,
+                                       payload: payload,
+                                       headers: call.headers
               test = GoodVariationTest.new response: response,
-                url: contract.base_url + endpoint.url,
-                method: method
+                                           url: contract.base_url + endpoint.url,
+                                           method: method
               reports.concat test.check
             end
           end
@@ -33,15 +33,15 @@ module ApiTester
               payload = method.request.default_payload
               payload[field.name] = value
               call = BoundaryCase.new description: contract.base_url + endpoint.display_url,
-                payload: payload,
-                headers: method.request.default_headers
+                                      payload: payload,
+                                      headers: method.request.default_headers
               response = endpoint.call base_url: contract.base_url,
-                method: method,
-                payload: payload,
-                headers: call.headers
+                                       method: method,
+                                       payload: payload,
+                                       headers: call.headers
               test = GoodVariationTest.new response: response,
-                url: contract.base_url + endpoint.url,
-                method: method
+                                           url: contract.base_url + endpoint.url,
+                                           method: method
               reports.concat test.check
             end
           end

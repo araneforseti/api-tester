@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'securerandom'
 
 require 'api-tester/definition/fields/field'
@@ -15,8 +16,8 @@ module ApiTester
 
     def default
       # Since many APIs have unique email checks, this allows us to generate hopefully unique emails
-      if self.randomize
-        "test" + SecureRandom.hex(10) + "@test.com"
+      if randomize
+        "test#{SecureRandom.hex(10)}@test.com"
       else
         super
       end

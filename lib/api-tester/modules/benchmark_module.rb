@@ -13,7 +13,7 @@ module ApiTester
         longest_time = endpoint.longest_time
         longest_time[:time] = longest_time[:time] * 1000.0 # Convert from seconds to ms
         if longest_time[:time] > contract.max_time
-          print "F"
+          print 'F'
           reports << ResponseTimeReport.new(url: endpoint.url,
                                             verb: longest_time[:verb],
                                             payload: longest_time[:payload],
@@ -21,7 +21,7 @@ module ApiTester
                                             actual_time: longest_time[:time],
                                             description: 'BenchmarkModule')
         else
-          print "."
+          print '.'
         end
       end
 

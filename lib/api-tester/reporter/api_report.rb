@@ -31,11 +31,10 @@ module ApiTester
     end
 
     def print
+      puts ''
       if reports.size.zero?
-        puts ''
         puts 'No issues found'
       else
-        puts ''
         puts "Issues discovered: #{reports.size}"
         reports.each do |report|
           report.print

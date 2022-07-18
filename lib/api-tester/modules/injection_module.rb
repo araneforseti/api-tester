@@ -41,12 +41,12 @@ module ApiTester
     end
 
     def self.check_response(response, endpoint)
-      if(response.code == 200 || check_error(response, endpoint))
-        print "."
+      if response.code == 200 || check_error(response, endpoint)
+        print '.'
         return true
       end
-      print "F"
-      return false
+      print 'F'
+      false
     end
 
     def self.check_error(response, endpoint)

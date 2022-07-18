@@ -37,7 +37,7 @@ module ApiTester
     end
 
     def self.supported_verbs
-      ApiTester::SupportedVerbs.all 
+      ApiTester::SupportedVerbs.all
     end
 
     def self.order

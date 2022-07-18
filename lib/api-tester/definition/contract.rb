@@ -3,7 +3,7 @@
 module ApiTester
   # Class to define the whole contract
   class Contract
-    attr_accessor :name, :endpoints, :base_url, :max_time, :required_headers, :required_headers
+    attr_accessor :name, :endpoints, :base_url, :max_time, :required_headers
 
     def initialize(name:, base_url:, max_time: 500)
       self.name = name

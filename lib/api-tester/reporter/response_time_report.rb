@@ -11,12 +11,13 @@ module ApiTester
       self.payload = payload
       self.max_time = max_time
       self.actual_time = actual_time
+      self.description = description
     end
 
     def print
       puts "#{description}:"
       puts "   #{verb} #{url} took #{actual_time}ms, the max time is #{max_time}ms:"
-      puts "     Payload:"
+      puts '     Payload:'
       puts "      #{payload}"
     end
   end

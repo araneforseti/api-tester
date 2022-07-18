@@ -11,7 +11,7 @@ module ApiTester
 
       # Filtering out endpoints with ids since not a better way to check this
       # Need to redesign system to handle this better
-      contract.endpoints.select{|e| !e.relative_url.include?('{')}.each do |endpoint|
+      contract.endpoints.reject { |e| e.relative_url.include?('{') }.each do |endpoint|
         allowances(endpoint).each do
           reports.concat check_typo_url(contract.base_url, endpoint)
         end
