@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
-
 module ApiTester
   # Module checking nothing shows up in response which is not defined in contract
   module UnexpectedFields

@@ -2,7 +2,6 @@
 
 require 'api-tester/reporter/status_code_report'
 require 'api-tester/util/supported_verbs'
-require 'pry'
 
 module ApiTester
   # Module checking various not found scenarios
