@@ -25,16 +25,6 @@ describe ApiTester::GoodVariations do
     let(:endpoint) { ApiTester::Endpoint.new name: 'Test', relative_url: '' }
     let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
     let(:report) { ApiTester::ApiReport.new }
-    let(:headers) {
-      {
-        'Accept' => 'application/json',
-        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'Content-Length' => '10',
-        'Content-Type' => 'application/json',
-        'Host' => 'www.example.com',
-        'User-Agent' => 'rest-client/2.1.0 (linux x86_64) ruby/3.0.2p107'
-      }
-    }
 
     before :each do
       fields.each do |field|
@@ -46,22 +36,13 @@ describe ApiTester::GoodVariations do
       contract.add_endpoint endpoint
 
       stub_request(:post, 'http://www.example.com/')
-        .with(
-          body: '{"Test":0}',
-          headers: headers
-        )
+        .with(body: '{"Test":0}')
         .to_return(status: 200, body: body, headers: {})
       stub_request(:post, 'http://www.example.com/')
-        .with(
-          body: '{"Test":1}',
-          headers: headers
-        )
+        .with(body: '{"Test":1}')
         .to_return(status: 200, body: body, headers: {})
       stub_request(:post, 'http://www.example.com/')
-        .with(
-          body: '{"Test":2}',
-          headers: headers
-        )
+        .with(body: '{"Test":2}')
         .to_return(status: 200, body: body, headers: {})
     end
 
@@ -90,10 +71,7 @@ describe ApiTester::GoodVariations do
 
       it 'returns a report if any responses are bad' do
         stub_request(:post, 'http://www.example.com/')
-          .with(
-            body: '{"Test":2}',
-            headers: headers
-          )
+          .with(body: '{"Test":2}')
           .to_return(status: 400, body: '', headers: {})
 
         result = ApiTester::GoodVariations.go(contract)
