@@ -25,7 +25,7 @@ Check out [API Tester Example](https://github.com/araneforseti/example_api-teste
 Add this line to your application's Gemfile (Note: specify your version due to gem's currently volatile nature):
 
 ```ruby
-gem 'api-tester', '1.0.0'
+gem 'api-tester', '1.1.3' 
 ```
 
 And then execute:
@@ -70,7 +70,8 @@ They need to respond to:
 
 ```ruby
 field.has_subfields?
-values_array = field.negative_boundary_values
+values_array = field.negative_boundary_values # list of inputs which the field does not support
+field.good_cases # list of potential good inputs for call variations
 ```
 
 Define which modules you want to use through a config
@@ -128,6 +129,18 @@ ensure error handling is consistent
 
 This module ensures your 'default request' works
 appropriately
+
+### Good Variations
+
+This module tries a variety of requests using the
+good case from fields, and compares them to the expected
+format of successful responses.
+
+### Format
+
+This module makes malformed requests where there is a request body. 
+It leverages the negative boundary cases from fields to generate 
+requests to try and expects them to match the defined response for bad requests.
 
 ### Typo
 
