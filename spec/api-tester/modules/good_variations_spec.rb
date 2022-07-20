@@ -12,9 +12,9 @@ require 'api-tester/reporter/api_report'
 describe ApiTester::GoodVariations do
   context 'post request' do
     let(:url) { 'www.example.com' }
-    let(:request) { 
-      ApiTester::Request.new 
-        .add_field(ApiTester::EnumField.new name: 'Test', acceptable_values: [0,1,2])
+    let(:request) {
+      ApiTester::Request.new
+                        .add_field(ApiTester::EnumField.new(name: 'Test', acceptable_values: [0, 1, 2]))
     }
     let(:fields) {
       [ApiTester::Field.new(name: 'numKey')]
@@ -25,15 +25,16 @@ describe ApiTester::GoodVariations do
     let(:endpoint) { ApiTester::Endpoint.new name: 'Test', relative_url: '' }
     let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
     let(:report) { ApiTester::ApiReport.new }
-    let(:headers) {{
-      'Accept'=>'application/json',
-      'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-      'Content-Length'=>'10',
-      'Content-Type'=>'application/json',
-      'Host'=>'www.example.com',
-      'User-Agent'=>'rest-client/2.1.0 (linux x86_64) ruby/3.0.2p107'
-    }}
-
+    let(:headers) {
+      {
+        'Accept' => 'application/json',
+        'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+        'Content-Length' => '10',
+        'Content-Type' => 'application/json',
+        'Host' => 'www.example.com',
+        'User-Agent' => 'rest-client/2.1.0 (linux x86_64) ruby/3.0.2p107'
+      }
+    }
 
     before :each do
       fields.each do |field|
@@ -44,35 +45,38 @@ describe ApiTester::GoodVariations do
                           request: request
       contract.add_endpoint endpoint
 
-	 stub_request(:post, "http://www.example.com/").
-         with(
-           body: "{\"Test\":0}",
-           headers: headers)
-         .to_return(status: 200, body: body, headers: {})
-	 stub_request(:post, "http://www.example.com/").
-         with(
-           body: "{\"Test\":1}",
-           headers: headers)
-         .to_return(status: 200, body: body, headers: {})
-	 stub_request(:post, "http://www.example.com/").
-         with(
-           body: "{\"Test\":2}",
-           headers: headers)
-         .to_return(status: 200, body: body, headers: {})
+      stub_request(:post, 'http://www.example.com/')
+        .with(
+          body: '{"Test":0}',
+          headers: headers
+        )
+        .to_return(status: 200, body: body, headers: {})
+      stub_request(:post, 'http://www.example.com/')
+        .with(
+          body: '{"Test":1}',
+          headers: headers
+        )
+        .to_return(status: 200, body: body, headers: {})
+      stub_request(:post, 'http://www.example.com/')
+        .with(
+          body: '{"Test":2}',
+          headers: headers
+        )
+        .to_return(status: 200, body: body, headers: {})
     end
 
     context 'request case creation' do
       it 'will check all variations of enum field' do
-	ApiTester::GoodVariations.go(contract)     
+        ApiTester::GoodVariations.go(contract)
 
         expect(a_request(:post, 'http://www.example.com')
-          .with(body: {"Test": 0}))
+          .with(body: { Test: 0 }))
           .to have_been_made.once
         expect(a_request(:post, url)
-          .with(body: {"Test": 1}))
+          .with(body: { Test: 1 }))
           .to have_been_made.once
         expect(a_request(:post, url)
-          .with(body: {"Test": 2}))
+          .with(body: { Test: 2 }))
           .to have_been_made.once
       end
     end
@@ -85,11 +89,12 @@ describe ApiTester::GoodVariations do
       end
 
       it 'returns a report if any responses are bad' do
-	 stub_request(:post, "http://www.example.com/").
-         with(
-           body: "{\"Test\":2}",
-           headers: headers)
-         .to_return(status: 400, body: "", headers: {})
+        stub_request(:post, 'http://www.example.com/')
+          .with(
+            body: '{"Test":2}',
+            headers: headers
+          )
+          .to_return(status: 400, body: '', headers: {})
 
         result = ApiTester::GoodVariations.go(contract)
 
