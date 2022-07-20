@@ -17,12 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
-      uses: ruby/setup-ruby@08245253a76fa4d1e459b7809579c62bd9eb718a
-      with:
-        ruby-version: 2.6
+      uses: ruby/setup-ruby@v1
     - name: Install dependencies
       run: bundle install
     - name: Run lint
