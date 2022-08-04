@@ -4,7 +4,7 @@ require 'rspec'
 require 'require_all'
 require 'webmock/rspec'
 require 'simplecov'
-require "simplecov_json_formatter"
+require 'simplecov_json_formatter'
 
 SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
 SimpleCov.start do
