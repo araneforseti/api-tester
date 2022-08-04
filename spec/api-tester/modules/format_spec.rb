@@ -25,7 +25,7 @@ describe ApiTester::Format do
   let(:request_fields) { [ApiTester::ArrayField.new(name: 'arr')] }
   let(:report) { ApiTester::ApiReport.new }
 
-  before :each do
+  before do
     expected_fields.each do |field|
       expected_response.add_field field
     end
@@ -44,31 +44,31 @@ describe ApiTester::Format do
                                        status: expected_code)
   end
 
-  context 'post request' do
+  context 'when post request' do
     it 'everything works' do
-      expect(ApiTester::Format.go(contract).size).to eq 0
+      expect(described_class.go(contract).size).to eq 0
     end
 
     it 'gets a simple string' do
       stub_request(:post, url).to_return(body: 'bad request',
                                          status: expected_code)
-      expect(ApiTester::Format.go(contract).size).to be >= 1
+      expect(described_class.go(contract).size).to be >= 1
     end
   end
 
-  context 'should use test helper' do
-    before :each do
+  context 'with test helper' do
+    before do
       endpoint.test_helper = test_helper_mock.new
       stub_request(:get, 'www.test.com/before').to_return(body: '', status: 200)
       stub_request(:get, 'www.test.com/after').to_return(body: '', status: 200)
-      expect(ApiTester::Format.go(contract).size).to eq 0
+      described_class.go(contract)
     end
 
-    it 'should make use of test helper before method' do
+    it 'makes use of test helper before method' do
       expect(a_request(:get, 'www.test.com/before')).to have_been_made.at_least_once
     end
 
-    it 'should make use of test helper after method' do
+    it 'makes use of test helper after method' do
       expect(a_request(:get, 'www.test.com/after')).to have_been_made.at_least_once
     end
   end

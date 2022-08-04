@@ -4,33 +4,33 @@ require 'spec_helper'
 require 'api-tester/definition/fields/boolean_field'
 
 describe ApiTester::BooleanField do
-  context 'default params' do
-    let(:default_boolean) { ApiTester::BooleanField.new(name: 'defaultTest') }
+  context 'with default params' do
+    let(:default_boolean) { described_class.new(name: 'defaultTest') }
 
     it 'defaults required to false' do
       expect(default_boolean.required).to be false
     end
 
     it 'defaults default to true' do
-      expect(default_boolean.default).to eq true
+      expect(default_boolean.default).to be true
     end
   end
 
-  context 'default value' do
+  context 'with default value' do
     it 'can be set to false' do
-      field = ApiTester::BooleanField.new(name: 'testObj', default: false)
-      expect(field.default).to eq false
+      field = described_class.new(name: 'testObj', default: false)
+      expect(field.default).to be false
     end
 
     it 'can be set to true' do
-      field = ApiTester::BooleanField.new(name: 'testObj', default: true)
-      expect(field.default).to eq true
+      field = described_class.new(name: 'testObj', default: true)
+      expect(field.default).to be true
     end
   end
 
-  context 'required negative_boundary_values' do
-    context 'for required' do
-      let(:negative_boundary_values) { ApiTester::BooleanField.new(name: 'testObj').is_required.negative_boundary_values }
+  context 'with required negative_boundary_values' do
+    context 'when required' do
+      let(:negative_boundary_values) { described_class.new(name: 'testObj').is_required.negative_boundary_values }
 
       {
         'string' => 'string',
@@ -48,8 +48,8 @@ describe ApiTester::BooleanField do
       end
     end
 
-    context 'for not required' do
-      let(:negative_boundary_values) { ApiTester::BooleanField.new(name: 'testObj').is_not_required.negative_boundary_values }
+    context 'when not required' do
+      let(:negative_boundary_values) { described_class.new(name: 'testObj').is_not_required.negative_boundary_values }
 
       {
         'string' => 'string',

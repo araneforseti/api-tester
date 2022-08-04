@@ -33,7 +33,7 @@ describe ApiTester do
                      .with_module(ApiTester::UnusedFields)
   }
 
-  before :each do
+  before do
     expected_fields.each do |field|
       expected_response.add_field field
     end
@@ -50,8 +50,8 @@ describe ApiTester do
     contract.add_endpoint endpoint
   end
 
-  context 'no path params' do
-    before(:each) do
+  context 'when no path params' do
+    before do
       stub_request(:any, url).to_return(body: '{}', status: not_allowed_code)
       stub_request(:get, url).to_return(body: expected_body,
                                         status: expected_code)
@@ -61,13 +61,13 @@ describe ApiTester do
                                                   status: expected_code)
     end
 
-    context 'get request' do
+    context 'when get request' do
       it 'everything works' do
-        expect(ApiTester.go(contract, config)).to be true
+        expect(described_class.go(contract, config)).to be true
       end
 
       it 'field counts are incremented' do
-        ApiTester.go(contract, config)
+        described_class.go(contract, config)
         expected_fields.each do |field|
           expect(field.is_seen).not_to eq 0
         end
@@ -75,11 +75,11 @@ describe ApiTester do
     end
   end
 
-  context 'work with path param' do
+  context 'when path param' do
     let(:path_var) { 'path' }
     let(:path_param) { 'test' }
 
-    before :each do
+    before do
       endpoint.relative_url = "/{#{path_param}}"
       endpoint.add_path_param path_param
       endpoint.test_helper = PathParamCreator.new path_param, path_var
@@ -99,7 +99,7 @@ describe ApiTester do
     end
 
     it 'everything works' do
-      expect(ApiTester.go(contract, config)).to be true
+      expect(described_class.go(contract, config)).to be true
     end
   end
 end

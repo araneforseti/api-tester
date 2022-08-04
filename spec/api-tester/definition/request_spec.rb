@@ -4,9 +4,9 @@ require 'spec_helper'
 require 'api-tester/definition/request'
 
 describe ApiTester::Request do
-  let(:request) { ApiTester::Request.new }
+  let(:request) { described_class.new }
 
-  context 'body' do
+  context 'with body' do
     it 'starts with no fields' do
       expect(request.fields).to eq []
     end
@@ -18,15 +18,15 @@ describe ApiTester::Request do
     end
   end
 
-  context 'headers' do
-    context 'no headers set' do
+  context 'with headers' do
+    context 'when no headers set' do
       it 'has default headers of content_type and accept' do
         expect(request.default_headers).to eq(content_type: :json, accept: :json)
       end
     end
 
-    context 'headers set to nothing' do
-      before :each do
+    context 'when headers set to nothing' do
+      before do
         request.header_fields = {}
       end
 
@@ -39,8 +39,8 @@ describe ApiTester::Request do
       end
     end
 
-    context 'headers set to something' do
-      before :each do
+    context 'with headers set to something' do
+      before do
         request.add_header_field ApiTester::Field.new(name: :Authorization,
                                                       required: true,
                                                       default: 'something')
@@ -56,7 +56,7 @@ describe ApiTester::Request do
     end
   end
 
-  context 'query_params' do
+  context 'with query_params' do
     it 'defaults to no query params' do
       expect(request.query_params.size).to be 0
     end
