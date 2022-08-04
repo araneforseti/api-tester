@@ -2,8 +2,16 @@
 
 require 'rspec'
 require 'require_all'
-require 'api-tester'
 require 'webmock/rspec'
+require 'simplecov'
+require 'simplecov_json_formatter'
+
+SimpleCov.formatter = SimpleCov::Formatter::JSONFormatter
+SimpleCov.start do
+  enable_coverage :branch
+end
+
+require 'api-tester'
 require_all 'lib/**/*.rb'
 
 RSpec.configure do |config|
