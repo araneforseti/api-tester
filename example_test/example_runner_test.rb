@@ -98,3 +98,4 @@ ApiTester.contract do |contract|
     end
   end
 end
+ApiTester.run

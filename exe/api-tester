@@ -1,0 +1,6 @@
+#!/user/bin/env ruby
+
+require 'api-tester'
+
+cli = ApiTester::CLI.new
+cli.parse
