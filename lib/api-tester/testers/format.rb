@@ -5,7 +5,7 @@ require 'api-tester/method_case_test'
 
 module ApiTester
   # Checks the format constraints defined in contract
-  module Format
+  class Format
     def self.go(contract)
       reports = []
       contract.endpoints.each do |endpoint|

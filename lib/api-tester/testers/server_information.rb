@@ -2,7 +2,7 @@
 
 module ApiTester
   # Module for ensuring the server isn't broadcasting information about itself
-  module ServerInformation
+  class ServerInformation
     def self.go(contract)
       reports = []
       endpoint = contract.endpoints[0]

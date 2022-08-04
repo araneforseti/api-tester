@@ -4,7 +4,7 @@ require 'injection_vulnerability_library'
 
 module ApiTester
   # Tests injection cases
-  module InjectionModule
+  module Injection
     def self.go(contract)
       reports = []
       contract.endpoints.each do |endpoint|

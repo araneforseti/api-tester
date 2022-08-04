@@ -35,7 +35,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec', '~> 4.7.3'
   spec.add_development_dependency 'rake', '~> 13.0.1'
   spec.add_development_dependency 'require_all', '~>3.0.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 1.32.0'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.12.1'
   spec.add_development_dependency 'rubocop-rake', '~> 0.6.0'
@@ -46,4 +45,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'injection_vulnerability_library', '0.1.3'
   spec.add_runtime_dependency 'rest-client', '~> 2.0'
+  spec.add_runtime_dependency 'rspec', '~> 3.0'
 end
