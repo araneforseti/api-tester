@@ -8,10 +8,10 @@ module ApiTester
     end
 
     def run(world)
-      world.instance_eval(&block)
-      return Result.new(:pass)
-    rescue => message
-      return Result.new(:fail, message)
+      world.instance_eval(&@block)
+      Result.new(:pass)
+    rescue StandardError => e
+      Result.new(:fail, e)
     end
   end
 end

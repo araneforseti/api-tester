@@ -17,6 +17,10 @@ module ApiTester
       self
     end
 
+    def sorted_testers
+      self.modules.sort_by(&:order)
+    end
+
     def with_module(new_module)
       modules << new_module
       self

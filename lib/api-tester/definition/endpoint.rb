@@ -89,6 +89,12 @@ module ApiTester
       self
     end
 
+    def add_method(&block)
+      method = ApiTester::Method.new(verb: :get, response: ApiTester::Response.new, request: ApiTester::Request.new)
+      method.instance_eval(&block)
+      methods << method
+    end
+
     def add_path_param(param)
       path_params << param
       self

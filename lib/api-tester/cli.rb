@@ -5,7 +5,8 @@ module ApiTester
       run(config)
     end
 
-  private
+    private
+
     def run(options)
       paths = Set.new
       options.arguments.each do |argument|

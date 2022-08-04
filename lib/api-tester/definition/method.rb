@@ -16,5 +16,17 @@ module ApiTester
         payload: request.default_payload,
         headers: request.default_headers }
     end
+
+    def add_request(&block)
+      request = ApiTester::Request.new
+      request.instance_eval(&block)
+      self.request = request
+    end
+
+    def add_response(&block)
+      response = ApiTester::Response.new
+      response.instance_eval(&block)
+      self.expected_response = response
+    end
   end
 end

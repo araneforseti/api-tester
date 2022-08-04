@@ -1,6 +1,6 @@
 module ApiTester
   class Logger
-    def initialize(stream = STDOUT)
+    def initialize(stream = $stdout)
       @stream = stream
     end
 

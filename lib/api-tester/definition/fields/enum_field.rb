@@ -7,14 +7,14 @@ module ApiTester
   class EnumField < Field
     attr_accessor :acceptable_values
 
-    def initialize(name:, acceptable_values:, default: nil, required: false)
+    def initialize(name:, values:, default: nil, required: false)
       if default
         super name: name, default: default, required: required
       else
-        super name: name, default: acceptable_values[0], required: required
+        super name: name, default: values[0], required: required
       end
 
-      self.acceptable_values = acceptable_values
+      self.acceptable_values = values
     end
 
     def negative_boundary_values

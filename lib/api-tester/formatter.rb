@@ -8,7 +8,7 @@ module ApiTester
       message =
         case result.status
         when :pass then "[PASS] #{example.description}"
-        when :fail then "[FAIL] #{example.description}"
+        when :fail then "[FAIL] #{example.description} #{result.message}"
         end
 
       @logger.log(message)
