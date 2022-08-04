@@ -1,3 +1,7 @@
+require:
+  - rubocop-rspec
+  - rubocop-rake
+
 AllCops:
   NewCops: enable
   Exclude:
@@ -169,3 +173,19 @@ Style/StringChars: # (new in 1.12)
   Enabled: true
 Style/SwapValues:
   Enabled: true
+RSpec/RepeatedExample:
+  Enabled: true
+RSpec/ContextWording:
+  Enabled: true
+RSpec/ExpectInHook:
+  Enabled: true
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/FilePath:
+  Enabled: false
+RSpec/NestedGroups: 
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false

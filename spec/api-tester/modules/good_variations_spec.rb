@@ -10,7 +10,7 @@ require 'api-tester/modules/good_case'
 require 'api-tester/reporter/api_report'
 
 describe ApiTester::GoodVariations do
-  context 'post request' do
+  context 'with post request' do
     let(:url) { 'www.example.com' }
     let(:request) {
       ApiTester::Request.new
@@ -26,7 +26,7 @@ describe ApiTester::GoodVariations do
     let(:contract) { ApiTester::Contract.new name: 'Test', base_url: url }
     let(:report) { ApiTester::ApiReport.new }
 
-    before :each do
+    before do
       fields.each do |field|
         response.add_field field
       end
@@ -46,9 +46,9 @@ describe ApiTester::GoodVariations do
         .to_return(status: 200, body: body, headers: {})
     end
 
-    context 'request case creation' do
+    context 'when request case creation' do
       it 'will check all variations of enum field' do
-        ApiTester::GoodVariations.go(contract)
+        described_class.go(contract)
 
         expect(a_request(:post, 'http://www.example.com')
           .with(body: { Test: 0 }))
@@ -62,9 +62,9 @@ describe ApiTester::GoodVariations do
       end
     end
 
-    context 'response parsing' do
+    context 'when response parsing' do
       it 'returns true if all response statuses are good' do
-        result = ApiTester::GoodVariations.go(contract)
+        result = described_class.go(contract)
 
         expect(result).to eq([])
       end
@@ -74,7 +74,7 @@ describe ApiTester::GoodVariations do
           .with(body: '{"Test":2}')
           .to_return(status: 400, body: '', headers: {})
 
-        result = ApiTester::GoodVariations.go(contract)
+        result = described_class.go(contract)
 
         expect(result.size).to eq(1)
       end

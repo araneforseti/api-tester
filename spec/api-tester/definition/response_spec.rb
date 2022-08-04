@@ -5,15 +5,15 @@ require 'api-tester/definition/response'
 
 describe ApiTester::Response do
   let(:code) { 200 }
-  let(:response) { ApiTester::Response.new status_code: code }
+  let(:response) { described_class.new status_code: code }
 
-  context 'code' do
+  context 'with code' do
     it 'starts has status_code' do
       expect(response.code).to eq code
     end
   end
 
-  context 'fields' do
+  context 'with fields' do
     it 'starts with no fields' do
       expect(response.body).to eq []
     end
@@ -25,7 +25,7 @@ describe ApiTester::Response do
     end
   end
 
-  context '#to_s' do
+  describe '#to_s' do
     it 'prints out names of fields' do
       response.add_field(ApiTester::Field.new(name: 'field1')).add_field(ApiTester::Field.new(name: 'field2'))
       expect(response.to_s).to eq('{"field1":"ApiTester::Field","field2":"ApiTester::Field"}')

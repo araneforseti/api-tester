@@ -4,9 +4,9 @@ require 'spec_helper'
 require 'api-tester/definition/fields/enum_field'
 
 describe ApiTester::EnumField do
-  context 'created with no default, just acceptable values' do
-    field = ApiTester::EnumField.new(name: 'testObj',
-                                     acceptable_values: %w[1 2 3])
+  context 'when created with no default, just acceptable values' do
+    field = described_class.new(name: 'testObj',
+                                acceptable_values: %w[1 2 3])
 
     it 'retrieves values' do
       expect(field.acceptable_values).to eq %w[1 2 3]
@@ -17,10 +17,10 @@ describe ApiTester::EnumField do
     end
   end
 
-  context 'created with default and acceptable values' do
-    field = ApiTester::EnumField.new(name: 'testObj',
-                                     acceptable_values: %w[1 2 3],
-                                     default: '2')
+  context 'when created with default and acceptable values' do
+    field = described_class.new(name: 'testObj',
+                                acceptable_values: %w[1 2 3],
+                                default: '2')
 
     it 'retrieves values' do
       expect(field.acceptable_values).to eq %w[1 2 3]
@@ -31,9 +31,9 @@ describe ApiTester::EnumField do
     end
   end
 
-  context 'required negative_boundary_values' do
-    context 'for required' do
-      let(:negative_boundary_values) { ApiTester::EnumField.new(name: 'testObj', acceptable_values: %w[1 2 3]).is_required.negative_boundary_values }
+  context 'with required negative_boundary_values' do
+    context 'when required' do
+      let(:negative_boundary_values) { described_class.new(name: 'testObj', acceptable_values: %w[1 2 3]).is_required.negative_boundary_values }
 
       {
         'number' => 123,
@@ -52,8 +52,8 @@ describe ApiTester::EnumField do
       end
     end
 
-    context 'for not required' do
-      let(:negative_boundary_values) { ApiTester::EnumField.new(name: 'testObj', acceptable_values: %w[1 2 3]).is_not_required.negative_boundary_values }
+    context 'when not required' do
+      let(:negative_boundary_values) { described_class.new(name: 'testObj', acceptable_values: %w[1 2 3]).is_not_required.negative_boundary_values }
 
       {
         'number' => 123,

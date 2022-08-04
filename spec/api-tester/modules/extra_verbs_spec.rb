@@ -11,7 +11,7 @@ describe ApiTester::ExtraVerbs do
   let(:not_allow) { ApiTester::Response.new status_code: 415 }
   let(:report) { ApiTester::ApiReport.new }
 
-  before :each do
+  before do
     endpoint.add_method verb: ApiTester::SupportedVerbs::GET,
                         response: ApiTester::Response.new(status_code: 200)
     endpoint.not_allowed_response = not_allow
@@ -24,41 +24,41 @@ describe ApiTester::ExtraVerbs do
     stub_request(:delete, url).to_return(status: not_allow.code)
   end
 
-  context 'verb not defined in definition responds' do
+  context 'when verb not defined in definition responds' do
     it 'creates report if the expected response is not returned' do
       stub_request(:post, url).to_return(body: '', status: 100)
-      expect(ApiTester::ExtraVerbs.go(contract).size).to eq 1
+      expect(described_class.go(contract).size).to eq 1
     end
 
     it 'creates no reports if the expected not allowed response is returned' do
       stub_request(:post, url).to_return(body: '', status: not_allow.code)
-      expect(ApiTester::ExtraVerbs.go(contract).size).to eq 0
+      expect(described_class.go(contract).size).to eq 0
     end
   end
 
-  context 'all verbs defined in definition' do
+  context 'when all verbs defined in definition' do
     it 'generates no reports' do
       endpoint.add_method verb: ApiTester::SupportedVerbs::POST,
                           response: ApiTester::Response.new,
                           request: ApiTester::Request.new
       stub_request(:post, url).to_return(body: '', status: 200)
-      expect(ApiTester::ExtraVerbs.go(contract).size).to eq 0
+      expect(described_class.go(contract).size).to eq 0
     end
   end
 
-  context 'should use test helper' do
-    before :each do
+  context 'with test helper' do
+    before do
       endpoint.test_helper = test_helper_mock.new
       stub_request(:get, 'www.test.com/before').to_return(body: '', status: 200)
       stub_request(:get, 'www.test.com/after').to_return(body: '', status: 200)
-      expect(ApiTester::ExtraVerbs.go(contract).size).to eq 0
+      described_class.go(contract)
     end
 
-    it 'should make use of test helper before method' do
+    it 'makes use of test helper before method' do
       expect(a_request(:get, 'www.test.com/before')).to have_been_made.at_least_once
     end
 
-    it 'should make use of test helper after method' do
+    it 'makes use of test helper after method' do
       expect(a_request(:get, 'www.test.com/after')).to have_been_made.at_least_once
     end
   end

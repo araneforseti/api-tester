@@ -15,7 +15,7 @@ require 'api-tester'
 require_all 'lib/**/*.rb'
 
 RSpec.configure do |config|
-  config.after(:each) do
+  config.after do
     WebMock.reset!
   end
 end

@@ -17,7 +17,7 @@ describe ApiTester::Typo do
   let(:not_found) { ApiTester::Response.new status_code: 404 }
   let(:not_allow) { ApiTester::Response.new status_code: 415 }
 
-  before :each do
+  before do
     endpoint.add_method verb: ApiTester::SupportedVerbs::GET,
                         response: ApiTester::Response.new(status_code: 200)
     endpoint.not_allowed_response = not_allow
@@ -30,15 +30,15 @@ describe ApiTester::Typo do
     stub_request(:delete, url).to_return(status: not_allow.code)
   end
 
-  context 'url does not exist' do
+  context 'when url does not exist' do
     it 'fails if something other than the expected response is returned' do
       stub_request(:get, bad_url).to_return(body: '', status: 100)
-      expect(ApiTester::Typo.go(contract).size).to be >= 1
+      expect(described_class.go(contract).size).to be >= 1
     end
 
     it 'passes if the expected not found response is returned' do
       stub_request(:get, bad_url).to_return(body: '', status: not_found.code)
-      expect(ApiTester::Typo.go(contract).size).to eq 0
+      expect(described_class.go(contract).size).to eq 0
     end
   end
 end

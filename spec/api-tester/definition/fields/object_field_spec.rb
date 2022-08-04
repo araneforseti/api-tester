@@ -4,39 +4,39 @@ require 'spec_helper'
 require 'api-tester/definition/fields/object_field'
 
 describe ApiTester::ObjectField do
-  context 'fields' do
-    object = ApiTester::ObjectField.new name: 'testObj'
+  context 'with fields' do
+    object = described_class.new name: 'testObj'
 
     it 'starts with no fields' do
       expect(object.fields.size).to be 0
     end
 
     it 'can add fields' do
-      object = ApiTester::ObjectField.new name: 'testObj'
+      object = described_class.new name: 'testObj'
       object.with_field ApiTester::Field.new(name: 'newField')
       expect(object.fields.size).to be 1
       expect(object.fields.first.name).to eq 'newField'
     end
   end
 
-  context 'default value' do
+  context 'with default value' do
     it 'defaults to {} with no fields' do
-      field = ApiTester::ObjectField.new name: 'testObj'
+      field = described_class.new name: 'testObj'
       expect(field.default).to eq Hash.new
     end
 
     it 'contains defaults from the fields' do
       sub_field = ApiTester::Field.new name: 'sub', default: 'default_foo'
-      field = ApiTester::ObjectField.new(name: 'testObj').with_field(sub_field)
+      field = described_class.new(name: 'testObj').with_field(sub_field)
       value = {}
       value['sub'] = 'default_foo'
       expect(field.default).to eq value
     end
   end
 
-  context 'required negative_boundary_values' do
-    context 'for required' do
-      let(:negative_boundary_values) { ApiTester::ObjectField.new(name: 'testObj').is_required.negative_boundary_values }
+  context 'with required negative_boundary_values' do
+    context 'when required' do
+      let(:negative_boundary_values) { described_class.new(name: 'testObj').is_required.negative_boundary_values }
 
       {
         'string' => 'string',
@@ -56,8 +56,8 @@ describe ApiTester::ObjectField do
       end
     end
 
-    context 'for not required' do
-      let(:negative_boundary_values) { ApiTester::ObjectField.new(name: 'testObj').is_not_required.negative_boundary_values }
+    context 'when not required' do
+      let(:negative_boundary_values) { described_class.new(name: 'testObj').is_not_required.negative_boundary_values }
 
       {
         'string' => 'string',

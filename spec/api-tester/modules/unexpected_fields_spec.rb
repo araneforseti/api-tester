@@ -10,7 +10,7 @@ require 'api-tester/modules/unexpected_fields'
 require 'api-tester/reporter/api_report'
 
 describe ApiTester::UnexpectedFields do
-  context 'get request' do
+  context 'when evaluating get request' do
     let(:url) { 'www.example.com' }
     let(:request) { ApiTester::Request.new }
     let(:fields) {
@@ -27,7 +27,7 @@ describe ApiTester::UnexpectedFields do
     let(:response) { ApiTester::Response.new status_code: code }
     let(:report) { ApiTester::ApiReport.new }
 
-    before :each do
+    before do
       fields.each do |field|
         response.add_field field
       end
@@ -39,34 +39,34 @@ describe ApiTester::UnexpectedFields do
       stub_request(:get, 'www.example.com').to_return(body: body, status: code)
     end
 
-    context 'body' do
+    context 'when evaluating body' do
       it 'passes with correct keys' do
-        expect(ApiTester::UnexpectedFields.go(contract).size).to eq 0
+        expect(described_class.go(contract).size).to eq 0
       end
 
       it 'fails when an extra key is present' do
         body = '{"extra": 0, "numKey": 1, "string_key": "string", "object_field": {"inner_field": "string", "other_field": "string"}}'
         stub_request(:get, 'www.example.com').to_return(body: body, status: code)
-        expect(ApiTester::UnexpectedFields.go(contract).size).to be >= 1
+        expect(described_class.go(contract).size).to be >= 1
       end
 
-      context 'empty response' do
+      context 'when given empty response' do
         it 'passes' do
           stub_request(:get, 'www.example.com').to_return(body: '[]', status: code)
-          expect(ApiTester::UnexpectedFields.go(contract).size).to eq 0
+          expect(described_class.go(contract).size).to eq 0
         end
 
         it 'passes when expecting an empty body' do
           stub_request(:get, 'www.example.com').to_return(body: '[]', status: code)
           response = ApiTester::Response.new status_code: 200
           endpoint.methods[0].expected_response = response
-          expect(ApiTester::UnexpectedFields.go(contract).size).to eq 0
+          expect(described_class.go(contract).size).to eq 0
         end
       end
     end
 
-    context 'should use test helper' do
-      before :each do
+    context 'when test helper given' do
+      before do
         test_helper_mock = Class.new(ApiTester::TestHelper) do
           def initialize
             super ''
@@ -83,14 +83,14 @@ describe ApiTester::UnexpectedFields do
         endpoint.test_helper = test_helper_mock.new
         stub_request(:get, 'www.test.com/before').to_return(body: '', status: 200)
         stub_request(:get, 'www.test.com/after').to_return(body: '', status: 200)
-        expect(ApiTester::UnexpectedFields.go(contract).size).to eq 0
+        described_class.go(contract)
       end
 
-      it 'should make use of test helper before method' do
+      it 'makes use of test helper before method' do
         expect(a_request(:get, 'www.test.com/before')).to have_been_made.at_least_once
       end
 
-      it 'should make use of test helper after method' do
+      it 'makes use of test helper after method' do
         expect(a_request(:get, 'www.test.com/after')).to have_been_made.at_least_once
       end
     end

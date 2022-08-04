@@ -23,7 +23,7 @@ describe ApiTester::RequiredFields do
   let(:bad_request) { { 'arr' => nil } }
   let(:report) { ApiTester::ApiReport.new }
 
-  before :each do
+  before do
     expected_fields.each do |field|
       expected_response.add_field field
     end
@@ -42,20 +42,20 @@ describe ApiTester::RequiredFields do
                                        status: expected_code)
   end
 
-  context 'post request' do
+  context 'when evaluating post request' do
     it 'everything works' do
-      puts ApiTester::RequiredFields.go(contract)
-      expect(ApiTester::RequiredFields.go(contract).size).to eq 0
+      puts described_class.go(contract)
+      expect(described_class.go(contract).size).to eq 0
     end
 
     it 'checks case of missing arguments' do
       stub_request(:post, url).with(body: bad_request).to_return(body: 'bad request', status: expected_code)
-      expect(ApiTester::RequiredFields.go(contract).size).to be >= 1
+      expect(described_class.go(contract).size).to be >= 1
     end
   end
 
-  context 'should use test helper' do
-    before :each do
+  context 'when given test helper' do
+    before do
       test_helper_mock = Class.new(ApiTester::TestHelper) do
         def initialize
           super ''
@@ -72,14 +72,14 @@ describe ApiTester::RequiredFields do
       endpoint.test_helper = test_helper_mock.new
       stub_request(:get, 'www.test.com/before').to_return(body: '', status: 200)
       stub_request(:get, 'www.test.com/after').to_return(body: '', status: 200)
-      expect(ApiTester::RequiredFields.go(contract).size).to eq 0
+      described_class.go(contract)
     end
 
-    it 'should make use of test helper before method' do
+    it 'makes use of test helper before method' do
       expect(a_request(:get, 'www.test.com/before')).to have_been_made.at_least_once
     end
 
-    it 'should make use of test helper after method' do
+    it 'makes use of test helper after method' do
       expect(a_request(:get, 'www.test.com/after')).to have_been_made.at_least_once
     end
   end

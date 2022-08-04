@@ -4,8 +4,8 @@ require 'spec_helper'
 require 'api-tester/definition/fields/email_field'
 
 describe ApiTester::EmailField do
-  context 'default params' do
-    let(:default_email) { ApiTester::EmailField.new(name: 'defaultTest') }
+  context 'with default params' do
+    let(:default_email) { described_class.new(name: 'defaultTest') }
 
     it 'defaults required to false' do
       expect(default_email.required).to be false
@@ -16,17 +16,17 @@ describe ApiTester::EmailField do
     end
   end
 
-  context 'default value' do
+  context 'with default value' do
     it 'can be set' do
-      field = ApiTester::EmailField.new(name: 'testObj',
-                                        default: 'a@test.com')
+      field = described_class.new(name: 'testObj',
+                                  default: 'a@test.com')
       expect(field.default).to eq 'a@test.com'
     end
   end
 
-  context 'required negative_boundary_values' do
-    context 'for required' do
-      let(:negative_boundary_values) { ApiTester::EmailField.new(name: 'testObj').is_required.negative_boundary_values }
+  context 'with required negative_boundary_values' do
+    context 'when required' do
+      let(:negative_boundary_values) { described_class.new(name: 'testObj').is_required.negative_boundary_values }
 
       {
         non_email_string: 'string',
@@ -46,8 +46,8 @@ describe ApiTester::EmailField do
       end
     end
 
-    context 'for not required' do
-      let(:negative_boundary_values) { ApiTester::EmailField.new(name: 'testObj').is_not_required.negative_boundary_values }
+    context 'when not required' do
+      let(:negative_boundary_values) { described_class.new(name: 'testObj').is_not_required.negative_boundary_values }
 
       {
         string: 'string',
