@@ -3,6 +3,7 @@
 require 'spec_helper'
 require 'webmock/rspec'
 require 'api-tester/modules/injection_module'
+require 'restclient'
 
 describe ApiTester::InjectionModule do
   let(:url) { 'http://www.test.com' }
@@ -37,8 +38,7 @@ describe ApiTester::InjectionModule do
   end
 
   context 'when check_response' do
-    let(:response_body) { { error: 'Nam', badKey: 'a thing' } }
-    let(:response) { instance_double Response }
+    let(:response) { instance_double RestClient::Response }
 
     it 'returns true if response is successful' do
       allow(response).to receive(:code).and_return(200)
@@ -52,6 +52,8 @@ describe ApiTester::InjectionModule do
     end
 
     it 'returns false if the response is in the wrong format' do
+      response_body = { error: 'Nam', badKey: 'a thing' }
+
       allow(response).to receive(:code).and_return(400)
       allow(response).to receive(:body) { response_body }
       expect(described_class.check_response(response, endpoint)).to be false
