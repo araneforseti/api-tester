@@ -10,7 +10,6 @@ SimpleCov.start
 require 'api-tester'
 require_all 'lib/**/*.rb'
 
-
 RSpec.configure do |config|
   config.after(:each) do
     WebMock.reset!
