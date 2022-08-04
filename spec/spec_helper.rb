@@ -2,9 +2,14 @@
 
 require 'rspec'
 require 'require_all'
-require 'api-tester'
 require 'webmock/rspec'
+require 'simplecov'
+
+SimpleCov.start
+
+require 'api-tester'
 require_all 'lib/**/*.rb'
+
 
 RSpec.configure do |config|
   config.after(:each) do
