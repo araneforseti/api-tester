@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'terminal-notifier', '~> 2.0.0'
   spec.add_development_dependency 'terminal-notifier-guard', '~> 1.7.0'
   spec.add_development_dependency 'webmock', '~> 3.4'
-  spec.add_development_dependency 'simplecov', '~> 0.21.2'
+  spec.add_development_dependency 'simplecov', '~> 0.22.0'
 
   spec.add_runtime_dependency 'injection_vulnerability_library', '0.1.3'
   spec.add_runtime_dependency 'rest-client', '~> 2.0'
