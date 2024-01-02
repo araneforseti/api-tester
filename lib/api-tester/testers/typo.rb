@@ -5,7 +5,7 @@ require 'api-tester/util/supported_verbs'
 
 module ApiTester
   # Module checking various not found scenarios
-  module Typo
+  class Typo
     def self.go(contract)
       reports = []
 

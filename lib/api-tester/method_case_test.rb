@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 require 'api-tester/util/response_evaluator'
+require 'api-tester/reporter/status_code_report'
+require 'api-tester/example'
 
 module ApiTester
   # Class for testing methods
   class MethodCaseTest
-    attr_accessor :expected_response, :payload, :response, :reports, :url, :module_name
+    attr_accessor :expected_response, :payload, :response, :reports, :url, :tester_name
 
     def initialize(response:, payload:, expected_response:, url:, verb:, module_name:)
       self.payload = payload
@@ -13,12 +15,12 @@ module ApiTester
       self.expected_response = expected_response
       self.reports = []
       self.url = "#{verb} #{url}"
-      self.module_name = module_name
+      self.tester_name = module_name
     end
 
     def response_code_report
       print 'F'
-      report = StatusCodeReport.new description: "#{module_name} - Incorrect response code",
+      report = ApiTester::StatusCodeReport.new description: "#{module_name} - Incorrect response code",
                                     url: url,
                                     request: payload,
                                     expected_status_code: expected_response.code,
@@ -29,7 +31,7 @@ module ApiTester
 
     def missing_field_report(field)
       print 'F'
-      report = Report.new description: "#{module_name} - Missing field #{field}",
+      report = ApiTester::Report.new description: "#{tester_name} - Missing field #{field}",
                           url: url,
                           request: payload,
                           expected_response: expected_response,
@@ -40,7 +42,7 @@ module ApiTester
 
     def extra_field_report(field)
       print 'F'
-      report = Report.new description: "#{module_name} - Found extra field #{field}",
+      report = ApiTester::Report.new description: "#{tester_name} - Found extra field #{field}",
                           url: url,
                           request: payload,
                           expected_response: expected_response,
@@ -61,13 +63,17 @@ module ApiTester
       reports
     end
 
+    Result = Struct.new(:status, :message, :pass)
+    Exam = Struct.new(:description)
+
     def check_response_code
-      if response && (response.code != expected_response.code)
-        print 'F'
-        response_code_report
-        return false
+      example = Exam.new("#{tester_name} Status code for #{url}")
+      result = Result.new(:pass, "Pass", true)
+      if(response.code != expected_response.code)
+        result = Result.new(:fail, "Expected #{response.code} to equal #{expected_response.code}", false)
       end
-      true
+      ApiTester.formatter.record(example, result)
+      return result.pass
     end
 
     def increment_fields(seen_fields)

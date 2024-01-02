@@ -4,7 +4,7 @@ require 'api-tester/reporter/missing_field_report'
 
 module ApiTester
   # Ensures all fields defined in contract are returned during test suite
-  module UnusedFields
+  class UnusedFields
     def self.go(contract)
       reports = []
 

@@ -2,7 +2,7 @@
 
 module ApiTester
   # Module checking nothing shows up in response which is not defined in contract
-  module UnexpectedFields
+  class UnexpectedFields
     def self.go(contract)
       reports = []
 

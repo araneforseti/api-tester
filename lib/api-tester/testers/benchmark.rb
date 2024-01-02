@@ -5,7 +5,7 @@ require 'api-tester/reporter/response_time_report'
 module ApiTester
   # Checks the response times collected during the test run
   # Note: Needs at least one calling module, like GoodCase, to work
-  module BenchmarkModule
+  class Benchmark
     def self.go(contract)
       reports = []
 

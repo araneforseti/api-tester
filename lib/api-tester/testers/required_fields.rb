@@ -2,7 +2,7 @@
 
 module ApiTester
   # Ensures the fields marked as required in contract are guarded
-  module RequiredFields
+  class RequiredFields
     def self.go(contract)
       reports = []
       contract.endpoints.each do |endpoint|

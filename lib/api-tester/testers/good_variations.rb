@@ -5,7 +5,7 @@ require 'api-tester/method_case_test'
 
 module ApiTester
   # Checks the good case as defined in contract
-  module GoodVariations
+  class GoodVariations
     def self.go(contract)
       reports = []
 

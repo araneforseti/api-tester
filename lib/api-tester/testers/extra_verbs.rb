@@ -6,7 +6,7 @@ require 'api-tester/method_case_test'
 
 module ApiTester
   # Check verbs not explicitly defined in contract
-  module ExtraVerbs
+  class ExtraVerbs
     def self.go(contract)
       reports = []
 

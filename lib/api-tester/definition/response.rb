@@ -15,6 +15,12 @@ module ApiTester
       self
     end
 
+    def add_array_field(&block)
+      field = ApiTester::ArrayField.new(name: '', has_key: false)
+      field.instance_eval(&block)
+      add_field(field)
+    end
+
     def to_s
       des = {}
       body.map do |f|
