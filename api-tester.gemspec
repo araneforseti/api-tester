@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 1.35.1'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.12.1'
-  spec.add_development_dependency 'rubocop-rake', '~> 0.6.0'
+  spec.add_development_dependency 'rubocop-rake', '~> 0.7.0'
   spec.add_development_dependency 'terminal-notifier', '~> 2.0.0'
   spec.add_development_dependency 'terminal-notifier-guard', '~> 1.7.0'
   spec.add_development_dependency 'webmock', '~> 3.4'
